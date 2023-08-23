@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CodeRushStreamDeck": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\Mark\\AppData\\Roaming\\Elgato\\StreamDeck\\Plugins\\com.devexpress.coderush.fin.sdPlugin"
+    }
+  }
+}
