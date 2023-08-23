@@ -17,6 +17,23 @@
 		<Exec Command="powershell -ExecutionPolicy Unrestricted -file &quot;$(ProjectDir)RegisterPluginAndStartStreamDeck.ps1&quot;" />
 	</Target>
 	<ItemGroup>
+	  <None Remove="images\actions\class%402x.png" />
+	  <None Remove="images\actions\class.png" />
+	  <None Remove="images\actions\enum.png" />
+	  <None Remove="images\actions\event%402x.png" />
+	  <None Remove="images\actions\event.png" />
+	  <None Remove="images\actions\field%402x.png" />
+	  <None Remove="images\actions\field.png" />
+	  <None Remove="images\actions\file%402x.png" />
+	  <None Remove="images\actions\file.png" />
+	  <None Remove="images\actions\interface%402x.png" />
+	  <None Remove="images\actions\interface.png" />
+	  <None Remove="images\actions\method%402x.png" />
+	  <None Remove="images\actions\method.png" />
+	  <None Remove="images\actions\property%402x.png" />
+	  <None Remove="images\actions\property.png" />
+	  <None Remove="images\actions\struct%402x.png" />
+	  <None Remove="images\actions\struct.png" />
 	  <None Remove="images\symbols\class%402x.png" />
 	  <None Remove="images\symbols\class.png" />
 	  <None Remove="images\symbols\classListening%402x.png" />
@@ -73,6 +90,57 @@
 
 	<!--Deployment files that must go with the build executable -->
 	<ItemGroup>
+		<Content Include="images\actions\class.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\actions\class@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\actions\enum.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\actions\event.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\actions\event@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\actions\field.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\actions\field@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\actions\file.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\actions\file@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\actions\interface.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\actions\interface@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\actions\method.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\actions\method@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\actions\property.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\actions\property@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\actions\struct.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\actions\struct@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 		<Content Include="images\symbols\class.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>

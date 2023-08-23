@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace CodeRushStreamDeck
 {
-    [ActionUuid(Uuid = "com.devexpress.coderush.findsymbol")]
-    public class MyPluginAction : BaseStreamDeckActionWithSettingsModel<Models.CounterSettingsModel>
+    
+    public abstract class BaseFindSymbolAction : BaseStreamDeckActionWithSettingsModel<Models.CounterSettingsModel>
     {
         public override async Task OnKeyDown(StreamDeckEventPayload args)
         {

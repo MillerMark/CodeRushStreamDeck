@@ -1,18 +1,38 @@
 {
   "Actions": [
     {
-      "Icon": "images/actionIcon",
-      "Name": "Find Symbol",
+      "Icon": "images/actions/interface",
+      "Name": "Find Interface",
       "States": [
         {
-          "Image": "images/actionDefaultImage",
-          "TitleAlignment": "middle",
-          "FontSize": "16"
+          "Name": "ready",
+          "Image": "images/symbols/interface",
+          "ShowTitle": "false",
+          "TitleColor": "#ff0000",
+          "TitleAlignment": "top",
+          "FontSize": "14"
         }
       ],
       "SupportedInMultiActions": false,
-      "Tooltip": "Starts voice recognition to find a class matching the spoken name.",
-      "UUID": "com.devexpress.coderush.findsymbol"
+      "Tooltip": "Starts voice recognition to find an interface matching the spoken name in the active solution.",
+      "UUID": "com.devexpress.coderush.find.interface"
+    },
+    {
+      "Icon": "images/actions/class",
+      "Name": "Find Class",
+      "States": [
+        {
+          "Name": "ready",
+          "Image": "images/symbols/class",
+          "ShowTitle": "false",
+          "TitleColor": "#ff0000",
+          "TitleAlignment": "top",
+          "FontSize": "14"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Starts voice recognition to find a class matching the spoken name in the active solution.",
+      "UUID": "com.devexpress.coderush.find.class"
     }
   ],
 	"Category": "CodeRush",
@@ -22,7 +42,7 @@
 	"CodePath": "CodeRushStreamDeck.exe",
 	"PropertyInspectorPath": "property_inspector/property_inspector.html",
   "Description": "Connect with CodeRush in Visual Studio",
-  "Name": "MyPlugin",
+  "Name": "CodeRush",
   "Icon": "images/pluginIcon",
   "URL": "https://www.elgato.com/gaming/stream-deck",
   "Version": "1.0",
