@@ -46,7 +46,7 @@ namespace Pipes.Server
                         Console.WriteLine("");
                     }
                     if (server.IsConnected)
-                        await Task.Run(() => HandleClient(server));
+                        _ = Task.Run(() => HandleClient(server)).ConfigureAwait(false);
                 }
             });
         }
