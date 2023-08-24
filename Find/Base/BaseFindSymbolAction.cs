@@ -6,13 +6,18 @@ using System.Text;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Pipes.Server;
+using DevExpress.CodeRush.Foundation.Pipes.Data;
+using Newtonsoft.Json;
 
 namespace CodeRushStreamDeck
 {
     public abstract class BaseFindSymbolAction : BaseStreamDeckActionWithSettingsModel<Models.CounterSettingsModel>
     {
         public abstract string SymbolName { get; }
-        static Dictionary<string, BaseFindSymbolAction> keysDown = new ();
+        public virtual string SpokenWordsStart { get; } = string.Empty;
+        public virtual string SpokenWordsEnd { get; } = string.Empty;
+
+        static Dictionary<string, BaseFindSymbolAction> keysDown = new();
         protected string id = Guid.NewGuid().ToString();
         string lastContext;
         public BaseFindSymbolAction()
@@ -32,11 +37,26 @@ namespace CodeRushStreamDeck
             await Manager.SetImageAsync(lastContext, $"images/symbols/{SymbolName}Listening.png");
         }
 
+        VoiceCommandData GetVoiceCommandData()
+        {
+            VoiceCommandData voiceCommandData = new VoiceCommandData();
+            voiceCommandData.StreamDeckPluginVersion_Major = Version.Major;
+            voiceCommandData.StreamDeckPluginVersion_Minor = Version.Minor;
+            voiceCommandData.SpokenWordsStart = SpokenWordsStart;
+            voiceCommandData.SpokenWordsEnd = SpokenWordsEnd;
+            voiceCommandData.ButtonId = id;
+            voiceCommandData.ButtonState = ButtonState.Down;
+            return voiceCommandData;
+        }
+
         public override async Task OnKeyDown(StreamDeckEventPayload args)
         {
+            VoiceCommandData buttonStreamDeckData = GetVoiceCommandData();
+
             lastContext = args.context;
             keysDown.Add(id, this);
-            CommunicationServer.SendMessageToCodeRush(id);
+            string serializedObject = JsonConvert.SerializeObject(buttonStreamDeckData);
+            CommunicationServer.SendMessageToCodeRush(serializedObject, nameof(VoiceCommandData));
         }
 
         public override async Task OnKeyUp(StreamDeckEventPayload args)
@@ -47,7 +67,7 @@ namespace CodeRushStreamDeck
             //await Manager.SetTitleAsync(args.context, SettingsModel.Counter.ToString());
 
             await Manager.SetImageAsync(args.context, $"images/symbols/{SymbolName}.png");
-            
+
             //update settings
             await Manager.SetSettingsAsync(args.context, SettingsModel);
             keysDown.Remove(id);

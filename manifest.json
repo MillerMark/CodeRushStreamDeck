@@ -35,27 +35,153 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Starts voice recognition to find a class matching the spoken name in the active solution.",
       "UUID": "com.devex.cr.find.class"
+    },
+    {
+      "Icon": "images/actions/struct",
+      "Name": "Find Struct",
+      "States": [
+        {
+          "Name": "ready",
+          "Image": "images/symbols/struct",
+          "ShowTitle": false,
+          "TitleColor": "#ff0000",
+          "TitleAlignment": "top",
+          "FontSize": "14"
+        }
+      ],
+      "UserTitleEnabled": false,
+      "SupportedInMultiActions": false,
+      "Tooltip": "Starts voice recognition to find a struct matching the spoken name in the active solution.",
+      "UUID": "com.devex.cr.find.struct"
+    },
+    {
+      "Icon": "images/actions/enum",
+      "Name": "Find Enum",
+      "States": [
+        {
+          "Name": "ready",
+          "Image": "images/symbols/enum",
+          "ShowTitle": false,
+          "TitleColor": "#ff0000",
+          "TitleAlignment": "top",
+          "FontSize": "14"
+        }
+      ],
+      "UserTitleEnabled": false,
+      "SupportedInMultiActions": false,
+      "Tooltip": "Starts voice recognition to find a enum matching the spoken name in the active solution.",
+      "UUID": "com.devex.cr.find.enum"
+    },
+    {
+      "Icon": "images/actions/file",
+      "Name": "Find File",
+      "States": [
+        {
+          "Name": "ready",
+          "Image": "images/symbols/file",
+          "ShowTitle": false,
+          "TitleColor": "#ff0000",
+          "TitleAlignment": "top",
+          "FontSize": "14"
+        }
+      ],
+      "UserTitleEnabled": false,
+      "SupportedInMultiActions": false,
+      "Tooltip": "Starts voice recognition to find a file matching the spoken name in the active solution.",
+      "UUID": "com.devex.cr.find.file"
+    },
+    {
+      "Icon": "images/actions/method",
+      "Name": "Find Method",
+      "States": [
+        {
+          "Name": "ready",
+          "Image": "images/symbols/method",
+          "ShowTitle": false,
+          "TitleColor": "#ff0000",
+          "TitleAlignment": "top",
+          "FontSize": "14"
+        }
+      ],
+      "UserTitleEnabled": false,
+      "SupportedInMultiActions": false,
+      "Tooltip": "Starts voice recognition to find a method matching the spoken name in the active solution.",
+      "UUID": "com.devex.cr.find.method"
+    },
+    {
+      "Icon": "images/actions/property",
+      "Name": "Find Property",
+      "States": [
+        {
+          "Name": "ready",
+          "Image": "images/symbols/property",
+          "ShowTitle": false,
+          "TitleColor": "#ff0000",
+          "TitleAlignment": "top",
+          "FontSize": "14"
+        }
+      ],
+      "UserTitleEnabled": false,
+      "SupportedInMultiActions": false,
+      "Tooltip": "Starts voice recognition to find a property matching the spoken name in the active solution.",
+      "UUID": "com.devex.cr.find.property"
+    },
+    {
+      "Icon": "images/actions/event",
+      "Name": "Find Event",
+      "States": [
+        {
+          "Name": "ready",
+          "Image": "images/symbols/event",
+          "ShowTitle": false,
+          "TitleColor": "#ff0000",
+          "TitleAlignment": "top",
+          "FontSize": "14"
+        }
+      ],
+      "UserTitleEnabled": false,
+      "SupportedInMultiActions": false,
+      "Tooltip": "Starts voice recognition to find a event matching the spoken name in the active solution.",
+      "UUID": "com.devex.cr.find.event"
+    },
+    {
+      "Icon": "images/actions/field",
+      "Name": "Find Field",
+      "States": [
+        {
+          "Name": "ready",
+          "Image": "images/symbols/field",
+          "ShowTitle": false,
+          "TitleColor": "#ff0000",
+          "TitleAlignment": "top",
+          "FontSize": "14"
+        }
+      ],
+      "UserTitleEnabled": false,
+      "SupportedInMultiActions": false,
+      "Tooltip": "Starts voice recognition to find a field matching the spoken name in the active solution.",
+      "UUID": "com.devex.cr.find.field"
     }
   ],
-	"Category": "CodeRush",
-	"CategoryIcon": "images/category/categoryIcon",
-	"Disabled":  false,
-	"Author": "Mark Miller",
-	"CodePath": "CodeRushStreamDeck.exe",
-	"PropertyInspectorPath": "property_inspector/property_inspector.html",
+  "Category": "CodeRush",
+  "CategoryIcon": "images/category/categoryIcon",
+  "Disabled": false,
+  "Author": "Mark Miller",
+  "CodePath": "CodeRushStreamDeck.exe",
+  "PropertyInspectorPath": "property_inspector/property_inspector.html",
   "Description": "Connect with CodeRush in Visual Studio",
   "Name": "CodeRush",
   "Icon": "images/pluginIcon",
   "URL": "https://www.elgato.com/gaming/stream-deck",
   "Version": "1.0",
-	"SDKVersion": 2,
-	"Software": {
-		"MinimumVersion":  "4.1"
-	},
-	"OS": [
+  "SDKVersion": 2,
+  "Software": {
+    "MinimumVersion": "4.1"
+  },
+  "OS": [
     {
-        "Platform": "windows",
-        "MinimumVersion" : "10"
+      "Platform": "windows",
+      "MinimumVersion": "10"
     }
   ]
 }

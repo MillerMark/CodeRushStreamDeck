@@ -13,5 +13,6 @@ namespace CodeRushStreamDeck
         }
 
         public override string SymbolName => "class";
+        public override string SpokenWordsStart => "class";
     }
 }

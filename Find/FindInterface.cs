@@ -13,5 +13,6 @@ namespace CodeRushStreamDeck
         }
 
         public override string SymbolName => "interface";
+        public override string SpokenWordsStart => "interface";
     }
 }
