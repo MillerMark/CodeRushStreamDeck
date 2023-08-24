@@ -1,4 +1,4 @@
-﻿namespace DevExpress.CodeRush.Foundation.Pipes {
+﻿namespace PipeCore {
     public static class Constants
     {
         public const string CodeRushToStreamDeck = "CodeRushToStreamDeck";

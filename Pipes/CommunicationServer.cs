@@ -1,5 +1,5 @@
 ﻿using CodeRushStreamDeck;
-using DevExpress.CodeRush.Foundation.Pipes;
+using PipeCore;
 using System;
 
 
