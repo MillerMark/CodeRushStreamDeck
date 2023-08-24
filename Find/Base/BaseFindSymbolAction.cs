@@ -8,41 +8,48 @@ using System.Threading.Tasks;
 
 namespace CodeRushStreamDeck
 {
-    
     public abstract class BaseFindSymbolAction : BaseStreamDeckActionWithSettingsModel<Models.CounterSettingsModel>
     {
+        public abstract string SymbolName { get; }
+        static Dictionary<string, BaseFindSymbolAction> keysDown = new ();
+        protected string id = Guid.NewGuid().ToString();
+        string lastContext;
+        public BaseFindSymbolAction()
+        {
+        }
+
+        public static void ListeningStarted(string buttonId)
+        {
+            if (keysDown.TryGetValue(buttonId, out BaseFindSymbolAction baseFindSymbolAction))
+            {
+                baseFindSymbolAction.ListeningStartedAsync();
+            }
+        }
+
+        async void ListeningStartedAsync()
+        {
+            await Manager.SetImageAsync(lastContext, $"images/symbols/{SymbolName}Listening.png");
+        }
+
         public override async Task OnKeyDown(StreamDeckEventPayload args)
         {
-            
+            lastContext = args.context;
+            keysDown.Add(id, this);
+            CommunicationServer.SendMessageToCodeRush(id);
         }
+
         public override async Task OnKeyUp(StreamDeckEventPayload args)
         {
             SettingsModel.Counter++;
-            await Manager.SetTitleAsync(args.context, SettingsModel.Counter.ToString());
+            //await Manager.ShowOkAsync(args.context);
+            //await Manager.ShowAlertAsync(args.context);
+            //await Manager.SetTitleAsync(args.context, SettingsModel.Counter.ToString());
 
-            if (SettingsModel.Counter % 10 == 0)
-            {
-                await Manager.ShowAlertAsync(args.context);
-            }
-            else if (SettingsModel.Counter % 15 == 0)
-            {
-                await Manager.OpenUrlAsync(args.context, "https://www.bing.com");
-            }
-            else if (SettingsModel.Counter % 3 == 0)
-            {
-                await Manager.ShowOkAsync(args.context);
-            }
-            else if (SettingsModel.Counter % 7 == 0)
-            {
-                await Manager.SetImageAsync(args.context, "images/Fritz.png");
-            }
-            else if (SettingsModel.Counter % 11 == 0)
-            {
-                await Manager.SetImageAsync(args.context, "images/actionIcon@2x.png");
-            }
-
+            await Manager.SetImageAsync(args.context, $"images/symbols/{SymbolName}.png");
+            
             //update settings
             await Manager.SetSettingsAsync(args.context, SettingsModel);
+            keysDown.Remove(id);
         }
 
         public override async Task OnDidReceiveSettings(StreamDeckEventPayload args)

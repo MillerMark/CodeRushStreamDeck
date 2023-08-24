@@ -17,6 +17,15 @@
 		<Exec Command="powershell -ExecutionPolicy Unrestricted -file &quot;$(ProjectDir)RegisterPluginAndStartStreamDeck.ps1&quot;" />
 	</Target>
 	<ItemGroup>
+	  <Compile Remove="OldPipes\**" />
+	  <EmbeddedResource Remove="OldPipes\**" />
+	  <None Remove="OldPipes\**" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="Pipes\MessageReceiverClient.cs" />
+	  <Compile Remove="Pipes\MessageSenderClient.cs" />
+	</ItemGroup>
+	<ItemGroup>
 	  <None Remove="images\actions\class%402x.png" />
 	  <None Remove="images\actions\class.png" />
 	  <None Remove="images\actions\enum.png" />
@@ -283,9 +292,6 @@
 		<Content Include="images/category/categoryIcon@2x.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="images/Fritz.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
 	</ItemGroup>
 
 	<!-- Property Inspector Files -->
@@ -327,9 +333,6 @@
 		<None Update="RegisterPluginAndStartStreamDeck.sh">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</None>
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Pipes\" />
 	</ItemGroup>
 
 </Project>

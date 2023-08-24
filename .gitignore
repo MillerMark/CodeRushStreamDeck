@@ -396,3 +396,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+OldPipes/
+Pipes/MessageSenderClient.cs
+Pipes/MessageReceiverClient.cs
+Properties/launchSettings.json

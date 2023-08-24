@@ -1,14 +1,18 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.IO.Pipes;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using System.IO;
+using DevExpress.CodeRush.Platform.Diagnostics;
 
 public class MessageSenderServer
 {
-    private volatile bool _shouldStop;
+    private volatile bool shouldStop;
     int numClientsConnected;
     ConcurrentDictionary<NamedPipeServerStream, ConcurrentQueue<string>> messagesToSend = new ();
+
+    public bool LogToConsole { get; set; }
 
 
     readonly string pipeName;
@@ -26,25 +30,28 @@ public class MessageSenderServer
 
     public void Start()
     {
-        Task.Factory.StartNew(async () =>
+        Task.Run(async () =>
         {
-            while (!_shouldStop)
+            while (!shouldStop)
             {
                 var server = new NamedPipeServerStream(pipeName, PipeDirection.InOut, NamedPipeServerStream.MaxAllowedServerInstances);
 
                 await server.WaitForConnectionAsync();
                 numClientsConnected++;
-                Console.WriteLine($"{pipeName} client #{numClientsConnected} listener connected");
-                Console.WriteLine("");
+                if (LogToConsole)
+                {
+                    Console.WriteLine($"{pipeName} client #{numClientsConnected} listener connected");
+                    Console.WriteLine("");
+                }
                 if (server.IsConnected)
-                    Task.Run(() => HandleClient(server));
+                    await Task.Run(() => HandleClient(server));
             }
         });
     }
 
     public void StopServer()
     {
-        _shouldStop = true;
+        shouldStop = true;
     }
 
     private async Task HandleClient(NamedPipeServerStream server)
@@ -86,10 +93,11 @@ public class MessageSenderServer
         catch (Exception ex)
         {
             messagesToSend.TryRemove(server, out _);
-            Console.WriteLine($"Exception: {ex.Message}");
+            Log.SendException(ex);
         }
 
-        Console.WriteLine("Client disconnected");
+        if (LogToConsole)
+            Console.WriteLine("Client disconnected");
     }
 }
 

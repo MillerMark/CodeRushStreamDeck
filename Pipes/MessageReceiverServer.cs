@@ -1,4 +1,6 @@
-﻿using System;
+﻿#nullable enable
+using DevExpress.CodeRush.Platform.Diagnostics;
+using System;
 using System.Collections.Concurrent;
 using System.IO;
 using System.IO.Pipes;
@@ -6,9 +8,11 @@ using System.Threading.Tasks;
 
 public class MessageReceiverServer
 {
-    private volatile bool _shouldStop;
+    private volatile bool shouldStop;
     int numClientsConnected;
     readonly string pipeName;
+    public event EventHandler<string>? MessageReceived;
+    public bool LogToConsole { get; set; }
 
     public MessageReceiverServer(string pipeName)
     {
@@ -17,16 +21,19 @@ public class MessageReceiverServer
 
     public void Start()
     {
-        Task.Factory.StartNew(async () =>
+        Task.Run(async () =>
         {
-            while (!_shouldStop)
+            while (!shouldStop)
             {
                 var server = new NamedPipeServerStream(pipeName, PipeDirection.InOut, NamedPipeServerStream.MaxAllowedServerInstances);
 
                 await server.WaitForConnectionAsync();
                 numClientsConnected++;
-                Console.WriteLine($"{pipeName} client #{numClientsConnected} sender connected");
-                Console.WriteLine("");
+                if (LogToConsole)
+                {
+                    Console.WriteLine($"{pipeName} client #{numClientsConnected} sender connected");
+                    Console.WriteLine("");
+                }
                 if (server.IsConnected)
                     HandleClient(server);
             }
@@ -35,7 +42,7 @@ public class MessageReceiverServer
 
     public void StopServer()
     {
-        _shouldStop = true;
+        shouldStop = true;
     }
 
     private async void HandleClient(NamedPipeServerStream server)
@@ -45,10 +52,6 @@ public class MessageReceiverServer
             using (server)
             {
                 var reader = new StreamReader(server);
-                //var writer = new StreamWriter(server);
-
-                //await writer.WriteLineAsync("Server says hello!");
-                //writer.Flush();
 
                 while (true)
                 {
@@ -60,23 +63,18 @@ public class MessageReceiverServer
                     }
                     else
                     {
-                        Console.WriteLine("Received from client: " + line);
+                        MessageReceived?.Invoke(this, line);
                     }
-
-                    //while (_messagesToSend.TryDequeue(out var message))  // dequeued messages to be sent
-                    //{
-                    //    await writer.WriteLineAsync(message);
-                    //    writer.Flush();
-                    //}
                 }
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Exception: {ex.Message}");
+            Log.SendException(ex);
         }
 
-        Console.WriteLine("Client disconnected");
+        if (LogToConsole)
+            Console.WriteLine("Client disconnected");
     }
 }
 
