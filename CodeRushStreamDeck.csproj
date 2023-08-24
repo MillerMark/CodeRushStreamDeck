@@ -18,8 +18,11 @@
 	</Target>
 	<ItemGroup>
 	  <Compile Remove="OldPipes\**" />
+	  <Compile Remove="Pipes\Client\**" />
 	  <EmbeddedResource Remove="OldPipes\**" />
+	  <EmbeddedResource Remove="Pipes\Client\**" />
 	  <None Remove="OldPipes\**" />
+	  <None Remove="Pipes\Client\**" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Remove="Pipes\MessageReceiverClient.cs" />

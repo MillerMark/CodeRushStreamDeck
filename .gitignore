@@ -401,3 +401,6 @@ Pipes/MessageSenderClient.cs
 Pipes/MessageReceiverClient.cs
 Properties/launchSettings.json
 CodeRushStreamDeck - Backup.csproj
+Pipes/Client/MessageSenderClient.cs
+Pipes/Client/MessageReceiverClient.cs
+MakePipes.bat
