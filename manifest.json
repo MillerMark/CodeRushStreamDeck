@@ -7,7 +7,7 @@
         {
           "Name": "ready",
           "Image": "images/symbols/interface",
-          "ShowTitle": false,
+          "ShowTitle": true,
           "TitleColor": "#ff0000",
           "TitleAlignment": "top",
           "FontSize": "14"
@@ -25,7 +25,7 @@
         {
           "Name": "ready",
           "Image": "images/symbols/class",
-          "ShowTitle": false,
+          "ShowTitle": true,
           "TitleColor": "#ff0000",
           "TitleAlignment": "top",
           "FontSize": "14"
@@ -43,7 +43,7 @@
         {
           "Name": "ready",
           "Image": "images/symbols/struct",
-          "ShowTitle": false,
+          "ShowTitle": true,
           "TitleColor": "#ff0000",
           "TitleAlignment": "top",
           "FontSize": "14"
@@ -61,7 +61,7 @@
         {
           "Name": "ready",
           "Image": "images/symbols/enum",
-          "ShowTitle": false,
+          "ShowTitle": true,
           "TitleColor": "#ff0000",
           "TitleAlignment": "top",
           "FontSize": "14"
@@ -79,7 +79,7 @@
         {
           "Name": "ready",
           "Image": "images/symbols/file",
-          "ShowTitle": false,
+          "ShowTitle": true,
           "TitleColor": "#ff0000",
           "TitleAlignment": "top",
           "FontSize": "14"
@@ -97,7 +97,7 @@
         {
           "Name": "ready",
           "Image": "images/symbols/method",
-          "ShowTitle": false,
+          "ShowTitle": true,
           "TitleColor": "#ff0000",
           "TitleAlignment": "top",
           "FontSize": "14"
@@ -115,7 +115,7 @@
         {
           "Name": "ready",
           "Image": "images/symbols/property",
-          "ShowTitle": false,
+          "ShowTitle": true,
           "TitleColor": "#ff0000",
           "TitleAlignment": "top",
           "FontSize": "14"
@@ -133,7 +133,7 @@
         {
           "Name": "ready",
           "Image": "images/symbols/event",
-          "ShowTitle": false,
+          "ShowTitle": true,
           "TitleColor": "#ff0000",
           "TitleAlignment": "top",
           "FontSize": "14"
@@ -151,7 +151,7 @@
         {
           "Name": "ready",
           "Image": "images/symbols/field",
-          "ShowTitle": false,
+          "ShowTitle": true,
           "TitleColor": "#ff0000",
           "TitleAlignment": "top",
           "FontSize": "14"

@@ -13,6 +13,6 @@ namespace CodeRushStreamDeck
         }
 
         public override string SymbolName => "file";
-        public override string SpokenWordsStart => "file";
+        public override string SpokenWordsStart => "open";
     }
 }

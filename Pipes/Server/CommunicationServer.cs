@@ -44,6 +44,10 @@ namespace Pipes.Server
                     var showListeningOnStreamDeck = JsonConvert.DeserializeObject<ShowListeningOnStreamDeck>(streamDeckData.Data);
                     BaseFindSymbolAction.ListeningStarted(showListeningOnStreamDeck.ButtonID);
                     break;
+                case nameof(ShowVolumeOnStreamDeck):
+                    var showVolumeOnStreamDeck = JsonConvert.DeserializeObject<ShowVolumeOnStreamDeck>(streamDeckData.Data);
+                    BaseFindSymbolAction.UpdateVolume(showVolumeOnStreamDeck.ButtonID, showVolumeOnStreamDeck.Volume);
+                    break;
             }
             //ShowListeningOnStreamDeck
             //FromCodeRushData
