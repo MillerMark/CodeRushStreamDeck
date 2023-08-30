@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using System.Diagnostics;
 using Pipes.Server;
+using CodeRushStreamDeck.Startup;
+using Newtonsoft.Json;
 
 namespace CodeRushStreamDeck
 {
@@ -19,6 +21,8 @@ namespace CodeRushStreamDeck
     {
         static async Task Main(string[] args)
         {
+
+            StartupInfo.Initialize(args);
             CommunicationServer.Start();
             using (var config = StreamDeckLib.Config.ConfigurationBuilder.BuildDefaultConfiguration(args))
             {

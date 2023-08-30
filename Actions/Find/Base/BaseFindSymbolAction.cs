@@ -123,5 +123,21 @@ namespace CodeRushStreamDeck
             if (keysDown.TryGetValue(buttonId, out BaseFindSymbolAction baseFindSymbolAction))
                 baseFindSymbolAction.UpdateVolume(volume);
         }
+
+        public override Task OnDeviceDidConnect(StreamDeckEventPayload args)
+        {
+            string deviceId = args.device;
+
+            //args.deviceInfo;
+            //args.deviceInfo.type;
+            //args.deviceInfo.size;
+
+            return base.OnDeviceDidConnect(args);
+        }
+
+        public override Task OnDeviceDidDisconnect(StreamDeckEventPayload args)
+        {
+            return base.OnDeviceDidDisconnect(args);
+        }
     }
 }

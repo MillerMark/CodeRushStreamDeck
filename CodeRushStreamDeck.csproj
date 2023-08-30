@@ -82,6 +82,14 @@
 	  <None Remove="images\symbols\struct.png" />
 	  <None Remove="images\symbols\structListening%402x.png" />
 	  <None Remove="images\symbols\structListening.png" />
+	  <None Remove="images\vsCommand.png" />
+	  <None Remove="images\vsCommand@2x.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="images\commands\vs\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 
 	<!--Dependencies-->
@@ -271,10 +279,10 @@
 
 	<!-- Images that must be deployed with the executable -->
 	<ItemGroup>
-		<Content Include="images/actionDefaultImage.png">
+		<Content Include="images\vsCommand.png">
 				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="images/actionDefaultImage@2x.png">
+		<Content Include="images\vsCommand%402x.png">
 				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="images/actionIcon.png">

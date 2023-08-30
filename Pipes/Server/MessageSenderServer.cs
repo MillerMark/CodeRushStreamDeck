@@ -5,6 +5,7 @@ using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using System.IO;
 using DevExpress.CodeRush.Platform.Diagnostics;
+using System.Threading;
 
 namespace Pipes.Server
 {
@@ -70,19 +71,24 @@ namespace Pipes.Server
 
                     while (server.IsConnected)
                     {
+                        bool sentMessage = false;
                         if (lastMessageAttempted != null)
                         {
                             await writer.WriteLineAsync(lastMessageAttempted);
                             writer.Flush();
                             lastMessageAttempted = null;
+                            sentMessage = true;
                         }
-                        while (messagesToSend.ContainsKey(server) && messagesToSend[server].TryDequeue(out var message))  // dequeued messages to be sent
+                        while (messagesToSend.ContainsKey(server) && messagesToSend[server].Count > 0 && messagesToSend[server].TryDequeue(out var message))  // dequeued messages to be sent
                         {
                             lastMessageAttempted = message;
                             await writer.WriteLineAsync(message);
                             writer.Flush();
                             lastMessageAttempted = null;
+                            sentMessage = true;
                         }
+                        if (!sentMessage)
+                            await Task.Delay(30);
                     }
                     messagesToSend.TryRemove(server, out _);
                 }

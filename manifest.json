@@ -161,6 +161,25 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Starts voice recognition to find a field matching the spoken name in the active solution.",
       "UUID": "com.devex.cr.find.field"
+    },
+    {
+      "Icon": "images/vsCommand",
+      "Name": "Execute Visual Studio Command",
+      "States": [
+        {
+          "Name": "ready",
+          "Image": "images/vsCommand",
+          "ShowTitle": true,
+          "TitleColor": "#ff0000",
+          "TitleAlignment": "top",
+          "FontSize": "14"
+        }
+      ],
+      "UserTitleEnabled": true,
+      "SupportedInMultiActions": false,
+      "PropertyInspectorPath": "property_inspector/property_inspector.html",
+      "Tooltip": "Executes the specified Visual Studio command.",
+      "UUID": "com.devex.cr.exec.vs.command"
     }
   ],
   "Category": "CodeRush",
@@ -168,7 +187,6 @@
   "Disabled": false,
   "Author": "Mark Miller",
   "CodePath": "CodeRushStreamDeck.exe",
-  "PropertyInspectorPath": "property_inspector/property_inspector.html",
   "Description": "Connect with CodeRush in Visual Studio",
   "Name": "CodeRush",
   "Icon": "images/pluginIcon",
