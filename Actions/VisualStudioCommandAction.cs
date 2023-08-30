@@ -5,6 +5,11 @@ using StreamDeckLib;
 using StreamDeckLib.Messages;
 using System.IO;
 using System.Linq;
+using Newtonsoft.Json.Linq;
+using DevExpress.CodeRush.Foundation.Pipes.Data;
+using Newtonsoft.Json;
+using Pipes.Server;
+using PipeCore;
 
 namespace CodeRushStreamDeck
 {
@@ -12,15 +17,17 @@ namespace CodeRushStreamDeck
     [ActionUuid(Uuid = "com.devex.cr.exec.vs.command")]
     public class VisualStudioCommandAction : BaseStreamDeckActionWithSettingsModel<Models.VisualStudioCommandModel>
     {
-
+        protected string id = Guid.NewGuid().ToString();
         public VisualStudioCommandAction()
         {
         }
 
         public override async Task OnKeyDown(StreamDeckEventPayload args)
         {
-            base.OnKeyDown(args);
-            string command = SettingsModel.Command;
+            await base.OnKeyDown(args);
+            if (!string.IsNullOrEmpty(SettingsModel.Command)) {
+                SendVisualStudioCommandToCodeRush(SettingsModel.Command, SettingsModel.Parameters, ButtonState.Down);
+            }
         }
 
         public class ImageFileNameScore
@@ -44,6 +51,12 @@ namespace CodeRushStreamDeck
         {
             await base.OnWillAppear(args);
             await ShowImage(args);
+        }
+
+        void SendVisualStudioCommandToCodeRush(string command, string parameters, ButtonState buttonState)
+        {
+            string data = JsonConvert.SerializeObject(CommandHelper.GetVisualStudioCommandData(command, parameters, buttonState, id));
+            CommunicationServer.SendMessageToCodeRush(data, nameof(VisualStudioCommandData));
         }
 
         public override async Task OnDidReceiveSettings(StreamDeckEventPayload args)
@@ -70,11 +83,19 @@ namespace CodeRushStreamDeck
                 string baseFileName = fileNameOnly.Substring(0, fileNameOnly.Length - 7);
                 List<string> imageWordParts = CamelCaseParser.GetWordParts(baseFileName);
                 double score = MatchScoreCalculator.GetScore(wordParts, imageWordParts);
-                if (score > 0.35)
+                if (score > 0.1)
                     list.Add(new ImageFileNameScore(baseFileName, score));
             }
 
-            var topTen = list.OrderByDescending(x => x.Score).Take(10).ToList();
+            var top14 = list.OrderByDescending(x => x.Score).Take(14).ToList();
+
+            dynamic obj = new JObject();
+            obj.Command = "!SuggestedImageList";
+            obj.Images = new JArray();
+            foreach (var item in top14)
+                obj.Images.Add(item.FileName);
+
+            await Manager.SendToPropertyInspectorAsync(args.context, obj);
 
             // TODO: Show the images from this topTen list.
         }

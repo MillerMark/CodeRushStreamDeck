@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Linq;
 
-namespace CodeRushStreamDeck
+namespace PipeCore
 {
     public static class Version
     {

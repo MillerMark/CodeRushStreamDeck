@@ -170,9 +170,9 @@
           "Name": "ready",
           "Image": "images/vsCommand",
           "ShowTitle": true,
-          "TitleColor": "#ff0000",
-          "TitleAlignment": "top",
-          "FontSize": "14"
+          "TitleColor": "#ffffff",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
         }
       ],
       "UserTitleEnabled": true,

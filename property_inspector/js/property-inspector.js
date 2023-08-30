@@ -40,18 +40,63 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
           document.getElementById('txtCommandValue').value = settingsModel.Command;
         }
         break;
+      case "sendToPropertyInspector":
+        if (jsonObj.payload.Command === '!SuggestedImageList')
+          addSuggestedImages(jsonObj.payload.Images);
+        break;
+      case "getSettings":
+        // TODO: Send the title back?
+        break;
       default:
         break;
     }
   };
 }
 
+
+function addSuggestedImages(images) {
+  var carouselImageParent = document.getElementById('carouselImageParent');
+  if (!carouselImageParent)
+  {
+    console.error(`Unable to find carouselImageParent!`);
+		return ;
+	}
+  console.log(carouselImageParent);
+
+  carouselImageParent.innerHTML = '';
+  
+  for (let i = 0; i < images.length; i++) {
+    console.log(`images[${i}]: ${images[i]}`);
+
+    const parentDiv = document.createElement('div');
+    parentDiv.className = 'card-carousel--card';
+    parentDiv.setAttribute('value', images[i]);
+    carouselImageParent.appendChild(parentDiv);
+      
+
+    const image = document.createElement('img');
+    image.src = `../images/commands/vs/${images[i]}@2x.png`;
+    parentDiv.appendChild(image);
+
+    const label = document.createElement('div');
+    label.className = `card-carousel--card--footer`;
+    label.textContent = images[i];
+    parentDiv.appendChild(label);
+  }
+
+  carouselImageParent.querySelectorAll('.card-carousel--card').forEach((crd, idx) => {
+    crd.onclick = function (evt) {
+      handleSdpiItemChange(crd, idx);
+    };
+  });
+}
+
 const setSettings = (value, param) => {
-  console.log(`setSettings: value...`);
-  console.log(value);
-  console.log(`setSettings: param...`);
-  console.log(param);
-  console.log(``);
+  //console.log(`setSettings: value...`);
+  //console.log(value);
+  //console.log(`setSettings: param...`);
+  //console.log(param);
+  //console.log(``);
   if (websocket) {
     settingsModel[param] = value;
     var json = {

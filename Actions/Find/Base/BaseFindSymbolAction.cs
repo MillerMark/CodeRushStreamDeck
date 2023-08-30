@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 using Pipes.Server;
 using DevExpress.CodeRush.Foundation.Pipes.Data;
 using Newtonsoft.Json;
+using PipeCore;
 
 namespace CodeRushStreamDeck
 {
+
     public abstract class BaseFindSymbolAction : BaseStreamDeckAction // BaseStreamDeckActionWithSettingsModel<Models.CounterSettingsModel>
     {
         public abstract string SymbolName { get; }
@@ -27,30 +29,16 @@ namespace CodeRushStreamDeck
         VoiceCommandData GetVoiceCommandData()
         {
             VoiceCommandData voiceCommandData = new VoiceCommandData();
-            InitializeCommandData(voiceCommandData);
+            CommandHelper.InitializeCommandData(voiceCommandData, id);
             voiceCommandData.SpokenWordsStart = SpokenWordsStart;
             voiceCommandData.SpokenWordsEnd = SpokenWordsEnd;
             voiceCommandData.ButtonState = ButtonState.Down;
             return voiceCommandData;
         }
 
-        private void InitializeCommandData(ButtonStreamDeckData buttonData)
-        {
-            buttonData.StreamDeckPluginVersion_Major = Version.Major;
-            buttonData.StreamDeckPluginVersion_Minor = Version.Minor;
-            buttonData.ButtonId = id;
-        }
-
-        CommandData GetCommandData(string command, ButtonState buttonState)
-        {
-            CommandData commandData = new CommandData() { Command = command };
-            commandData.ButtonState = buttonState;
-            InitializeCommandData(commandData);
-            return commandData;
-        }
-
         public override async Task OnKeyDown(StreamDeckEventPayload args)
         {
+            await base.OnKeyDown(args);
             lastContext = args.context;
             keysDown.TryAdd(id, this);
             string data = JsonConvert.SerializeObject(GetVoiceCommandData());
@@ -59,7 +47,7 @@ namespace CodeRushStreamDeck
 
         void SendCommandToCodeRush(string command, ButtonState buttonState)
         {
-            string data = JsonConvert.SerializeObject(GetCommandData(command, buttonState));
+            string data = JsonConvert.SerializeObject(CommandHelper.GetCommandData(command, buttonState, id));
             CommunicationServer.SendMessageToCodeRush(data, nameof(CommandData));
         }
 
