@@ -10,6 +10,7 @@ using DevExpress.CodeRush.Foundation.Pipes.Data;
 using Newtonsoft.Json;
 using Pipes.Server;
 using PipeCore;
+using CodeRushStreamDeck.Startup;
 
 namespace CodeRushStreamDeck
 {
@@ -22,11 +23,20 @@ namespace CodeRushStreamDeck
         {
         }
 
+        static bool useFullProfileName = false;
         public override async Task OnKeyDown(StreamDeckEventPayload args)
         {
             await base.OnKeyDown(args);
             if (!string.IsNullOrEmpty(SettingsModel.Command)) {
                 SendVisualStudioCommandToCodeRush(SettingsModel.Command, SettingsModel.Parameters, ButtonState.Down);
+            }
+            else
+            {
+                string uuid = Manager.GetInstanceUuid();
+
+                const string xlRight = "EA7156E07669CF0850A6A747AE71EC5E";
+                const string profileName = "CodeRushDebug";
+                await Manager.SwitchToProfileAsync(uuid, xlRight, profileName);
             }
         }
 
@@ -43,8 +53,12 @@ namespace CodeRushStreamDeck
 
         async Task ShowImage(StreamDeckEventPayload args)
         {
-            if (SettingsModel.SelectedImage != null)
+            if (!string.IsNullOrEmpty(SettingsModel.SelectedImage))
                 await Manager.SetImageAsync(args.context, $"images/commands/vs/{SettingsModel.SelectedImage}.png");
+            else
+            {
+                System.Diagnostics.Debugger.Break();
+            }
         }
 
         public override async Task OnWillAppear(StreamDeckEventPayload args)

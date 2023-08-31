@@ -29,6 +29,7 @@
 	  <Compile Remove="Pipes\MessageSenderClient.cs" />
 	</ItemGroup>
 	<ItemGroup>
+	  <None Remove="CodeRushDebug.streamDeckProfile" />
 	  <None Remove="images\actions\class%402x.png" />
 	  <None Remove="images\actions\class.png" />
 	  <None Remove="images\actions\enum.png" />
@@ -86,12 +87,6 @@
 	  <None Remove="images\vsCommand@2x.png" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<Content Include="images\commands\vs\**">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup>
-
 	<!--Dependencies-->
 	<ItemGroup>
 		<PackageReference Include="StreamDeckLib" Version="0.*" />
@@ -110,6 +105,9 @@
 
 	<!--Deployment files that must go with the build executable -->
 	<ItemGroup>
+		<Content Include="CodeRushDebug.streamDeckProfile">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 		<Content Include="images\actions\class.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
@@ -344,6 +342,9 @@
 		<None Update="RegisterPluginAndStartStreamDeck.sh">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</None>
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="profiles\" />
 	</ItemGroup>
 
 </Project>

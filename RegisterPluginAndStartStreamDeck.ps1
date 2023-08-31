@@ -38,7 +38,8 @@ $json = ConvertFrom-JSON $manifestcontent
 
 $uuidAction = $json.Actions[0].UUID
 
-$pluginID = $uuidAction.substring(0, $uuidAction.Length - ".action".Length)
+#$pluginID = $uuidAction.substring(0, $uuidAction.Length - ".action".Length)
+$pluginID = "com.devexpress.coderush"
 $destDir = "$($env:APPDATA)\Elgato\StreamDeck\Plugins\$pluginID.sdPlugin"
 
 $pluginName = Split-Path $basePath -leaf
@@ -48,13 +49,21 @@ Get-Process -Name ("StreamDeck", $pluginName) -ErrorAction SilentlyContinue | St
 
 # Delete the target directory, make sure the deployment/copy is clean
 If (Test-Path $destDir) {
-  Remove-Item -Recurse -Force -Path $destDir 
+  # Manually remove the individual folders to keep The Visual Studio icons there (saves 20 seconds per deploy)
+  Remove-Item -Force -Path "$destDir\*.*"
+  Remove-Item -Recurse -Force -Path "$destDir\log" -ErrorAction SilentlyContinue 
+  Remove-Item -Recurse -Force -Path "$destDir\property_inspector"
+  Remove-Item -Force -Path "$destDir\images\*.*"
+  Remove-Item -Recurse -Force -Path "$destDir\images\actions"
+  Remove-Item -Recurse -Force -Path "$destDir\images\category"
+  Remove-Item -Recurse -Force -Path "$destDir\images\symbols"
+  #Remove-Item -Recurse -Force | -Path "$destDir"
 }
 
 # Then copy all deployment items to the plugin directory
 New-Item -Type Directory -Path $destDir -ErrorAction SilentlyContinue # | Out-Null
 $bindir = $bindir +"\*"
-Copy-Item -Path $bindir -Destination $destDir -Recurse
+Copy-Item -Path $bindir -Destination $destDir -Recurse -ErrorAction SilentlyContinue
 
 
 Write-Host "Deployment complete. Restarting the Stream Deck desktop application..."

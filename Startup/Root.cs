@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+using StreamDeckLib;
 using System;
+using System.Reflection;
 using System.Collections.Generic;
 
 namespace CodeRushStreamDeck.Startup
