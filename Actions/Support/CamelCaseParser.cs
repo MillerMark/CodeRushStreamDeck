@@ -21,6 +21,8 @@ namespace CodeRushStreamDeck
 
         public static List<string> GetWordParts(string text)
         {
+            if (text == null)
+                return null;
             var parts = new List<string>();
             if (string.IsNullOrEmpty(text))
                 return parts;
@@ -70,7 +72,7 @@ namespace CodeRushStreamDeck
                 else if (lastPartToAdd != ".")
                     parts.Add(lastPartToAdd);
 
-            return parts;
+            return parts.Distinct().ToList();
         }
     }
 }

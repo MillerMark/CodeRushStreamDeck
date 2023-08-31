@@ -4447,18 +4447,23 @@
         </div>
 
         <div class="sdpi-heading">Suggested Images</div>
-
+        <div>
+            <label>Text for image search:</label>
+            <input id="searchText" type="text" placeholder='(e.g., "Start Debug")' onchange="setSettings(event.target.value, 'SearchTextForImages')" />
+            <button id="btnFindImages" onclick="setSettings('FindImages', 'OverrideCommand')">Find Images</button>
+        </div>
         <div type="carousel" class="sdpi-item" id="mycarousel">
             <div type="carousel" class="card-carousel-wrapper">
                 <div disabled="disabled" class="card-carousel--nav__left"></div>
                 <div class="card-carousel">
                     <div class="card-carousel--overflow-container">
                         <div class="card-carousel-cards" id="carouselImageParent" style="transform: translateX(0px);">
-                            <div class="card-carousel--card" value="Output">
+                            <!-- 
+                                 <div class="card-carousel--card" value="Output">
                                 <img src="../images/commands/vs/Output@2x.png">
                                 <div class="card-carousel--card--footer">Output</div>
                             </div>
-                            <!-- <div class="card-carousel--card" value="Solution">
+                                <div class="card-carousel--card" value="Solution">
                                 <img src="../images/commands/vs/Solution@2x.png">
                                 <div class="card-carousel--card--footer">Solution Explorer</div>
                             </div>

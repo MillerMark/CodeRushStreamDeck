@@ -53,44 +53,6 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
   };
 }
 
-
-function addSuggestedImages(images) {
-  var carouselImageParent = document.getElementById('carouselImageParent');
-  if (!carouselImageParent)
-  {
-    console.error(`Unable to find carouselImageParent!`);
-		return ;
-	}
-  console.log(carouselImageParent);
-
-  carouselImageParent.innerHTML = '';
-  
-  for (let i = 0; i < images.length; i++) {
-    console.log(`images[${i}]: ${images[i]}`);
-
-    const parentDiv = document.createElement('div');
-    parentDiv.className = 'card-carousel--card';
-    parentDiv.setAttribute('value', images[i]);
-    carouselImageParent.appendChild(parentDiv);
-      
-
-    const image = document.createElement('img');
-    image.src = `../images/commands/vs/${images[i]}@2x.png`;
-    parentDiv.appendChild(image);
-
-    const label = document.createElement('div');
-    label.className = `card-carousel--card--footer`;
-    label.textContent = images[i];
-    parentDiv.appendChild(label);
-  }
-
-  carouselImageParent.querySelectorAll('.card-carousel--card').forEach((crd, idx) => {
-    crd.onclick = function (evt) {
-      handleSdpiItemChange(crd, idx);
-    };
-  });
-}
-
 const setSettings = (value, param) => {
   //console.log(`setSettings: value...`);
   //console.log(value);
@@ -98,6 +60,9 @@ const setSettings = (value, param) => {
   //console.log(param);
   //console.log(``);
   if (websocket) {
+    // Reset temporary values...
+    settingsModel["OverrideCommand"] = '';
+    settingsModel["SelectedImage"] = '';
     settingsModel[param] = value;
     var json = {
       "event": "setSettings",
@@ -259,6 +224,49 @@ function handleSdpiItemChange(e, idx) {
   setSettings(returnValue, 'sdpi_collection');
 }
 
+function addSuggestedImages(images) {
+  var carouselImageParent = document.getElementById('carouselImageParent');
+  if (!carouselImageParent) {
+    console.error(`Unable to find carouselImageParent!`);
+    return;
+  }
+  console.log(carouselImageParent);
+
+  carouselImageParent.innerHTML = '';
+
+  for (let i = 0; i < images.length; i++) {
+    //console.log(`images[${i}]: ${images[i]}`);
+
+    const parentDiv = document.createElement('div');
+    parentDiv.className = 'card-carousel--card';
+    parentDiv.setAttribute('value', images[i]);
+    carouselImageParent.appendChild(parentDiv);
+
+
+    const image = document.createElement('img');
+    image.src = `../images/commands/vs/${images[i]}@2x.png`;
+    parentDiv.appendChild(image);
+
+    const footer = document.createElement('div');
+    footer.className = `card-carousel--card--footer`;
+    footer.textContent = images[i];
+    parentDiv.appendChild(footer);
+
+    const copyButton = document.createElement('button');
+    copyButton.innerHTML = '&#128203';  // copy button
+    copyButton.className = 'card-carousel--copy';
+    copyButton.setAttribute('value', images[i]);
+    footer.appendChild(copyButton);
+  }
+
+  initCarousel();
+  //carouselImageParent.querySelectorAll('.card-carousel--card').forEach((crd, idx) => {
+  //  crd.onclick = function (evt) {
+  //    handleSdpiItemChange(crd, idx);
+  //  };
+  //});
+}
+
 function initCarousel() {
   document.querySelectorAll('.sdpi-item [type=carousel]').forEach((e, i, a) => {
     var m = e.querySelector('img');
@@ -315,7 +323,15 @@ function initCarousel() {
 
     e.querySelectorAll('.card-carousel--card').forEach((crd, idx) => {
       crd.onclick = function (evt) {
+        console.log(`card clicked!!!`);
         handleSdpiItemChange(crd, idx);
+      };
+    });
+
+    e.querySelectorAll('.card-carousel--copy').forEach((copyButton, idx) => {
+      copyButton.onclick = function (evt) {
+        console.log(`copy clicked!!!`);
+        setSettings(`Copy ${copyButton.getAttribute('value')}`, 'OverrideCommand')
       };
     });
   });

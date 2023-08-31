@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Pipes.Server;
 using PipeCore;
 using CodeRushStreamDeck.Startup;
+using System.Diagnostics;
 
 namespace CodeRushStreamDeck
 {
@@ -27,7 +28,8 @@ namespace CodeRushStreamDeck
         public override async Task OnKeyDown(StreamDeckEventPayload args)
         {
             await base.OnKeyDown(args);
-            if (!string.IsNullOrEmpty(SettingsModel.Command)) {
+            if (!string.IsNullOrEmpty(SettingsModel.Command))
+            {
                 SendVisualStudioCommandToCodeRush(SettingsModel.Command, SettingsModel.Parameters, ButtonState.Down);
             }
             else
@@ -55,10 +57,6 @@ namespace CodeRushStreamDeck
         {
             if (!string.IsNullOrEmpty(SettingsModel.SelectedImage))
                 await Manager.SetImageAsync(args.context, $"images/commands/vs/{SettingsModel.SelectedImage}.png");
-            else
-            {
-                System.Diagnostics.Debugger.Break();
-            }
         }
 
         public override async Task OnWillAppear(StreamDeckEventPayload args)
@@ -73,10 +71,60 @@ namespace CodeRushStreamDeck
             CommunicationServer.SendMessageToCodeRush(data, nameof(VisualStudioCommandData));
         }
 
+        string GetImageFolder()
+        {
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"images\commands\vs");
+        }
+
+        async Task HandleCommandOverride(StreamDeckEventPayload args)
+        {
+            string overrideCommand = SettingsModel.OverrideCommand;
+            if (string.IsNullOrEmpty(overrideCommand))
+                return;
+
+            string command;
+            string parameters = string.Empty;
+            int spaceIndex = overrideCommand.IndexOf(" ");
+            if (spaceIndex > 0)
+            {
+                command = overrideCommand.Substring(0, spaceIndex);
+                parameters = overrideCommand.Substring(spaceIndex + 1);
+            }
+            else
+                command = overrideCommand;
+
+            switch (command)
+            {
+                case "FindImages":
+                    await LoadStreamDeckImages(args, SettingsModel.Command, SettingsModel.SearchTextForImages);
+                    commandHandled = true;
+                    break;
+
+                case "Copy":
+                    string imageFullPath = Path.Combine(GetImageFolder(), parameters + "@2x.png");
+                     $"echo {imageFullPath}| clip".Bat();
+                    commandHandled = true;
+                    break;
+            }
+            SettingsModel.OverrideCommand = null;
+        }
+
+        bool commandHandled;
         public override async Task OnDidReceiveSettings(StreamDeckEventPayload args)
         {
             await base.OnDidReceiveSettings(args);
 
+            commandHandled = false;
+            if (!string.IsNullOrEmpty(SettingsModel.OverrideCommand))
+                await HandleCommandOverride(args);
+
+            if (commandHandled)
+            {
+                commandHandled = false;
+                return;
+            }
+
+            // TODO: Assymetry - consider adding parameter parsing for commands and updating the handleSdpiItemChange method.
             if (!string.IsNullOrEmpty(SettingsModel.SelectedImage))
             {
                 SettingsModel.ImageFileName = SettingsModel.SelectedImage;
@@ -87,9 +135,17 @@ namespace CodeRushStreamDeck
                 return;
             }
 
-            List<string> wordParts = CamelCaseParser.GetWordParts(SettingsModel.Command);
+            await LoadStreamDeckImages(args, SettingsModel.Command);
 
-            string[] vsCommandImageFileNames = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + @"images\commands\vs", "*@2x.png");
+            // TODO: Show the images from this topTen list.
+        }
+
+        private async Task LoadStreamDeckImages(StreamDeckEventPayload args, string command, string additionalSearchPhrase = null)
+        {
+            List<string> wordParts = CamelCaseParser.GetWordParts(command);
+            List<string> additionalSearchPhraseWordParts = CamelCaseParser.GetWordParts(additionalSearchPhrase);
+
+            string[] vsCommandImageFileNames = Directory.GetFiles(GetImageFolder(), "*@2x.png");
             List<ImageFileNameScore> list = new List<ImageFileNameScore>();
             foreach (string vsCommandImageFileName in vsCommandImageFileNames)
             {
@@ -97,6 +153,10 @@ namespace CodeRushStreamDeck
                 string baseFileName = fileNameOnly.Substring(0, fileNameOnly.Length - 7);
                 List<string> imageWordParts = CamelCaseParser.GetWordParts(baseFileName);
                 double score = MatchScoreCalculator.GetScore(wordParts, imageWordParts);
+
+                if (additionalSearchPhraseWordParts != null)
+                    score = Math.Max(score, MatchScoreCalculator.GetScore(additionalSearchPhraseWordParts, imageWordParts));
+
                 if (score > 0.1)
                     list.Add(new ImageFileNameScore(baseFileName, score));
             }
@@ -110,8 +170,6 @@ namespace CodeRushStreamDeck
                 obj.Images.Add(item.FileName);
 
             await Manager.SendToPropertyInspectorAsync(args.context, obj);
-
-            // TODO: Show the images from this topTen list.
         }
     }
 }

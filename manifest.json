@@ -192,7 +192,7 @@
       "Name": "CodeRushDebug",
       "DeviceType": 2,
       "Readonly": false,
-      "DontAutoSwitchWhenInstalled": true
+      "DontAutoSwitchWhenInstalled": false
     }
   ],
   "Description": "Connect with CodeRush in Visual Studio",
