@@ -13,11 +13,11 @@
             and
             Elgato SDK Documentation -> https://developer.elgato.com/documentation/stream-deck/sdk/property-inspector/
 
-            
+
     -->
 
         <div class="sdpi-item" id="command_value">
-            <div class="sdpi-item-label">Command Value</div>
+            <div class="sdpi-item-label">Command:</div>
             <div style="overflow-y: auto; max-height: 150px;">
                 <input list="cbCommands" id="txtCommandValue" onchange="setSettings(event.target.value, 'Command')" style="width: 230px;">
                 <datalist id="cbCommands" class="sdpi-item-value" style="width: 280px;">
@@ -4445,6 +4445,12 @@
                 </datalist>
             </div>
         </div>
+        <div class="sdpi-item" id="parameters_value">
+            <div class="sdpi-item-label">Parameters:</div>
+            <div style="overflow-y: auto; max-height: 150px;">
+                <input type="text" id="txtParametersValue" onchange="setSettings(event.target.value, 'Parameters')" style="width: 230px;">
+            </div>
+        </div>
 
         <div class="sdpi-heading">Suggested Images</div>
         <div>
@@ -4458,35 +4464,12 @@
                 <div class="card-carousel">
                     <div class="card-carousel--overflow-container">
                         <div class="card-carousel-cards" id="carouselImageParent" style="transform: translateX(0px);">
-                            <!-- 
-                                 <div class="card-carousel--card" value="Output">
-                                <img src="../images/commands/vs/Output@2x.png">
-                                <div class="card-carousel--card--footer">Output</div>
-                            </div>
-                                <div class="card-carousel--card" value="Solution">
-                                <img src="../images/commands/vs/Solution@2x.png">
-                                <div class="card-carousel--card--footer">Solution Explorer</div>
-                            </div>
-                            <div class="card-carousel--card" value="account">
-                                <img src="../images/commands/vs/account@2x.png">
-                                <div class="card-carousel--card--footer">Account</div>
-                            </div>
-                            <div class="card-carousel--card" value="Yield">
-                                <img src="../images/commands/vs/Yield@2x.png">
-                                <div class="card-carousel--card--footer">Yield</div>
-                            </div>
-                            <div class="card-carousel--card" value="XWorldFile">
-                                <img src="../images/commands/vs/XWorldFile@2x.png">
-                                <div class="card-carousel--card--footer">XWorldFile</div>
-                            </div>
-                            <div class="card-carousel--card" value="XMLElement">
-                                <img src="../images/commands/vs/XMLElement@2x.png">
-                                <div class="card-carousel--card--footer">XML Element</div>
-                            </div>
-                            <div class="card-carousel--card" value="Paste">
-                                <img src="../images/commands/vs/Paste@2x.png">
-                                <div class="card-carousel--card--footer">Paste</div>
-                            </div> -->
+                            <!--
+                        <div class="card-carousel--card" value="Output">
+                            <img src="../images/commands/vs/Output@2x.png">
+                            <div class="card-carousel--card--footer">Output</div>
+                        </div>
+                         -->
                         </div>
                     </div>
                 </div>
@@ -4495,6 +4478,6 @@
         </div>
 
     </div>
-	<script src="js/property-inspector.js"></script>
+            <script src="js/property-inspector.js"></script>
 </body>
 </html>

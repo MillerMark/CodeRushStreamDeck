@@ -5,7 +5,8 @@ var websocket = null,
   inInfo = null,
   actionInfo = {},
   settingsModel = {
-    Command: ''
+    Command: '',
+    Parameters: ''
   };
 
 function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, inActionInfo) {
@@ -17,9 +18,14 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
   //initialize values
   if (actionInfo.payload.settings.settingsModel) {
     settingsModel.Command = actionInfo.payload.settings.settingsModel.Command;
+    settingsModel.Parameters = actionInfo.payload.settings.settingsModel.Parameters;
   }
 
   document.getElementById('txtCommandValue').value = settingsModel.Command;
+  if (settingsModel.Parameters)
+    document.getElementById('txtParametersValue').value = settingsModel.Parameters;
+  else
+    document.getElementById('txtParametersValue').value = '';
 
   websocket.onopen = function () {
     var json = { event: inRegisterEvent, uuid: inUUID };
@@ -30,7 +36,9 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
 
   websocket.onmessage = function (evt) {
     // Received message from Stream Deck
-    console.log('onmessage: ' + evt);
+    console.log('onmessage...');
+    console.log(evt);
+    console.log(``);
     var jsonObj = JSON.parse(evt.data);
     var sdEvent = jsonObj['event'];
     switch (sdEvent) {
@@ -38,6 +46,10 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
         if (jsonObj.payload.settings.settingsModel.Command) {
           settingsModel.Command = jsonObj.payload.settings.settingsModel.Command;
           document.getElementById('txtCommandValue').value = settingsModel.Command;
+        }
+        if (jsonObj.payload.settings.settingsModel.Parameters) {
+          settingsModel.Parameters = jsonObj.payload.settings.settingsModel.Parameters;
+          document.getElementById('txtParametersValue').value = settingsModel.Parameters;
         }
         break;
       case "sendToPropertyInspector":
@@ -256,6 +268,7 @@ function addSuggestedImages(images) {
     copyButton.innerHTML = '&#128203';  // copy button
     copyButton.className = 'card-carousel--copy';
     copyButton.setAttribute('value', images[i]);
+    copyButton.title = 'Copy file path to clipboard';
     footer.appendChild(copyButton);
   }
 
