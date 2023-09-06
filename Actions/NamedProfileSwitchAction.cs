@@ -24,7 +24,6 @@ namespace CodeRushStreamDeck
             if (!string.IsNullOrEmpty(SettingsModel.ProfileName))
             {
                 string uuid = Manager.GetInstanceUuid();
-                //const string xlRight = "EA7156E07669CF0850A6A747AE71EC5E";
                 await Manager.SwitchToProfileAsync(uuid, args.device, SettingsModel.ProfileName);
             }
         }

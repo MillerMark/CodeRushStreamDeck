@@ -17,6 +17,7 @@ using Newtonsoft.Json;
 
 namespace CodeRushStreamDeck
 {
+
     class Program
     {
         static async Task Main(string[] args)
@@ -26,9 +27,9 @@ namespace CodeRushStreamDeck
             CommunicationServer.Start();
             using (var config = StreamDeckLib.Config.ConfigurationBuilder.BuildDefaultConfiguration(args))
             {
-                await ConnectionManager.Initialize(args, config.LoggerFactory)
-                                                             .RegisterAllActions(typeof(Program).Assembly)
-                                                             .StartAsync();
+                var connectionManager = ConnectionManager.Initialize(args, config.LoggerFactory);
+                StreamDeck.SetConnectionManager(connectionManager);
+                await connectionManager.RegisterAllActions(typeof(Program).Assembly).StartAsync();
             }
         }
 

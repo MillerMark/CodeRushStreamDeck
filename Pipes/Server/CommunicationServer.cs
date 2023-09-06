@@ -52,6 +52,10 @@ namespace Pipes.Server
                     var showAlertOnStreamDeck = JsonConvert.DeserializeObject<ShowAlertOnStreamDeck>(streamDeckData.Data);
                     ButtonTracker.ShowAlert(showAlertOnStreamDeck.ButtonID);
                     break;
+                case nameof(SwitchToProfileOnStreamDeck):
+                    var switchToProfileOnStreamDeck = JsonConvert.DeserializeObject<SwitchToProfileOnStreamDeck>(streamDeckData.Data);
+                    StreamDeck.SwitchToProfile(switchToProfileOnStreamDeck.ProfileName, switchToProfileOnStreamDeck.DeviceId);
+                    break;
             }
             //ShowListeningOnStreamDeck
             //FromCodeRushData
