@@ -12,15 +12,14 @@ using PipeCore;
 
 namespace CodeRushStreamDeck
 {
-
-    public abstract class BaseFindSymbolAction : BaseStreamDeckAction // BaseStreamDeckActionWithSettingsModel<Models.CounterSettingsModel>
+    public abstract class BaseFindSymbolAction : BaseStreamDeckAction, IStreamDeckButton
     {
         public abstract string SymbolName { get; }
         public virtual string SpokenWordsStart { get; } = string.Empty;
         public virtual string SpokenWordsEnd { get; } = string.Empty;
 
         static Dictionary<string, BaseFindSymbolAction> keysDown = new();
-        protected string id = Guid.NewGuid().ToString();
+        protected string buttonInstanceId = Guid.NewGuid().ToString();
         string lastContext;
         public BaseFindSymbolAction()
         {
@@ -29,7 +28,7 @@ namespace CodeRushStreamDeck
         VoiceCommandData GetVoiceCommandData()
         {
             VoiceCommandData voiceCommandData = new VoiceCommandData();
-            CommandHelper.InitializeCommandData(voiceCommandData, id);
+            CommandHelper.InitializeCommandData(voiceCommandData, buttonInstanceId);
             voiceCommandData.SpokenWordsStart = SpokenWordsStart;
             voiceCommandData.SpokenWordsEnd = SpokenWordsEnd;
             voiceCommandData.ButtonState = ButtonState.Down;
@@ -40,14 +39,15 @@ namespace CodeRushStreamDeck
         {
             await base.OnKeyDown(args);
             lastContext = args.context;
-            keysDown.TryAdd(id, this);
+            keysDown.TryAdd(buttonInstanceId, this);
+            ButtonTracker.OnKeyDown(buttonInstanceId, this);
             string data = JsonConvert.SerializeObject(GetVoiceCommandData());
             CommunicationServer.SendMessageToCodeRush(data, nameof(VoiceCommandData));
         }
 
         void SendCommandToCodeRush(string command, ButtonState buttonState)
         {
-            string data = JsonConvert.SerializeObject(CommandHelper.GetCommandData(command, buttonState, id));
+            string data = JsonConvert.SerializeObject(CommandHelper.GetCommandData(command, buttonState, buttonInstanceId));
             CommunicationServer.SendMessageToCodeRush(data, nameof(CommandData));
         }
 
@@ -64,22 +64,17 @@ namespace CodeRushStreamDeck
             //update settings
             //await Manager.SetSettingsAsync(args.context, SettingsModel);
 
-            keysDown.Remove(id);
+            keysDown.Remove(buttonInstanceId);
             
             SendCommandToCodeRush(StreamDeckCommands.StopListening, ButtonState.Up);
             await ClearTitle(args);
         }
 
-        public override async Task OnDidReceiveSettings(StreamDeckEventPayload args)
+        public override Task OnWillAppear(StreamDeckEventPayload args)
         {
-            await base.OnDidReceiveSettings(args);
-            //await Manager.SetTitleAsync(args.context, SettingsModel.Counter.ToString());
-        }
-
-        public override async Task OnWillAppear(StreamDeckEventPayload args)
-        {
-            await base.OnWillAppear(args);
-            await ClearTitle(args);
+            base.OnWillAppear(args).FireAndForget();
+            ClearTitle(args).FireAndForget();
+            return Task.CompletedTask;
         }
 
         private async Task ClearTitle(StreamDeckEventPayload args)
@@ -126,6 +121,11 @@ namespace CodeRushStreamDeck
         public override Task OnDeviceDidDisconnect(StreamDeckEventPayload args)
         {
             return base.OnDeviceDidDisconnect(args);
+        }
+
+        public async void ShowAlert()
+        {
+            await Manager.ShowAlertAsync(lastContext);
         }
     }
 }

@@ -405,3 +405,4 @@ Pipes/Client/MessageSenderClient.cs
 Pipes/Client/MessageReceiverClient.cs
 MakePipes.bat
 images/commands/vs/
+StreamDeckLib/

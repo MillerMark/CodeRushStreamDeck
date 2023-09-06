@@ -50,7 +50,7 @@ namespace Pipes.Server
                     break;
                 case nameof(ShowAlertOnStreamDeck):
                     var showAlertOnStreamDeck = JsonConvert.DeserializeObject<ShowAlertOnStreamDeck>(streamDeckData.Data);
-                    BaseFindSymbolAction.ShowAlert(showAlertOnStreamDeck.ButtonID);
+                    ButtonTracker.ShowAlert(showAlertOnStreamDeck.ButtonID);
                     break;
             }
             //ShowListeningOnStreamDeck

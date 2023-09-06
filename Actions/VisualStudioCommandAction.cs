@@ -17,27 +17,29 @@ namespace CodeRushStreamDeck
 {
     // We have to here                                | << String end quotes must end before this pipe symbol (31 characters)
     [ActionUuid(Uuid = "com.devex.cr.exec.vs.command")]
-    public class VisualStudioCommandAction : BaseStreamDeckActionWithSettingsModel<Models.VisualStudioCommandModel>
+    public class VisualStudioCommandAction : BaseStreamDeckActionWithSettingsModel<Models.VisualStudioCommandModel>, IStreamDeckButton
     {
-        protected string id = Guid.NewGuid().ToString();
+        protected string buttonInstanceId = Guid.NewGuid().ToString();
         public VisualStudioCommandAction()
         {
         }
 
-        static bool useFullProfileName = false;
         public override async Task OnKeyDown(StreamDeckEventPayload args)
         {
+            lastContext = args.context;
             await base.OnKeyDown(args);
+            ButtonTracker.OnKeyDown(buttonInstanceId, this);
             if (!string.IsNullOrEmpty(SettingsModel.Command))
             {
                 SendVisualStudioCommandToCodeRush(SettingsModel.Command, SettingsModel.Parameters, ButtonState.Down);
             }
             else
             {
+                // TODO: Remove this test code:
                 string uuid = Manager.GetInstanceUuid();
 
                 const string xlRight = "EA7156E07669CF0850A6A747AE71EC5E";
-                const string profileName = "CodeRushDebug";
+                const string profileName = "VS Debug";
                 await Manager.SwitchToProfileAsync(uuid, xlRight, profileName);
             }
         }
@@ -67,7 +69,7 @@ namespace CodeRushStreamDeck
 
         void SendVisualStudioCommandToCodeRush(string command, string parameters, ButtonState buttonState)
         {
-            string data = JsonConvert.SerializeObject(CommandHelper.GetVisualStudioCommandData(command, parameters, buttonState, id));
+            string data = JsonConvert.SerializeObject(CommandHelper.GetVisualStudioCommandData(command, parameters, buttonState, buttonInstanceId));
             CommunicationServer.SendMessageToCodeRush(data, nameof(VisualStudioCommandData));
         }
 
@@ -110,6 +112,7 @@ namespace CodeRushStreamDeck
         }
 
         bool commandHandled;
+        string lastContext;
         public override async Task OnDidReceiveSettings(StreamDeckEventPayload args)
         {
             await base.OnDidReceiveSettings(args);
@@ -170,6 +173,11 @@ namespace CodeRushStreamDeck
                 obj.Images.Add(item.FileName);
 
             await Manager.SendToPropertyInspectorAsync(args.context, obj);
+        }
+
+        public async void ShowAlert()
+        {
+            await Manager.ShowAlertAsync(lastContext);
         }
     }
 }

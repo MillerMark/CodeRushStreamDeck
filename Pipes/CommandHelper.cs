@@ -5,18 +5,18 @@ namespace PipeCore
 {
     public static class CommandHelper
     {
-        public static void InitializeCommandData(ButtonStreamDeckData buttonData, string id)
+        public static void InitializeCommandData(ButtonStreamDeckData buttonData, string buttonInstanceId)
         {
             buttonData.StreamDeckPluginVersion_Major = Version.Major;
             buttonData.StreamDeckPluginVersion_Minor = Version.Minor;
-            buttonData.ButtonId = id;
+            buttonData.ButtonId = buttonInstanceId;
         }
 
-        public static CommandData GetCommandData(string command, ButtonState buttonState, string id)
+        public static CommandData GetCommandData(string command, ButtonState buttonState, string buttonInstanceId)
         {
             CommandData commandData = new CommandData() { Command = command };
             commandData.ButtonState = buttonState;
-            InitializeCommandData(commandData, id);
+            InitializeCommandData(commandData, buttonInstanceId);
             return commandData;
         }
 

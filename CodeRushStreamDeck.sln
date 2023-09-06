@@ -5,6 +5,10 @@ VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeRushStreamDeck", "CodeRushStreamDeck.csproj", "{D3D39DF0-233D-40DB-89ED-C129A4F114EB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StreamDeckLib", "C:\Users\Mark\Documents\StreamDeckToolkit2\src\StreamDeckLib\StreamDeckLib.csproj", "{E028FA88-C8C4-4AFB-91B6-24FAA4F23A77}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StreamDeckLib.Config", "C:\Users\Mark\Documents\StreamDeckToolkit2\src\StreamDeckLib.Config\StreamDeckLib.Config.csproj", "{F7846867-196D-4099-9860-5E130F2FA344}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,22 @@ Global
 		{D3D39DF0-233D-40DB-89ED-C129A4F114EB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D3D39DF0-233D-40DB-89ED-C129A4F114EB}.Release|x64.ActiveCfg = Release|Any CPU
 		{D3D39DF0-233D-40DB-89ED-C129A4F114EB}.Release|x64.Build.0 = Release|Any CPU
+		{E028FA88-C8C4-4AFB-91B6-24FAA4F23A77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E028FA88-C8C4-4AFB-91B6-24FAA4F23A77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E028FA88-C8C4-4AFB-91B6-24FAA4F23A77}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E028FA88-C8C4-4AFB-91B6-24FAA4F23A77}.Debug|x64.Build.0 = Debug|Any CPU
+		{E028FA88-C8C4-4AFB-91B6-24FAA4F23A77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E028FA88-C8C4-4AFB-91B6-24FAA4F23A77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E028FA88-C8C4-4AFB-91B6-24FAA4F23A77}.Release|x64.ActiveCfg = Release|Any CPU
+		{E028FA88-C8C4-4AFB-91B6-24FAA4F23A77}.Release|x64.Build.0 = Release|Any CPU
+		{F7846867-196D-4099-9860-5E130F2FA344}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7846867-196D-4099-9860-5E130F2FA344}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7846867-196D-4099-9860-5E130F2FA344}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F7846867-196D-4099-9860-5E130F2FA344}.Debug|x64.Build.0 = Debug|Any CPU
+		{F7846867-196D-4099-9860-5E130F2FA344}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7846867-196D-4099-9860-5E130F2FA344}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7846867-196D-4099-9860-5E130F2FA344}.Release|x64.ActiveCfg = Release|Any CPU
+		{F7846867-196D-4099-9860-5E130F2FA344}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

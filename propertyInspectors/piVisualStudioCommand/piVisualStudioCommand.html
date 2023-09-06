@@ -4,7 +4,7 @@
 	<meta charset="utf-8" />
 	<title>Visual Studio Command Property Inspector</title>
 	<link rel="stylesheet" href="css/sdpi.css">
-	<link rel="stylesheet" href="css/property-inspector.css">
+	<link rel="stylesheet" href="css/piVisualStudioCommand.css">
 </head>
 <body>
     <div class="sdpi-wrapper">
@@ -17,7 +17,7 @@
     -->
 
         <div class="sdpi-item" id="command_value">
-            <div class="sdpi-item-label">Command:</div>
+            <div class="sdpi-item-label">Command</div>
             <div style="overflow-y: auto; max-height: 150px;">
                 <input list="cbCommands" id="txtCommandValue" onchange="setSettings(event.target.value, 'Command')" style="width: 230px;">
                 <datalist id="cbCommands" class="sdpi-item-value" style="width: 280px;">
@@ -4446,7 +4446,7 @@
             </div>
         </div>
         <div class="sdpi-item" id="parameters_value">
-            <div class="sdpi-item-label">Parameters:</div>
+            <div class="sdpi-item-label">Parameters</div>
             <div style="overflow-y: auto; max-height: 150px;">
                 <input type="text" id="txtParametersValue" onchange="setSettings(event.target.value, 'Parameters')" style="width: 230px;">
             </div>
@@ -4478,6 +4478,6 @@
         </div>
 
     </div>
-            <script src="js/property-inspector.js"></script>
+            <script src="js/piVisualStudioCommand.js"></script>
 </body>
 </html>

@@ -43,6 +43,9 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
     var sdEvent = jsonObj['event'];
     switch (sdEvent) {
       case "didReceiveSettings":
+        console.log(`didReceiveSettings/jsonObj.payload.settings.settingsModel...`);
+        console.log(jsonObj.payload.settings.settingsModel);
+        console.log(``);
         if (jsonObj.payload.settings.settingsModel.Command) {
           settingsModel.Command = jsonObj.payload.settings.settingsModel.Command;
           document.getElementById('txtCommandValue').value = settingsModel.Command;
@@ -66,11 +69,11 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
 }
 
 const setSettings = (value, param) => {
-  //console.log(`setSettings: value...`);
-  //console.log(value);
-  //console.log(`setSettings: param...`);
-  //console.log(param);
-  //console.log(``);
+  console.log(`setSettings: value...`);
+  console.log(value);
+  console.log(`setSettings: param...`);
+  console.log(param);
+  console.log(``);
   if (websocket) {
     // Reset temporary values...
     settingsModel["OverrideCommand"] = '';
@@ -256,7 +259,7 @@ function addSuggestedImages(images) {
 
 
     const image = document.createElement('img');
-    image.src = `../images/commands/vs/${images[i]}@2x.png`;
+    image.src = `../../images/commands/vs/${images[i]}@2x.png`;
     parentDiv.appendChild(image);
 
     const footer = document.createElement('div');

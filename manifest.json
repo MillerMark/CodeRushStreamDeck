@@ -176,10 +176,47 @@
         }
       ],
       "UserTitleEnabled": true,
-      "SupportedInMultiActions": false,
-      "PropertyInspectorPath": "property_inspector/property_inspector.html",
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "propertyInspectors/piVisualStudioCommand/piVisualStudioCommand.html",
       "Tooltip": "Executes the specified Visual Studio command.",
       "UUID": "com.devex.cr.exec.vs.command"
+    },
+    {
+      "Icon": "images/vsCommand",
+      "Name": "Switch to Named Profile",
+      "States": [
+        {
+          "Name": "ready",
+          "Image": "images/vsCommand",
+          "ShowTitle": true,
+          "TitleColor": "#ffffff",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "UserTitleEnabled": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "propertyInspectors/piNamedProfileSwitch/piNamedProfileSwitch.html",
+      "Tooltip": "Switches to the named profile.",
+      "UUID": "com.devexpress.coderush.named.profile.switch"
+    },
+    {
+      "Icon": "images/profileIndicator",
+      "Name": "Profile Indicator",
+      "States": [
+        {
+          "Name": "ready",
+          "Image": "images/profileIndicator",
+          "ShowTitle": true,
+          "TitleColor": "#ffffff",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "UserTitleEnabled": true,
+      "SupportedInMultiActions": false,
+      "Tooltip": "Indicates a selected profile page.",
+      "UUID": "com.devexpress.coderush.section.indicator"
     }
   ],
   "Category": "CodeRush",
@@ -189,7 +226,43 @@
   "CodePath": "CodeRushStreamDeck.exe",
   "Profiles": [
     {
-      "Name": "CodeRushDebug",
+      "Name": "VS Debug",
+      "DeviceType": 2,
+      "Readonly": false,
+      "DontAutoSwitchWhenInstalled": true
+    },
+    {
+      "Name": "VS Tool Windows",
+      "DeviceType": 2,
+      "Readonly": false,
+      "DontAutoSwitchWhenInstalled": true
+    },
+    {
+      "Name": "VS Navigation",
+      "DeviceType": 2,
+      "Readonly": false,
+      "DontAutoSwitchWhenInstalled": true
+    },
+    {
+      "Name": "VS Refactor",
+      "DeviceType": 2,
+      "Readonly": false,
+      "DontAutoSwitchWhenInstalled": true
+    },
+    {
+      "Name": "VS Xaml Forms",
+      "DeviceType": 2,
+      "Readonly": false,
+      "DontAutoSwitchWhenInstalled": true
+    },
+    {
+      "Name": "VS Build",
+      "DeviceType": 2,
+      "Readonly": false,
+      "DontAutoSwitchWhenInstalled": true
+    },
+    {
+      "Name": "VS Main",
       "DeviceType": 2,
       "Readonly": false,
       "DontAutoSwitchWhenInstalled": false
