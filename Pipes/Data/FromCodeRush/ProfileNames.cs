@@ -8,6 +8,7 @@
         public const string XamlForms = "VS Xaml Forms";
         public const string Navigation = "VS Navigation";
         public const string Build = "VS Build";
+        public const string Test = "VS Test";
         public const string Refactor = "VS Refactor";
     }
 }

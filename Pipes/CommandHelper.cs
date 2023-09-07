@@ -5,18 +5,23 @@ namespace PipeCore
 {
     public static class CommandHelper
     {
-        public static void InitializeCommandData(ButtonStreamDeckData buttonData, string buttonInstanceId)
+        public static void InitializeButtonData(ButtonStreamDeckData buttonData, string buttonInstanceId)
         {
-            buttonData.StreamDeckPluginVersion_Major = Version.Major;
-            buttonData.StreamDeckPluginVersion_Minor = Version.Minor;
+            InitializeFromStreamDeckData(buttonData); 
             buttonData.ButtonId = buttonInstanceId;
+        }
+
+        private static void InitializeFromStreamDeckData(FromStreamDeckData commandData)
+        {
+            commandData.StreamDeckPluginVersion_Major = Version.Major;
+            commandData.StreamDeckPluginVersion_Minor = Version.Minor;
         }
 
         public static CommandData GetCommandData(string command, ButtonState buttonState, string buttonInstanceId)
         {
             CommandData commandData = new CommandData() { Command = command };
             commandData.ButtonState = buttonState;
-            InitializeCommandData(commandData, buttonInstanceId);
+            InitializeButtonData(commandData, buttonInstanceId);
             return commandData;
         }
 
@@ -25,8 +30,15 @@ namespace PipeCore
             VisualStudioCommandData visualStudioCommandData = new VisualStudioCommandData() { Command = command };
             visualStudioCommandData.ButtonState = buttonState;
             visualStudioCommandData.Parameters = parameters;
-            InitializeCommandData(visualStudioCommandData, id);
+            InitializeButtonData(visualStudioCommandData, id);
             return visualStudioCommandData;
+        }
+
+        public static DeviceInformation GetDeviceInformation()
+        {
+            DeviceInformation deviceInformation = new DeviceInformation();
+            InitializeFromStreamDeckData(deviceInformation);
+            return deviceInformation;
         }
     }
 }

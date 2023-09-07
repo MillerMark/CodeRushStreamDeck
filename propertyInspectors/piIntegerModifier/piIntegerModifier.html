@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Visual Studio Command Property Inspector</title>
+	<link rel="stylesheet" href="css/sdpi.css">
+	<link rel="stylesheet" href="css/piIntegerModifier.css">
+</head>
+<body>
+    <div class="sdpi-wrapper">
+        <!-- for more examples of the types of fields supported in property inspector visit:
+            Elgato Github PiSamples -> https://github.com/elgatosf/streamdeck-pisamples
+            and
+            Elgato SDK Documentation -> https://developer.elgato.com/documentation/stream-deck/sdk/property-inspector/
+
+
+    -->
+
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Variable Name</div>
+            <input id="txtVariableName" onchange="setSettings(event.target.value, 'VariableName')" style="width: 230px;">
+        </div>
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Value</div>
+            <input id="txtValue" onchange="setSettings(event.target.value, 'Value')" style="width: 50px;">
+        </div>
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Min Value</div>
+            <input id="txtMin" onchange="setSettings(event.target.value, 'Min')" style="width: 50px;">
+        </div>
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Max Value</div>
+            <input id="txtMax" onchange="setSettings(event.target.value, 'Max')" style="width: 50px;">
+        </div>
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Delta</div>
+            <input id="txtDelta" onchange="setSettings(event.target.value, 'Delta')" style="width: 50px;">
+        </div>
+    </div>
+    <script src="js/piIntegerModifier.js"></script>
+</body>
+</html>

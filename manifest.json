@@ -217,6 +217,44 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Indicates a selected profile page.",
       "UUID": "com.devexpress.coderush.section.indicator"
+    },
+    {
+      "Icon": "images/vsCommand",
+      "Name": "Int Var Modifier",
+      "States": [
+        {
+          "Name": "ready",
+          "Image": "images/vsCommand",
+          "ShowTitle": true,
+          "TitleColor": "#ffffff",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "UserTitleEnabled": true,
+      "SupportedInMultiActions": false,
+      "Tooltip": "Modifies an integer variable.",
+      "PropertyInspectorPath": "propertyInspectors/piIntegerModifier/piIntegerModifier.html",
+      "UUID": "com.devexpress.coderush.integer.modifier"
+    },
+    {
+      "Icon": "images/vsCommand",
+      "Name": "String Var Modifier",
+      "States": [
+        {
+          "Name": "ready",
+          "Image": "images/vsCommand",
+          "ShowTitle": true,
+          "TitleColor": "#ffffff",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "UserTitleEnabled": true,
+      "SupportedInMultiActions": false,
+      "Tooltip": "Sets a global string variable to a specified value.",
+      "PropertyInspectorPath": "propertyInspectors/piStringModifier/piStringModifier.html",
+      "UUID": "com.devexpress.coderush.string.modifier"
     }
   ],
   "Category": "CodeRush",
@@ -257,6 +295,12 @@
     },
     {
       "Name": "VS Build",
+      "DeviceType": 2,
+      "Readonly": false,
+      "DontAutoSwitchWhenInstalled": true
+    },
+    {
+      "Name": "VS Test",
       "DeviceType": 2,
       "Readonly": false,
       "DontAutoSwitchWhenInstalled": true

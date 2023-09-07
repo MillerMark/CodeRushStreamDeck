@@ -9,6 +9,5 @@ namespace DevExpress.CodeRush.Foundation.Pipes.Data {
     {
         public string ButtonId { get; set; }
         public ButtonState ButtonState { get; set; }
-        // TODO: More data!!!
     }
 }

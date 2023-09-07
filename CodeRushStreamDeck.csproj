@@ -93,15 +93,24 @@
 	  <None Remove="images\symbols\structListening.png" />
 	  <None Remove="images\vsCommand.png" />
 	  <None Remove="images\vsCommand@2x.png" />
+	  <None Remove="propertyInspectors\piStringModifier\css\piStringModifier.css" />
+	  <None Remove="propertyInspectors\piStringModifier\css\sdpi.css" />
+	  <None Remove="propertyInspectors\piIntegerModifier\css\piIntegerModifier.css" />
+	  <None Remove="propertyInspectors\piIntegerModifier\css\sdpi.css" />
+	  <None Remove="propertyInspectors\piIntegerModifier\js\piIntegerModifier.js" />
+	  <None Remove="propertyInspectors\piIntegerModifier\piIntegerModifier.html" />
 	  <None Remove="propertyInspectors\piNamedProfileSwitch\css\piNamedProfileSwitch.css" />
 	  <None Remove="propertyInspectors\piNamedProfileSwitch\css\sdpi.css" />
 	  <None Remove="propertyInspectors\piNamedProfileSwitch\js\piNamedProfileSwitch.js" />
 	  <None Remove="propertyInspectors\piNamedProfileSwitch\piNamedProfileSwitch.html" />
+	  <None Remove="propertyInspectors\piStringModifier\js\piStringModifier.js" />
+	  <None Remove="propertyInspectors\piStringModifier\piStringModifier.html" />
 	  <None Remove="VS Build.streamDeckProfile" />
 	  <None Remove="VS Debug.streamDeckProfile" />
 	  <None Remove="VS Main.streamDeckProfile" />
 	  <None Remove="VS Navigation.streamDeckProfile" />
 	  <None Remove="VS Refactor.streamDeckProfile" />
+	  <None Remove="VS Test.streamDeckProfile" />
 	  <None Remove="VS Tool Windows.streamDeckProfile" />
 	  <None Remove="VS Xaml Forms.streamDeckProfile" />
 	</ItemGroup>
@@ -321,6 +330,30 @@
 		<Content Include="images/category/categoryIcon@2x.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<Content Include="propertyInspectors\piStringModifier\css\piStringModifier.css">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="propertyInspectors\piStringModifier\css\sdpi.css">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="propertyInspectors\piStringModifier\js\piStringModifier.js">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="propertyInspectors\piStringModifier\piStringModifier.html">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="propertyInspectors\piIntegerModifier\css\piIntegerModifier.css">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="propertyInspectors\piIntegerModifier\css\sdpi.css">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="propertyInspectors\piIntegerModifier\js\piIntegerModifier.js">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="propertyInspectors\piIntegerModifier\piIntegerModifier.html">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 		<Content Include="propertyInspectors\piNamedProfileSwitch\css\piNamedProfileSwitch.css">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
@@ -377,6 +410,9 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="VS Refactor.streamDeckProfile">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="VS Test.streamDeckProfile">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="VS Tool Windows.streamDeckProfile">

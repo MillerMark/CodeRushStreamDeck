@@ -48,6 +48,10 @@ namespace Pipes.Server
                     var showVolumeOnStreamDeck = JsonConvert.DeserializeObject<ShowVolumeOnStreamDeck>(streamDeckData.Data);
                     BaseFindSymbolAction.UpdateVolume(showVolumeOnStreamDeck.ButtonID, showVolumeOnStreamDeck.Volume);
                     break;
+                case nameof(CommandToStreamDeckPlugin):
+                    var commandToStreamDeck = JsonConvert.DeserializeObject<CommandToStreamDeckPlugin>(streamDeckData.Data);
+                    StreamDeck.HandleCommandFromCodeRush(commandToStreamDeck.Command);
+                    break;
                 case nameof(ShowAlertOnStreamDeck):
                     var showAlertOnStreamDeck = JsonConvert.DeserializeObject<ShowAlertOnStreamDeck>(streamDeckData.Data);
                     ButtonTracker.ShowAlert(showAlertOnStreamDeck.ButtonID);

@@ -134,7 +134,6 @@ namespace CodeRushStreamDeck
                 await ShowImage(args);
                 // TODO: Load selected image...
                 SettingsModel.SelectedImage = string.Empty;
-                await Manager.SetSettingsAsync("ImageFileName", SettingsModel.ImageFileName);
                 return;
             }
 

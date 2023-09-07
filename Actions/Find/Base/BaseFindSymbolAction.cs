@@ -28,7 +28,7 @@ namespace CodeRushStreamDeck
         VoiceCommandData GetVoiceCommandData()
         {
             VoiceCommandData voiceCommandData = new VoiceCommandData();
-            CommandHelper.InitializeCommandData(voiceCommandData, buttonInstanceId);
+            CommandHelper.InitializeButtonData(voiceCommandData, buttonInstanceId);
             voiceCommandData.SpokenWordsStart = SpokenWordsStart;
             voiceCommandData.SpokenWordsEnd = SpokenWordsEnd;
             voiceCommandData.ButtonState = ButtonState.Down;
@@ -66,7 +66,7 @@ namespace CodeRushStreamDeck
 
             keysDown.Remove(buttonInstanceId);
             
-            SendCommandToCodeRush(StreamDeckCommands.StopListening, ButtonState.Up);
+            SendCommandToCodeRush(CommandsFromStreamDeck.StopListening, ButtonState.Up);
             await ClearTitle(args);
         }
 
