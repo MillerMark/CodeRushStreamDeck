@@ -51,10 +51,42 @@
 	  <None Remove="images\actions\method.png" />
 	  <None Remove="images\actions\property%402x.png" />
 	  <None Remove="images\actions\property.png" />
+	  <None Remove="images\actions\stringModifier%402x.png" />
+	  <None Remove="images\actions\stringModifier.png" />
 	  <None Remove="images\actions\struct%402x.png" />
 	  <None Remove="images\actions\struct.png" />
+	  <None Remove="images\controls\radioButtonBlue%402x.png" />
+	  <None Remove="images\controls\radioButtonBlue.png" />
+	  <None Remove="images\controls\radioButtonBlueSelected%402x.png" />
+	  <None Remove="images\controls\radioButtonBlueSelected.png" />
+	  <None Remove="images\controls\radioButtonGreen%402x.png" />
+	  <None Remove="images\controls\radioButtonGreen.png" />
+	  <None Remove="images\controls\radioButtonGreenSelected%402x.png" />
+	  <None Remove="images\controls\radioButtonGreenSelected.png" />
+	  <None Remove="images\controls\radioButtonOrange%402x.png" />
+	  <None Remove="images\controls\radioButtonOrange.png" />
+	  <None Remove="images\controls\radioButtonOrangeSelected%402x.png" />
+	  <None Remove="images\controls\radioButtonOrangeSelected.png" />
+	  <None Remove="images\controls\radioButtonPurple%402x.png" />
+	  <None Remove="images\controls\radioButtonPurple.png" />
+	  <None Remove="images\controls\radioButtonPurpleSelected%402x.png" />
+	  <None Remove="images\controls\radioButtonPurpleSelected.png" />
+	  <None Remove="images\controls\radioButtonRed%402x.png" />
+	  <None Remove="images\controls\radioButtonRed.png" />
+	  <None Remove="images\controls\radioButtonRedSelected%402x.png" />
+	  <None Remove="images\controls\radioButtonRedSelected.png" />
+	  <None Remove="images\controls\radioButtonTeal%402x.png" />
+	  <None Remove="images\controls\radioButtonTeal.png" />
+	  <None Remove="images\controls\radioButtonTealSelected%402x.png" />
+	  <None Remove="images\controls\radioButtonTealSelected.png" />
+	  <None Remove="images\controls\radioButtonYellow%402x.png" />
+	  <None Remove="images\controls\radioButtonYellow.png" />
+	  <None Remove="images\controls\radioButtonYellowSelected%402x.png" />
+	  <None Remove="images\controls\radioButtonYellowSelected.png" />
 	  <None Remove="images\profileIndicator%402x.png" />
 	  <None Remove="images\profileIndicator.png" />
+	  <None Remove="images\stringModifier%402x.png" />
+	  <None Remove="images\stringModifier.png" />
 	  <None Remove="images\symbols\class%402x.png" />
 	  <None Remove="images\symbols\class.png" />
 	  <None Remove="images\symbols\classListening%402x.png" />
@@ -106,6 +138,7 @@
 	  <None Remove="propertyInspectors\piStringModifier\js\piStringModifier.js" />
 	  <None Remove="propertyInspectors\piStringModifier\piStringModifier.html" />
 	  <None Remove="VS Build.streamDeckProfile" />
+	  <None Remove="VS Create Member.streamDeckProfile" />
 	  <None Remove="VS Debug.streamDeckProfile" />
 	  <None Remove="VS Main.streamDeckProfile" />
 	  <None Remove="VS Navigation.streamDeckProfile" />
@@ -176,16 +209,112 @@
 		<Content Include="images\actions\property@2x.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<Content Include="images\actions\stringModifier.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\actions\stringModifier@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 		<Content Include="images\actions\struct.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="images\actions\struct@2x.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<Content Include="images\controls\radioButtonBlue.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonBlue@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonBlueSelected.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonBlueSelected@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonGreen.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonGreen@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonGreenSelected.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonGreenSelected@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonOrange.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonOrange@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonOrangeSelected.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonOrangeSelected@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonPurple.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonPurple@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonPurpleSelected.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonPurpleSelected@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonRed.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonRed@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonRedSelected.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonRedSelected@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonTeal.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonTeal@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonTealSelected.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonTealSelected@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonYellow.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonYellow@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonYellowSelected.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\controls\radioButtonYellowSelected@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 		<Content Include="images\profileIndicator.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="images\profileIndicator@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\stringModifier.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\stringModifier@2x.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="images\symbols\class.png">
@@ -398,6 +527,9 @@
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</Content>
 		<Content Include="VS Build.streamDeckProfile">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="VS Create Member.streamDeckProfile">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="VS Debug.streamDeckProfile">

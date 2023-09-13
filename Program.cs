@@ -30,6 +30,7 @@ namespace CodeRushStreamDeck
                 var connectionManager = ConnectionManager.Initialize(args, config.LoggerFactory);
                 StreamDeck.SetConnectionManager(connectionManager);
                 await connectionManager.RegisterAllActions(typeof(Program).Assembly).StartAsync();
+                StreamDeck.Initialize();
             }
         }
 

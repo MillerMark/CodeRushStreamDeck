@@ -19,6 +19,7 @@ namespace CodeRushStreamDeck
         {
             ConnectionManager.DeviceDidConnect += ConnectionManager_DeviceDidConnect;
             ConnectionManager.DeviceDidDisconnect += ConnectionManager_DeviceDidDisconnect;
+            ConnectionManager.DidReceiveGlobalSettings += ConnectionManager_DidReceiveGlobalSettings;
         }
 
         private static void ConnectionManager_DeviceDidDisconnect(object sender, StreamDeckLib.Messages.StreamDeckEventPayload e)
@@ -29,6 +30,16 @@ namespace CodeRushStreamDeck
         private static void ConnectionManager_DeviceDidConnect(object sender, StreamDeckLib.Messages.StreamDeckEventPayload e)
         {
             StartupInfo.AddDevice(e.device, e.deviceInfo.type, e.deviceInfo.size);
+            InitializeIfNeeded();
+        }
+        static bool initialized;
+
+        static void InitializeIfNeeded()
+        {
+            if (initialized)
+                return;
+            initialized = true;
+            LoadGlobalSettings();
         }
 
         public static void SetConnectionManager(ConnectionManager connectionManager)
@@ -68,6 +79,28 @@ namespace CodeRushStreamDeck
         {
             if (command == CommandsFromCodeRush.GetDeviceInfo)
                 SendDeviceInfoToCodeRush();
+        }
+
+        public static async void SaveGlobalSettings()
+        {
+            string uuid = Manager.GetInstanceUuid();
+            await Manager.SetGlobalSettingsAsync(uuid, Variables.GetGlobalSettings());
+        }
+
+        public static async void LoadGlobalSettings()
+        {
+            string uuid = Manager.GetInstanceUuid();
+            await Manager.GetGlobalSettingsAsync(uuid);
+        }
+
+        private static void ConnectionManager_DidReceiveGlobalSettings(object sender, StreamDeckLib.Messages.StreamDeckEventPayload e)
+        {
+            Variables.SetFromGlobalSettings(e.payload);
+        }
+
+        public static void Initialize()
+        {
+            InitializeIfNeeded();
         }
 
         public static ConnectionManager Manager { get; private set; }

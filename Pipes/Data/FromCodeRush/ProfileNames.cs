@@ -9,6 +9,7 @@
         public const string Navigation = "VS Navigation";
         public const string Build = "VS Build";
         public const string Test = "VS Test";
+        public const string CreateMember = "VS Create Member";
         public const string Refactor = "VS Refactor";
     }
 }

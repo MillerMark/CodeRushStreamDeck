@@ -56,12 +56,12 @@ namespace CodeRushStreamDeck
             await base.OnKeyDown(args);
         }
 
-        public override Task OnWillAppear(StreamDeckEventPayload args)
+        public override async Task OnWillAppear(StreamDeckEventPayload args)
         {
+            await base.OnWillAppear(args);
             lastContext = args.context;
             if (Variables.ContainsIntVar(SettingsModel.VariableName))
                 SettingsModel.Value = Variables.GetInt(SettingsModel.VariableName);
-            return base.OnWillAppear(args);
         }
 
         public override Task OnDidReceiveSettings(StreamDeckEventPayload args)

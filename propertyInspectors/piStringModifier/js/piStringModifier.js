@@ -8,6 +8,8 @@ var websocket = null,
     VariableName: '',
     Value: '',
     CurrentValue: '',
+    Color: '',
+    AllowZeroSelected: false,
   };
 
 function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, inActionInfo) {
@@ -57,16 +59,33 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
     document.getElementById('txtVariableName').value = settingsModel.VariableName;
     document.getElementById('txtValue').value = settingsModel.Value;
     document.getElementById('txtCurrentValue').innerText = settingsModel.CurrentValue;
+    document.getElementById('ckAllowZeroSelected').checked = settingsModel.AllowZeroSelected;
+      
+    checkColor('Blue');
+    checkColor('Red');
+    checkColor('Green');
+    checkColor('Orange');
+    checkColor('Purple');
+    checkColor('Teal');
+    checkColor('Yellow');
+
+    function checkColor(color) {
+      if (settingsModel.Color === color) {
+        console.log(`rb${color}.checked = true;`);
+        document.getElementById('rb' + color).checked = true;
+      }
+    }
   }
 }
 
 // Called when values change on the Stream Deck property inspector.
 const setSettings = (value, param) => {
-  console.log(`setSettings: value...`);
-  console.log(value);
-  console.log(`setSettings: param...`);
-  console.log(param);
-  console.log(``);
+
+  if (param === 'AllowZeroSelected')
+    value = document.getElementById('ckAllowZeroSelected').checked;
+
+  console.log(`setSettings: ${param} = ${value}...`);
+
   if (websocket) {
     // Reset temporary values...
     settingsModel[param] = value;
@@ -87,4 +106,6 @@ function setSettingsModelFromPayload(payloadSettingsModel) {
   settingsModel.VariableName = payloadSettingsModel.VariableName;
   settingsModel.Value = payloadSettingsModel.Value;
   settingsModel.CurrentValue = payloadSettingsModel.CurrentValue;
+  settingsModel.Color = payloadSettingsModel.Color;
+  settingsModel.AllowZeroSelected = payloadSettingsModel.AllowZeroSelected;
 }

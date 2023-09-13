@@ -22,13 +22,38 @@
         </div>
         <div class="sdpi-item">
             <div class="sdpi-item-label">Value</div>
-            <input id="txtValue" onchange="setSettings(event.target.value, 'Value')" style="width: 50px;">
+            <input id="txtValue" onchange="setSettings(event.target.value, 'Value')" style="width: 230px;">
+        </div>
+
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Style</div>
+            <div>
+                <input id="ckAllowZeroSelected" type="checkbox" onchange="setSettings(event.target.value, 'AllowZeroSelected')" />
+                <label for="ckAllowZeroSelected" class="sdpi-item-label"><span></span>Allow zero selected</label>
+            </div>
+        </div>
+
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Color</div>
+            <input id="rbBlue" type="radio" onclick="setSettings('Blue', 'Color')" />
+            <label for="rbBlue" style="color: #005dba">███</label>
+            <input id="rbTeal" type="radio" onclick="setSettings('Teal', 'Color')" />
+            <label for="rbTeal" style="color: #0077a0">███</label>
+            <input id="rbGreen" type="radio" onclick="setSettings('Green', 'Color')" />
+            <label for="rbGreen" style="color: #1f801f">███</label>
+            <input id="rbPurple" type="radio" onclick="setSettings('Purple', 'Color')" />
+            <label for="rbPurple" style="color: #6936aa">███</label>
+            <input id="rbRed" type="radio" onclick="setSettings('Red', 'Color')" />
+            <label for="rbRed" style="color: #aa3030">███</label>
+            <input id="rbOrange" type="radio" onclick="setSettings('Orange', 'Color')" />
+            <label for="rbOrange" style="color: #ff850e">███</label>
+            <input id="rbYellow" type="radio" onclick="setSettings('Yellow', 'Color')" />
+            <label for="rbYellow" style="color: #ffdf0e">███</label>
         </div>
         <div class="sdpi-item">
             <div class="sdpi-item-label">Current Value</div>
             <label id="txtCurrentValue"></label>
         </div>
-        
     </div>
     <script src="js/piStringModifier.js"></script>
 </body>

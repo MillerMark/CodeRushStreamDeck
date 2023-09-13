@@ -238,12 +238,12 @@
       "UUID": "com.devexpress.coderush.integer.modifier"
     },
     {
-      "Icon": "images/vsCommand",
+      "Icon": "images/stringModifier",
       "Name": "String Var Modifier",
       "States": [
         {
           "Name": "ready",
-          "Image": "images/vsCommand",
+          "Image": "images/stringModifier",
           "ShowTitle": true,
           "TitleColor": "#ffffff",
           "TitleAlignment": "bottom",
@@ -301,6 +301,12 @@
     },
     {
       "Name": "VS Test",
+      "DeviceType": 2,
+      "Readonly": false,
+      "DontAutoSwitchWhenInstalled": true
+    },
+    {
+      "Name": "VS Create Member",
       "DeviceType": 2,
       "Readonly": false,
       "DontAutoSwitchWhenInstalled": true
