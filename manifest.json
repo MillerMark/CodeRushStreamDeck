@@ -255,6 +255,25 @@
       "Tooltip": "Sets a global string variable to a specified value.",
       "PropertyInspectorPath": "propertyInspectors/piStringModifier/piStringModifier.html",
       "UUID": "com.devexpress.coderush.string.modifier"
+    },
+    {
+      "Icon": "images/actions/CodeRushTemplate",
+      "Name": "Template Expand",
+      "States": [
+        {
+          "Name": "ready",
+          "Image": "images/CodeRushTemplate",
+          "ShowTitle": true,
+          "TitleColor": "#ffffff",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "UserTitleEnabled": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "propertyInspectors/piCodeRushTemplate/piCodeRushTemplate.html",
+      "Tooltip": "Expands the specified CodeRush template.",
+      "UUID": "com.devexpress.coderush.template.expand"
     }
   ],
   "Category": "CodeRush",

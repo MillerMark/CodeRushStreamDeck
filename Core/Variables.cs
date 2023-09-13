@@ -159,5 +159,32 @@ namespace CodeRushStreamDeck
                 }
             }
         }
+
+        public static List<string> GetAllStringVariableNames()
+        {
+            return stringVariables.Keys.ToList();
+        }
+
+        public static List<string> GetAllIntVariableNames()
+        {
+            return intVariables.Keys.ToList();
+        }
+
+        public static string Expand(string phrase)
+        {
+            List<string> allStringVars = GetAllStringVariableNames();
+            
+            const string escapedSlash = "___Slash___";
+            const string escapedDollarSign = "___Dollar___";
+
+            phrase = phrase.Replace("\\\\", escapedSlash);
+            phrase = phrase.Replace("\\$", escapedDollarSign);
+
+            allStringVars.ForEach(x => phrase = phrase.Replace($"${x}$", GetString(x)));
+
+            phrase = phrase.Replace(escapedDollarSign, "$");
+            phrase = phrase.Replace(escapedSlash, "\\");
+            return phrase;
+        }
     }
 }

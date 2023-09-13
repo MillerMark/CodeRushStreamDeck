@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Visual Studio Command Property Inspector</title>
+    <link rel="stylesheet" href="css/sdpi.css">
+    <link rel="stylesheet" href="css/piCodeRushTemplate.css">
+</head>
+<body>
+    <div class="sdpi-wrapper">
+        <!-- for more examples of the types of fields supported in property inspector visit:
+                Elgato Github PiSamples -> https://github.com/elgatosf/streamdeck-pisamples
+                and
+                Elgato SDK Documentation -> https://developer.elgato.com/documentation/stream-deck/sdk/property-inspector/
+
+
+        -->
+
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Template</div>
+            <div style="overflow-y: auto; max-height: 150px;">
+                <input id="txtTemplateToExpand" onchange="setSettings(event.target.value, 'TemplateToExpand')" style="width: 230px;">
+            </div>
+        </div>
+
+        <div class="sdpi-item">
+            <div>Surround Stream Deck variables with a "$". You can escape the "$" and "\" characters with a leading "\" to use it as a literal.</div>
+        </div>
+
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Full Template</div>
+            <label id="lbFullTemplateToExpand">-</label>
+        </div>
+
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Variables:</div>
+            <div style="overflow-y: auto; max-height: 150px;">
+                <textarea id="txtVariablesToSet" name="w3review" rows="4" cols="50" onchange="setSettings(event.target.value, 'VariablesToSet')"></textarea>
+            </div>
+        </div>
+
+        <div class="sdpi-item">
+            <div>List variables one per line, using this syntax:<br>variableName = value</div>
+        </div>
+
+        <script src="js/piCodeRushTemplate.js"></script>
+</body>
+</html>

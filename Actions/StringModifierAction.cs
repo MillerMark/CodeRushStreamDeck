@@ -35,6 +35,7 @@ namespace CodeRushStreamDeck
 
         public override async Task OnKeyDown(StreamDeckEventPayload args)
         {
+            await base.OnKeyDown(args);
             SettingsModel.CurrentValue = SettingsModel.Value;
 
             await Manager.SetSettingsAsync(args.context, SettingsModel);
@@ -52,8 +53,6 @@ namespace CodeRushStreamDeck
 
             if (SelectionStateHasChanged())
                 await LoadImage(args.context);
-
-            await base.OnKeyDown(args);
         }
 
         private bool SelectionStateHasChanged()

@@ -38,6 +38,8 @@
 	  <None Remove="CodeRushDebug.streamDeckProfile" />
 	  <None Remove="images\actions\class%402x.png" />
 	  <None Remove="images\actions\class.png" />
+	  <None Remove="images\actions\CodeRushTemplate%402x.png" />
+	  <None Remove="images\actions\CodeRushTemplate.png" />
 	  <None Remove="images\actions\enum.png" />
 	  <None Remove="images\actions\event%402x.png" />
 	  <None Remove="images\actions\event.png" />
@@ -55,6 +57,8 @@
 	  <None Remove="images\actions\stringModifier.png" />
 	  <None Remove="images\actions\struct%402x.png" />
 	  <None Remove="images\actions\struct.png" />
+	  <None Remove="images\CodeRushTemplate%402x.png" />
+	  <None Remove="images\CodeRushTemplate.png" />
 	  <None Remove="images\controls\radioButtonBlue%402x.png" />
 	  <None Remove="images\controls\radioButtonBlue.png" />
 	  <None Remove="images\controls\radioButtonBlueSelected%402x.png" />
@@ -125,6 +129,10 @@
 	  <None Remove="images\symbols\structListening.png" />
 	  <None Remove="images\vsCommand.png" />
 	  <None Remove="images\vsCommand@2x.png" />
+	  <None Remove="propertyInspectors\piCodeRushTemplate\css\piCodeRushTemplate.css" />
+	  <None Remove="propertyInspectors\piCodeRushTemplate\css\sdpi.css" />
+	  <None Remove="propertyInspectors\piCodeRushTemplate\js\piCodeRushTemplate.js" />
+	  <None Remove="propertyInspectors\piCodeRushTemplate\piCodeRushTemplate.html" />
 	  <None Remove="propertyInspectors\piStringModifier\css\piStringModifier.css" />
 	  <None Remove="propertyInspectors\piStringModifier\css\sdpi.css" />
 	  <None Remove="propertyInspectors\piIntegerModifier\css\piIntegerModifier.css" />
@@ -168,6 +176,12 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="images\actions\class@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\actions\CodeRushTemplate.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\actions\CodeRushTemplate@2x.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="images\actions\enum.png">
@@ -219,6 +233,12 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="images\actions\struct@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\CodeRushTemplate.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="images\CodeRushTemplate@2x.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="images\controls\radioButtonBlue.png">
@@ -458,6 +478,18 @@
 		</Content>
 		<Content Include="images/category/categoryIcon@2x.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="propertyInspectors\piCodeRushTemplate\css\piCodeRushTemplate.css">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="propertyInspectors\piCodeRushTemplate\css\sdpi.css">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="propertyInspectors\piCodeRushTemplate\js\piCodeRushTemplate.js">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="propertyInspectors\piCodeRushTemplate\piCodeRushTemplate.html">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="propertyInspectors\piStringModifier\css\piStringModifier.css">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
