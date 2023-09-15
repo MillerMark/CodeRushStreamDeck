@@ -3,27 +3,10 @@ using System.Linq;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using StreamDeckLib.Messages;
+using DevExpress.CodeRush.Foundation.Pipes.Data;
 
 namespace CodeRushStreamDeck
 {
-    public class GlobalSettingsModel
-    {
-        public List<string> Integers { get; set; } = new();
-        public List<string> Strings { get; set; } = new();
-
-        public GlobalSettingsModel()
-        {
-            
-        }
-    }
-    public class GlobalSettingsSaver
-    {
-        public GlobalSettingsModel settingsModel { get; set; }
-        public GlobalSettingsSaver()
-        {
-            
-        }
-    }
     public static class Variables
     {
         static Dictionary<string, string> stringVariables = new();
@@ -170,6 +153,12 @@ namespace CodeRushStreamDeck
             return intVariables.Keys.ToList();
         }
 
+        /// <summary>
+        /// Expands the specified phrase, converting .NET types to mnemonics as needed. See 
+        /// <seealso cref="DynamicListEntries"/> for a list of dynamic list elements added.
+        /// </summary>
+        /// <param name="phrase">The text to expand.</param>
+        /// <returns>The expanded string.</returns>
         public static string Expand(string phrase)
         {
             List<string> allStringVars = GetAllStringVariableNames();
@@ -179,12 +168,64 @@ namespace CodeRushStreamDeck
 
             phrase = phrase.Replace("\\\\", escapedSlash);
             phrase = phrase.Replace("\\$", escapedDollarSign);
-
-            allStringVars.ForEach(x => phrase = phrase.Replace($"${x}$", GetString(x)));
+            allStringVars.ForEach(x =>
+            {
+                string replacement = GetString(x);
+                string searchTerm = $"${x}$";
+                // phrase = m$genericType$$type$
+                // searchTerm = $type$
+                if (phrase.Contains(searchTerm))
+                {
+                    if (x == "type" && IsTypeFullName(replacement))
+                    {
+                        const string unlikelyCodeRushTypeMnemonic = "qz098";
+                        dynamicListEntries.Add(new DynamicListEntry() { Mnemonic = unlikelyCodeRushTypeMnemonic, ListVarName = "Type", Value = replacement });
+                        replacement = unlikelyCodeRushTypeMnemonic;
+                    }
+                    if (x == "genericType")
+                        if (IsGeneric1TypeFullName(replacement))
+                        {
+                            const string unlikelyCodeRushGenericType1Mnemonic = "yr281";
+                            dynamicListEntries.Add(new DynamicListEntry() { Mnemonic = unlikelyCodeRushGenericType1Mnemonic, ListVarName = "Generic1Type", Value = replacement });
+                            replacement = unlikelyCodeRushGenericType1Mnemonic + ".";
+                        }
+                        else if (IsGeneric2TypeFullName(replacement))
+                        {
+                            const string unlikelyCodeRushGenericType2Mnemonic = "mw937";
+                            dynamicListEntries.Add(new DynamicListEntry() { Mnemonic = unlikelyCodeRushGenericType2Mnemonic, ListVarName = "Generic2Type", Value = replacement });
+                            replacement = unlikelyCodeRushGenericType2Mnemonic + ".s,";  // Make the string the first type parameter.
+                        }
+                    phrase = phrase.Replace(searchTerm, replacement);
+                }
+            });
 
             phrase = phrase.Replace(escapedDollarSign, "$");
             phrase = phrase.Replace(escapedSlash, "\\");
             return phrase;
+        }
+
+        static bool IsTypeFullName(string value)
+        {
+            return !string.IsNullOrEmpty(value) && value.Length > 0 && char.IsUpper(value[0]);
+        }
+
+        static bool IsGeneric1TypeFullName(string value)
+        {
+            return IsTypeFullName(value) && value.EndsWith("<>");
+        }
+
+        static bool IsGeneric2TypeFullName(string value)
+        {
+            return IsTypeFullName(value) && value.EndsWith("<,>");
+        }
+
+        static List<DynamicListEntry> dynamicListEntries = new List<DynamicListEntry>();
+
+        public static List<DynamicListEntry> DynamicListEntries { get => dynamicListEntries; }
+
+        public static void ClearDynamicListEntries()
+        {
+            dynamicListEntries.Clear();
         }
     }
 }

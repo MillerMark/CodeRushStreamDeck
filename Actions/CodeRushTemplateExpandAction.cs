@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using StreamDeckLib;
@@ -35,6 +36,7 @@ namespace CodeRushStreamDeck
         
         private async void Variables_StringVarChanged(object sender, VarEventArgs<string> e)
         {
+            Variables.ClearDynamicListEntries();
             string newFullTemplateName = GetFullTemplateName();
             if (SettingsModel.FullTemplateName != newFullTemplateName)
             {
@@ -42,22 +44,25 @@ namespace CodeRushStreamDeck
                 await Manager.SetSettingsAsync(lastContext, SettingsModel);
             }
         }
-
-        void ExpandCodeRushTemplateInCodeRush(string templateName, string variablesToSet, ButtonState buttonState)
+        
+        void ExpandCodeRushTemplateInCodeRush(string templateName, string variablesToSet, List<DynamicListEntry> dynamicListEntries, ButtonState buttonState)
         {
-            string data = JsonConvert.SerializeObject(CommandHelper.GetCodeRushTemplateCommandData(templateName, variablesToSet, buttonState, buttonInstanceId));
+            string data = JsonConvert.SerializeObject(CommandHelper.GetCodeRushTemplateCommandData(templateName, variablesToSet, buttonState, dynamicListEntries, buttonInstanceId));
             CommunicationServer.SendMessageToCodeRush(data, nameof(CodeRushTemplateCommandData));
         }
 
         public override async Task OnKeyDown(StreamDeckEventPayload args)
         {
             await base.OnKeyDown(args);
+
+            Variables.ClearDynamicListEntries();
             SettingsModel.FullTemplateName = GetFullTemplateName();
-            ExpandCodeRushTemplateInCodeRush(GetFullTemplateName(), GetFullVariablesToSet(), ButtonState.Down);
+            ExpandCodeRushTemplateInCodeRush(SettingsModel.FullTemplateName, GetFullVariablesToSet(), Variables.DynamicListEntries, ButtonState.Down);
         }
 
         public override async Task OnPropertyInspectorDidAppear(StreamDeckEventPayload args)
         {
+            Variables.ClearDynamicListEntries();
             SettingsModel.FullTemplateName = GetFullTemplateName();
             await Manager.SetSettingsAsync(args.context, SettingsModel);
             await base.OnPropertyInspectorDidAppear(args);

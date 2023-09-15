@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DevExpress.CodeRush.Foundation.Pipes.Data;
 
 namespace PipeCore
@@ -34,12 +35,13 @@ namespace PipeCore
             return visualStudioCommandData;
         }
 
-        public static CodeRushTemplateCommandData GetCodeRushTemplateCommandData(string templateName, string variablesToSet, ButtonState buttonState, string id)
+        public static CodeRushTemplateCommandData GetCodeRushTemplateCommandData(string templateName, string variablesToSet, ButtonState buttonState, List<DynamicListEntry> dynamicListEntries, string id)
         {
             CodeRushTemplateCommandData codeRushTemplateCommandData = new CodeRushTemplateCommandData();
             codeRushTemplateCommandData.ButtonState = buttonState;
             codeRushTemplateCommandData.VariablesToSet = variablesToSet;
             codeRushTemplateCommandData.TemplateName = templateName;
+            codeRushTemplateCommandData.DynamicListEntries = dynamicListEntries;
             InitializeButtonData(codeRushTemplateCommandData, id);
             return codeRushTemplateCommandData;
         }
