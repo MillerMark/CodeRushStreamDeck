@@ -6,6 +6,7 @@ var websocket = null,
   actionInfo = {},
   settingsModel = {
     TemplateToExpand: '',
+    Context: '',
     VariablesToSet: '',
     FullTemplateName: '',
   };
@@ -55,6 +56,12 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
   function assignSettingsToUi() {
     console.log(`assignSettingsToUi()`);
     document.getElementById('txtTemplateToExpand').value = settingsModel.TemplateToExpand;
+
+    if (settingsModel.Context)
+      document.getElementById('txtContext').value = settingsModel.Context;
+    else
+      document.getElementById('txtContext').value = '';
+
     document.getElementById('txtVariablesToSet').value = settingsModel.VariablesToSet;
     document.getElementById('lbFullTemplateToExpand').innerText = settingsModel.FullTemplateName;
   }
@@ -85,4 +92,5 @@ function setSettingsModelFromPayload(payloadSettingsModel) {
   settingsModel.FullTemplateName = payloadSettingsModel.FullTemplateName;
   settingsModel.VariablesToSet = payloadSettingsModel.VariablesToSet;
   settingsModel.TemplateToExpand = payloadSettingsModel.TemplateToExpand; 
+  settingsModel.Context = payloadSettingsModel.Context; 
 }

@@ -336,6 +336,15 @@ table > caption {
 	-webkit-user-select: none;
 }
 
+.sdpi-item-indent {
+    text-align: right;
+    flex: none;
+    width: 94px;
+    padding-right: 4px;
+    font-weight: 600;
+    -webkit-user-select: none;
+}
+
 	.win .sdpi-item-label,
 	.sdpi-item-label > small {
 		font-weight: normal;

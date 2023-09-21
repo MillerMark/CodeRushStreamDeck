@@ -8,10 +8,20 @@ namespace CodeRushStreamDeck
 {
     public static class ButtonTracker
     {
+        /// <summary>
+        /// The Stream Deck buttons that are currently down.
+        /// </summary>
+        static ConcurrentDictionary<string, IStreamDeckButton> buttonsDown = new();
+
+        /// <summary>
+        /// All known Stream Deck buttons that have been pressed.
+        /// </summary>
         static ConcurrentDictionary<string, IStreamDeckButton> buttonInstances = new();
-        public static void OnKeyDown(string buttonId, IStreamDeckButton streamDeckButton)
+
+        public static void OnKeyDown(IStreamDeckButton button)
         {
-            buttonInstances.TryAdd(buttonId, streamDeckButton);
+            buttonInstances.TryAdd(button.Id, button);
+            buttonsDown.TryAdd(button.Id, button);
         }
 
         public static void ShowAlert(string buttonID)
@@ -20,6 +30,16 @@ namespace CodeRushStreamDeck
                 button.ShowAlert();
         }
 
+        public static void OnKeyUp(IStreamDeckButton button)
+        {
+            buttonsDown.Remove(button.Id, out _);
+        }
 
+        public static IStreamDeckButton Get(string buttonId)
+        {
+            if (buttonsDown.TryGetValue(buttonId, out IStreamDeckButton button))
+                return button;
+            return null;
+        }
     }
 }

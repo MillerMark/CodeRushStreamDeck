@@ -52,7 +52,7 @@ If (Test-Path $destDir) {
   # Manually remove the individual folders to keep The Visual Studio icons there (saves 20 seconds per deploy)
   Remove-Item -Force -Path "$destDir\*.*"
   Remove-Item -Recurse -Force -Path "$destDir\log" -ErrorAction SilentlyContinue 
-  Remove-Item -Recurse -Force -Path "$destDir\property_inspector"
+  Remove-Item -Recurse -Force -Path "$destDir\propertyInspectors"
   Remove-Item -Force -Path "$destDir\images\*.*"
   Remove-Item -Recurse -Force -Path "$destDir\images\actions"
   Remove-Item -Recurse -Force -Path "$destDir\images\category"

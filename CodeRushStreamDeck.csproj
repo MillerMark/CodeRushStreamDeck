@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
-		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 		<LangVersion>latest</LangVersion>
 		<!-- When building/running on Windows -->
 		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
@@ -89,6 +89,44 @@
 	  <None Remove="images\controls\radioButtonYellowSelected.png" />
 	  <None Remove="images\profileIndicator%402x.png" />
 	  <None Remove="images\profileIndicator.png" />
+	  <None Remove="images\resources\class%402x.png" />
+	  <None Remove="images\resources\class.png" />
+	  <None Remove="images\resources\classListening%402x.png" />
+	  <None Remove="images\resources\classListening.png" />
+	  <None Remove="images\resources\enum%402x.png" />
+	  <None Remove="images\resources\enum.png" />
+	  <None Remove="images\resources\enumListening%402x.png" />
+	  <None Remove="images\resources\enumListening.png" />
+	  <None Remove="images\resources\event%402x.png" />
+	  <None Remove="images\resources\event.png" />
+	  <None Remove="images\resources\eventListening%402x.png" />
+	  <None Remove="images\resources\eventListening.png" />
+	  <None Remove="images\resources\field%402x.png" />
+	  <None Remove="images\resources\field.png" />
+	  <None Remove="images\resources\fieldListening%402x.png" />
+	  <None Remove="images\resources\fieldListening.png" />
+	  <None Remove="images\resources\file%402x.png" />
+	  <None Remove="images\resources\file.png" />
+	  <None Remove="images\resources\fileListening%402x.png" />
+	  <None Remove="images\resources\fileListening.png" />
+	  <None Remove="images\resources\interface%402x.png" />
+	  <None Remove="images\resources\interface.png" />
+	  <None Remove="images\resources\interfaceListening%402x.png" />
+	  <None Remove="images\resources\interfaceListening.png" />
+	  <None Remove="images\resources\Listening.png" />
+	  <None Remove="images\resources\method%402x.png" />
+	  <None Remove="images\resources\method.png" />
+	  <None Remove="images\resources\methodListening%402x.png" />
+	  <None Remove="images\resources\methodListening.png" />
+	  <None Remove="images\resources\property%402x.png" />
+	  <None Remove="images\resources\property.png" />
+	  <None Remove="images\resources\propertyListening%402x.png" />
+	  <None Remove="images\resources\propertyListening.png" />
+	  <None Remove="images\resources\struct%402x.png" />
+	  <None Remove="images\resources\struct.png" />
+	  <None Remove="images\resources\structListening%402x.png" />
+	  <None Remove="images\resources\structListening.png" />
+	  <None Remove="images\resources\VoiceButton.png" />
 	  <None Remove="images\stringModifier%402x.png" />
 	  <None Remove="images\stringModifier.png" />
 	  <None Remove="images\symbols\class%402x.png" />
@@ -167,6 +205,7 @@
 		<PackageReference Include="Serilog" Version="2.7.1" />
 		<PackageReference Include="Serilog.Extensions.Logging" Version="2.0.2" />
 		<PackageReference Include="Serilog.Sinks.File" Version="4.0.0" />
+		<PackageReference Include="System.Drawing.Common" Version="7.0.0" />
 		<PackageReference Include="System.Net.WebSockets" Version="4.3.0" />
 	</ItemGroup>
 
@@ -602,6 +641,18 @@
 	<ItemGroup>
 	  <ProjectReference Include="C:\Users\Mark\Documents\StreamDeckToolkit2\src\StreamDeckLib.Config\StreamDeckLib.Config.csproj" />
 	  <ProjectReference Include="C:\Users\Mark\Documents\StreamDeckToolkit2\src\StreamDeckLib\StreamDeckLib.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Include="images\resources\class@2x.png" />
+	  <EmbeddedResource Include="images\resources\enum@2x.png" />
+	  <EmbeddedResource Include="images\resources\event@2x.png" />
+	  <EmbeddedResource Include="images\resources\field@2x.png" />
+	  <EmbeddedResource Include="images\resources\interface@2x.png" />
+	  <EmbeddedResource Include="images\resources\Listening.png" />
+	  <EmbeddedResource Include="images\resources\method@2x.png" />
+	  <EmbeddedResource Include="images\resources\property@2x.png" />
+	  <EmbeddedResource Include="images\resources\struct@2x.png" />
+	  <EmbeddedResource Include="images\resources\VoiceButton.png" />
 	</ItemGroup>
 
 </Project>

@@ -17,8 +17,9 @@ namespace CodeRushStreamDeck
         public abstract string SymbolName { get; }
         public virtual string SpokenWordsStart { get; } = string.Empty;
         public virtual string SpokenWordsEnd { get; } = string.Empty;
+        public string Id => buttonInstanceId;
 
-        static Dictionary<string, BaseFindSymbolAction> keysDown = new();
+
         protected string buttonInstanceId = Guid.NewGuid().ToString();
         string lastContext;
         public BaseFindSymbolAction()
@@ -39,35 +40,24 @@ namespace CodeRushStreamDeck
         {
             await base.OnKeyDown(args);
             lastContext = args.context;
-            keysDown.TryAdd(buttonInstanceId, this);
-            ButtonTracker.OnKeyDown(buttonInstanceId, this);
+            ButtonTracker.OnKeyDown(this);
             string data = JsonConvert.SerializeObject(GetVoiceCommandData());
             CommunicationServer.SendMessageToCodeRush(data, nameof(VoiceCommandData));
+        }
+
+        public override async Task OnKeyUp(StreamDeckEventPayload args)
+        {
+            await base.OnKeyUp(args);
+            await Manager.SetImageAsync(args.context, $"images/symbols/{SymbolName}.png");
+            ButtonTracker.OnKeyUp(this);
+            SendCommandToCodeRush(CommandsFromStreamDeck.StopListening, ButtonState.Up);
+            await ClearTitle(args);
         }
 
         void SendCommandToCodeRush(string command, ButtonState buttonState)
         {
             string data = JsonConvert.SerializeObject(CommandHelper.GetCommandData(command, buttonState, buttonInstanceId));
             CommunicationServer.SendMessageToCodeRush(data, nameof(CommandData));
-        }
-
-        public override async Task OnKeyUp(StreamDeckEventPayload args)
-        {
-            //SettingsModel.Counter++;
-            
-            //await Manager.ShowOkAsync(args.context);
-            //await Manager.ShowAlertAsync(args.context);
-            //await Manager.SetTitleAsync(args.context, SettingsModel.Counter.ToString());
-
-            await Manager.SetImageAsync(args.context, $"images/symbols/{SymbolName}.png");
-
-            //update settings
-            //await Manager.SetSettingsAsync(args.context, SettingsModel);
-
-            keysDown.Remove(buttonInstanceId);
-            
-            SendCommandToCodeRush(CommandsFromStreamDeck.StopListening, ButtonState.Up);
-            await ClearTitle(args);
         }
 
         public override Task OnWillAppear(StreamDeckEventPayload args)
@@ -84,8 +74,14 @@ namespace CodeRushStreamDeck
 
         public static void ListeningStarted(string buttonId)
         {
-            if (keysDown.TryGetValue(buttonId, out BaseFindSymbolAction baseFindSymbolAction))
+            BaseFindSymbolAction baseFindSymbolAction = GetFindSymbolAction(buttonId);
+            if (baseFindSymbolAction != null)
                 baseFindSymbolAction.ListeningStartedAsync();
+        }
+
+        private static BaseFindSymbolAction GetFindSymbolAction(string buttonId)
+        {
+            return ButtonTracker.Get(buttonId) as BaseFindSymbolAction;
         }
 
         async void ListeningStartedAsync()
@@ -103,7 +99,8 @@ namespace CodeRushStreamDeck
 
         public static void UpdateVolume(string buttonId, int volume)
         {
-            if (keysDown.TryGetValue(buttonId, out BaseFindSymbolAction baseFindSymbolAction))
+            BaseFindSymbolAction baseFindSymbolAction = GetFindSymbolAction(buttonId);
+            if (baseFindSymbolAction != null)
                 baseFindSymbolAction.UpdateVolume(volume);
         }
 

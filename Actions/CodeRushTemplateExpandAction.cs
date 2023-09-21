@@ -10,15 +10,14 @@ using DevExpress.CodeRush.Foundation.Pipes.Data;
 using Newtonsoft.Json;
 using PipeCore;
 using Pipes.Server;
+using System.Runtime.Versioning;
 
 namespace CodeRushStreamDeck
 {
+    [SupportedOSPlatform("windows")]
     [ActionUuid(Uuid = "com.devexpress.coderush.template.expand")]
-    public class CodeRushTemplateExpandAction : BaseStreamDeckActionWithSettingsModel<Models.CodeRushTemplateCommandModel>
+    public class CodeRushTemplateExpandAction : StreamDeckButton<Models.CodeRushTemplateCommandModel>
     {
-        string lastContext;
-        string buttonInstanceId = Guid.NewGuid().ToString();
-
         public CodeRushTemplateExpandAction()
         {
             Variables.StringVarChanged += Variables_StringVarChanged;
@@ -27,6 +26,11 @@ namespace CodeRushStreamDeck
         string GetFullTemplateName()
         {
             return Variables.Expand(SettingsModel.TemplateToExpand);
+        }
+
+        string GetContext()
+        {
+            return Variables.Expand(SettingsModel.Context);
         }
 
         string GetFullVariablesToSet()
@@ -45,19 +49,18 @@ namespace CodeRushStreamDeck
             }
         }
         
-        void ExpandCodeRushTemplateInCodeRush(string templateName, string variablesToSet, List<DynamicListEntry> dynamicListEntries, ButtonState buttonState)
+        void ExpandCodeRushTemplateInCodeRush(string templateName, string variablesToSet, string context, List<DynamicListEntry> dynamicListEntries, ButtonState buttonState)
         {
-            string data = JsonConvert.SerializeObject(CommandHelper.GetCodeRushTemplateCommandData(templateName, variablesToSet, buttonState, dynamicListEntries, buttonInstanceId));
+            string data = JsonConvert.SerializeObject(CommandHelper.GetCodeRushTemplateCommandData(templateName, context, variablesToSet, buttonState, dynamicListEntries, buttonInstanceId));
             CommunicationServer.SendMessageToCodeRush(data, nameof(CodeRushTemplateCommandData));
         }
 
         public override async Task OnKeyDown(StreamDeckEventPayload args)
         {
             await base.OnKeyDown(args);
-
             Variables.ClearDynamicListEntries();
             SettingsModel.FullTemplateName = GetFullTemplateName();
-            ExpandCodeRushTemplateInCodeRush(SettingsModel.FullTemplateName, GetFullVariablesToSet(), Variables.DynamicListEntries, ButtonState.Down);
+            ExpandCodeRushTemplateInCodeRush(SettingsModel.FullTemplateName, GetFullVariablesToSet(), SettingsModel.Context,  Variables.DynamicListEntries, ButtonState.Down);
         }
 
         public override async Task OnPropertyInspectorDidAppear(StreamDeckEventPayload args)
@@ -66,12 +69,6 @@ namespace CodeRushStreamDeck
             SettingsModel.FullTemplateName = GetFullTemplateName();
             await Manager.SetSettingsAsync(args.context, SettingsModel);
             await base.OnPropertyInspectorDidAppear(args);
-        }
-
-        public override async Task OnWillAppear(StreamDeckEventPayload args)
-        {
-            await base.OnWillAppear(args);
-            lastContext = args.context;
         }
     }
 }

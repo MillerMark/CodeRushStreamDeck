@@ -35,12 +35,13 @@ namespace PipeCore
             return visualStudioCommandData;
         }
 
-        public static CodeRushTemplateCommandData GetCodeRushTemplateCommandData(string templateName, string variablesToSet, ButtonState buttonState, List<DynamicListEntry> dynamicListEntries, string id)
+        public static CodeRushTemplateCommandData GetCodeRushTemplateCommandData(string templateName, string context, string variablesToSet, ButtonState buttonState, List<DynamicListEntry> dynamicListEntries, string id)
         {
             CodeRushTemplateCommandData codeRushTemplateCommandData = new CodeRushTemplateCommandData();
             codeRushTemplateCommandData.ButtonState = buttonState;
             codeRushTemplateCommandData.VariablesToSet = variablesToSet;
             codeRushTemplateCommandData.TemplateName = templateName;
+            codeRushTemplateCommandData.Context = context;
             codeRushTemplateCommandData.DynamicListEntries = dynamicListEntries;
             InitializeButtonData(codeRushTemplateCommandData, id);
             return codeRushTemplateCommandData;

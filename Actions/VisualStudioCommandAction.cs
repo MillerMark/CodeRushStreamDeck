@@ -12,23 +12,17 @@ using Pipes.Server;
 using PipeCore;
 using CodeRushStreamDeck.Startup;
 using System.Diagnostics;
+using System.Runtime.Versioning;
 
 namespace CodeRushStreamDeck
 {
-    // We have to here                                | << String end quotes must end before this pipe symbol (31 characters)
+    [SupportedOSPlatform("windows")]
     [ActionUuid(Uuid = "com.devex.cr.exec.vs.command")]
-    public class VisualStudioCommandAction : BaseStreamDeckActionWithSettingsModel<Models.VisualStudioCommandModel>, IStreamDeckButton
+    public class VisualStudioCommandAction : StreamDeckButton<Models.VisualStudioCommandModel>, IStreamDeckButton
     {
-        protected string buttonInstanceId = Guid.NewGuid().ToString();
-        public VisualStudioCommandAction()
-        {
-        }
-
         public override async Task OnKeyDown(StreamDeckEventPayload args)
         {
-            lastContext = args.context;
             await base.OnKeyDown(args);
-            ButtonTracker.OnKeyDown(buttonInstanceId, this);
             if (!string.IsNullOrEmpty(SettingsModel.Command))
             {
                 SendVisualStudioCommandToCodeRush(SettingsModel.Command, SettingsModel.Parameters, ButtonState.Down);
@@ -112,7 +106,6 @@ namespace CodeRushStreamDeck
         }
 
         bool commandHandled;
-        string lastContext;
         public override async Task OnDidReceiveSettings(StreamDeckEventPayload args)
         {
             await base.OnDidReceiveSettings(args);
@@ -127,7 +120,7 @@ namespace CodeRushStreamDeck
                 return;
             }
 
-            // TODO: Assymetry - consider adding parameter parsing for commands and updating the handleSdpiItemChange method.
+            // TODO: Asymmetry - consider adding parameter parsing for commands and updating the handleSdpiItemChange method.
             if (!string.IsNullOrEmpty(SettingsModel.SelectedImage))
             {
                 SettingsModel.ImageFileName = SettingsModel.SelectedImage;
@@ -172,11 +165,6 @@ namespace CodeRushStreamDeck
                 obj.Images.Add(item.FileName);
 
             await Manager.SendToPropertyInspectorAsync(args.context, obj);
-        }
-
-        public async void ShowAlert()
-        {
-            await Manager.ShowAlertAsync(lastContext);
         }
     }
 }

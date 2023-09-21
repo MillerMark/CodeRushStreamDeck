@@ -6,5 +6,6 @@ namespace CodeRushStreamDeck
     public interface IStreamDeckButton
     {
         void ShowAlert();
+        string Id { get; }
     }
 }

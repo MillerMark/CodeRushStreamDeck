@@ -9,12 +9,12 @@
 <body>
     <div class="sdpi-wrapper">
         <!-- for more examples of the types of fields supported in property inspector visit:
-                Elgato Github PiSamples -> https://github.com/elgatosf/streamdeck-pisamples
-                and
-                Elgato SDK Documentation -> https://developer.elgato.com/documentation/stream-deck/sdk/property-inspector/
+            Elgato Github PiSamples -> https://github.com/elgatosf/streamdeck-pisamples
+            and
+            Elgato SDK Documentation -> https://developer.elgato.com/documentation/stream-deck/sdk/property-inspector/
 
 
-        -->
+    -->
 
         <div class="sdpi-item">
             <div class="sdpi-item-label">Template</div>
@@ -24,7 +24,15 @@
         </div>
 
         <div class="sdpi-item">
-            <div>Surround Stream Deck variables with a "$". You can escape the "$" and "\" characters with a leading "\" to use it as a literal.</div>
+            <div class="sdpi-item-indent"></div>
+            <label>Delimit Stream Deck variables with a "$". Escape "$" and "\" characters with a leading "\".</label>
+        </div>
+
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Context</div>
+            <div style="overflow-y: auto; max-height: 150px;">
+                <input id="txtContext" onchange="setSettings(event.target.value, 'Context')" style="width: 230px;">
+            </div>
         </div>
 
         <div class="sdpi-item">
@@ -33,14 +41,15 @@
         </div>
 
         <div class="sdpi-item">
-            <div class="sdpi-item-label">Variables:</div>
+            <div class="sdpi-item-label">Set</div>
             <div style="overflow-y: auto; max-height: 150px;">
                 <textarea id="txtVariablesToSet" name="w3review" rows="4" cols="50" onchange="setSettings(event.target.value, 'VariablesToSet')"></textarea>
             </div>
         </div>
 
         <div class="sdpi-item">
-            <div>List variables one per line, using this syntax:<br>variableName = value</div>
+            <div class="sdpi-item-indent"></div>
+            <div>One Set instruction per line, using a "$varName$" reference or this syntax:<br>variableName = value</div>
         </div>
 
         <script src="js/piCodeRushTemplate.js"></script>
