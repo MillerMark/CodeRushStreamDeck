@@ -3,5 +3,6 @@
     public static class CommandsFromStreamDeck
     {
         public const string StopListening = "StopListening";
+        public const string GetSpokenType = "GetSpokenType";
     }
 }

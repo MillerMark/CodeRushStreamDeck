@@ -41,8 +41,7 @@ namespace CodeRushStreamDeck
             await base.OnKeyDown(args);
             lastContext = args.context;
             ButtonTracker.OnKeyDown(this);
-            string data = JsonConvert.SerializeObject(GetVoiceCommandData());
-            CommunicationServer.SendMessageToCodeRush(data, nameof(VoiceCommandData));
+            CommunicationServer.SendMessageToCodeRush(GetVoiceCommandData());
         }
 
         public override async Task OnKeyUp(StreamDeckEventPayload args)
@@ -56,8 +55,7 @@ namespace CodeRushStreamDeck
 
         void SendCommandToCodeRush(string command, ButtonState buttonState)
         {
-            string data = JsonConvert.SerializeObject(CommandHelper.GetCommandData(command, buttonState, buttonInstanceId));
-            CommunicationServer.SendMessageToCodeRush(data, nameof(CommandData));
+            CommunicationServer.SendMessageToCodeRush(CommandHelper.GetCommandData(command, buttonState, buttonInstanceId));
         }
 
         public override Task OnWillAppear(StreamDeckEventPayload args)
@@ -91,7 +89,8 @@ namespace CodeRushStreamDeck
 
         async void UpdateVolume(int volume)
         {
-            int inBoundsVolume = Math.Min(7, Math.Max(0, volume));
+            int streamDeckVolume = (int)(8 * (volume - 1) / 100);  // Gets a volume from 0-7.
+            int inBoundsVolume = Math.Min(7, Math.Max(0, streamDeckVolume));
             string newTitle = "  " + new string('I', inBoundsVolume) + new string(' ', 7 - inBoundsVolume);
             Debug.WriteLine($"Level: \"{newTitle}\"");
             await Manager.SetTitleAsync(lastContext, newTitle);

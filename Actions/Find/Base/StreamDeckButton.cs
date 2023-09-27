@@ -3,6 +3,10 @@ using System.Threading.Tasks;
 using System.Runtime.Versioning;
 using StreamDeckLib;
 using StreamDeckLib.Messages;
+using DevExpress.CodeRush.Foundation.Pipes.Data;
+using Newtonsoft.Json;
+using PipeCore;
+using Pipes.Server;
 
 namespace CodeRushStreamDeck
 {
@@ -35,6 +39,11 @@ namespace CodeRushStreamDeck
         public async void ShowAlert()
         {
             await Manager.ShowAlertAsync(lastContext);
+        }
+
+        protected void SendCommandToCodeRush(string command, ButtonState buttonState)
+        {
+            CommunicationServer.SendMessageToCodeRush(CommandHelper.GetCommandData(command, buttonState, buttonInstanceId));
         }
 
     }

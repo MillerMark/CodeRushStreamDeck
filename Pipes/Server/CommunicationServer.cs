@@ -36,17 +36,49 @@ namespace Pipes.Server
             messageSender.EnqueueMessage(JsonConvert.SerializeObject(streamDeckData));
         }
 
+        public static void SendMessageToCodeRush(object message)
+        {
+            string data = JsonConvert.SerializeObject(message);
+            SendMessageToCodeRush(data, message.GetType().Name);
+        }
+
+        public static void VoiceButtonListeningStarted(string buttonId)
+        {
+            IVoiceButton voiceButton = ButtonTracker.Get(buttonId) as IVoiceButton;
+            if (voiceButton != null)
+                voiceButton.ListeningStarted();
+        }
+
+        static void UpdateVolume(string buttonId, int volume)
+        {
+            IVoiceButton voiceButton = ButtonTracker.Get(buttonId) as IVoiceButton;
+            if (voiceButton != null)
+                voiceButton.UpdateVolume(volume);
+        }
+
         static void HandleDataReceived(StreamDeckData streamDeckData)
         {
             switch (streamDeckData.DataType)
             {
                 case nameof(ShowListeningOnStreamDeck):
                     var showListeningOnStreamDeck = JsonConvert.DeserializeObject<ShowListeningOnStreamDeck>(streamDeckData.Data);
+                    
+                    
+                    // TODO: Delete this call: BaseFindSymbolAction.ListeningStarted...
                     BaseFindSymbolAction.ListeningStarted(showListeningOnStreamDeck.ButtonID);
+                    
+                    
+                    VoiceButtonListeningStarted(showListeningOnStreamDeck.ButtonID);
                     break;
                 case nameof(ShowVolumeOnStreamDeck):
                     var showVolumeOnStreamDeck = JsonConvert.DeserializeObject<ShowVolumeOnStreamDeck>(streamDeckData.Data);
+
+
+                    // TODO: Delete this call: BaseFindSymbolAction.UpdateVolume...
                     BaseFindSymbolAction.UpdateVolume(showVolumeOnStreamDeck.ButtonID, showVolumeOnStreamDeck.Volume);
+
+
+                    UpdateVolume(showVolumeOnStreamDeck.ButtonID, showVolumeOnStreamDeck.Volume);
                     break;
                 case nameof(CommandToStreamDeckPlugin):
                     var commandToStreamDeck = JsonConvert.DeserializeObject<CommandToStreamDeckPlugin>(streamDeckData.Data);

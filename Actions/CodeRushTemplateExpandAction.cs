@@ -51,8 +51,7 @@ namespace CodeRushStreamDeck
         
         void ExpandCodeRushTemplateInCodeRush(string templateName, string variablesToSet, string context, List<DynamicListEntry> dynamicListEntries, ButtonState buttonState)
         {
-            string data = JsonConvert.SerializeObject(CommandHelper.GetCodeRushTemplateCommandData(templateName, context, variablesToSet, buttonState, dynamicListEntries, buttonInstanceId));
-            CommunicationServer.SendMessageToCodeRush(data, nameof(CodeRushTemplateCommandData));
+            CommunicationServer.SendMessageToCodeRush(CommandHelper.GetCodeRushTemplateCommandData(templateName, context, variablesToSet, buttonState, dynamicListEntries, buttonInstanceId));
         }
 
         public override async Task OnKeyDown(StreamDeckEventPayload args)

@@ -274,6 +274,24 @@
       "PropertyInspectorPath": "propertyInspectors/piCodeRushTemplate/piCodeRushTemplate.html",
       "Tooltip": "Expands the specified CodeRush template.",
       "UUID": "com.devexpress.coderush.template.expand"
+    },
+    {
+      "Icon": "images/actions/CodeRushTemplate",
+      "Name": "Dynamic Image Test",
+      "States": [
+        {
+          "Name": "ready",
+          "Image": "images/CodeRushTemplate",
+          "ShowTitle": true,
+          "TitleColor": "#ffffff",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "UserTitleEnabled": true,
+      "SupportedInMultiActions": false,
+      "Tooltip": "Tests dynamic image painting.",
+      "UUID": "com.devexpress.coderush.dynamic.image.test"
     }
   ],
   "Category": "CodeRush",

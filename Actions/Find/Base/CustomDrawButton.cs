@@ -11,7 +11,6 @@ using PipeCore;
 
 namespace CodeRushStreamDeck
 {
-
     [SupportedOSPlatform("windows")]
     public abstract class CustomDrawButton<T> : StreamDeckButton<T>
     {
@@ -32,7 +31,7 @@ namespace CodeRushStreamDeck
             }
         }
 
-        protected Graphics GetBackground()
+        protected virtual Graphics GetBackground()
         {
             lock (backgroundImageLock)
             {
@@ -41,9 +40,25 @@ namespace CodeRushStreamDeck
             }
         }
 
-        private Bitmap GetBitmapResource(string name)
+        protected Bitmap GetBitmapResource(string name)
         {
-            return new Bitmap(GetType().Assembly.GetManifestResourceStream($"CodeRushStreamDeck.images.resources.{name}@2x.png"));
+            Stream manifestResourceStream = GetType().Assembly.GetManifestResourceStream($"CodeRushStreamDeck.images.resources.{name}@2x.png");
+            
+            if (manifestResourceStream == null)
+                return new Bitmap(144, 144);
+
+            return new Bitmap(manifestResourceStream);
+        }
+
+        public override async Task OnWillAppear(StreamDeckEventPayload args)
+        {
+            await base.OnWillAppear(args);
+
+            using (Graphics background = GetBackground())
+            {
+                // Do nothing - call to GetBackground is all that is needed to get the correct image.
+            }
+            await DrawBackgroundAsync();
         }
     }
 }

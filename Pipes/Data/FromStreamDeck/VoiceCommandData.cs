@@ -7,6 +7,7 @@ namespace DevExpress.CodeRush.Foundation.Pipes.Data
     {
         public string SpokenWordsStart { get; set; }
         public string SpokenWordsEnd { get; set; }
+        public StartListeningOption StartListening { get; set; }
         public VoiceCommandData()
         {
         }

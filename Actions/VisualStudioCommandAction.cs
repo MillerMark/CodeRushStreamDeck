@@ -63,8 +63,7 @@ namespace CodeRushStreamDeck
 
         void SendVisualStudioCommandToCodeRush(string command, string parameters, ButtonState buttonState)
         {
-            string data = JsonConvert.SerializeObject(CommandHelper.GetVisualStudioCommandData(command, parameters, buttonState, buttonInstanceId));
-            CommunicationServer.SendMessageToCodeRush(data, nameof(VisualStudioCommandData));
+            CommunicationServer.SendMessageToCodeRush(CommandHelper.GetVisualStudioCommandData(command, parameters, buttonState, buttonInstanceId));
         }
 
         string GetImageFolder()

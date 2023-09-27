@@ -89,6 +89,15 @@
 	  <None Remove="images\controls\radioButtonYellowSelected.png" />
 	  <None Remove="images\profileIndicator%402x.png" />
 	  <None Remove="images\profileIndicator.png" />
+	  <None Remove="images\resources\AddClass%402x.png" />
+	  <None Remove="images\resources\AddEnum%402x.png" />
+	  <None Remove="images\resources\AddEvent%402x.png" />
+	  <None Remove="images\resources\AddField%402x.png" />
+	  <None Remove="images\resources\AddInterface%402x.png" />
+	  <None Remove="images\resources\AddItem.psd" />
+	  <None Remove="images\resources\AddMethod%402x.png" />
+	  <None Remove="images\resources\AddProperty%402x.png" />
+	  <None Remove="images\resources\AddStruct%402x.png" />
 	  <None Remove="images\resources\class%402x.png" />
 	  <None Remove="images\resources\class.png" />
 	  <None Remove="images\resources\classListening%402x.png" />
@@ -113,7 +122,6 @@
 	  <None Remove="images\resources\interface.png" />
 	  <None Remove="images\resources\interfaceListening%402x.png" />
 	  <None Remove="images\resources\interfaceListening.png" />
-	  <None Remove="images\resources\Listening.png" />
 	  <None Remove="images\resources\method%402x.png" />
 	  <None Remove="images\resources\method.png" />
 	  <None Remove="images\resources\methodListening%402x.png" />
@@ -126,7 +134,9 @@
 	  <None Remove="images\resources\struct.png" />
 	  <None Remove="images\resources\structListening%402x.png" />
 	  <None Remove="images\resources\structListening.png" />
-	  <None Remove="images\resources\VoiceButton.png" />
+	  <None Remove="images\resources\VoiceListening@2x.png" />
+	  <None Remove="images\resources\VoiceReady@2x.png" />
+	  <None Remove="images\resources\VoiceWaiting@2x.png" />
 	  <None Remove="images\stringModifier%402x.png" />
 	  <None Remove="images\stringModifier.png" />
 	  <None Remove="images\symbols\class%402x.png" />
@@ -643,16 +653,25 @@
 	  <ProjectReference Include="C:\Users\Mark\Documents\StreamDeckToolkit2\src\StreamDeckLib\StreamDeckLib.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+	  <EmbeddedResource Include="images\resources\AddClass@2x.png" />
+	  <EmbeddedResource Include="images\resources\AddEnum@2x.png" />
+	  <EmbeddedResource Include="images\resources\AddEvent@2x.png" />
+	  <EmbeddedResource Include="images\resources\AddField@2x.png" />
+	  <EmbeddedResource Include="images\resources\AddInterface@2x.png" />
+	  <EmbeddedResource Include="images\resources\AddMethod@2x.png" />
+	  <EmbeddedResource Include="images\resources\AddProperty@2x.png" />
+	  <EmbeddedResource Include="images\resources\AddStruct@2x.png" />
 	  <EmbeddedResource Include="images\resources\class@2x.png" />
 	  <EmbeddedResource Include="images\resources\enum@2x.png" />
 	  <EmbeddedResource Include="images\resources\event@2x.png" />
 	  <EmbeddedResource Include="images\resources\field@2x.png" />
 	  <EmbeddedResource Include="images\resources\interface@2x.png" />
-	  <EmbeddedResource Include="images\resources\Listening.png" />
+	  <EmbeddedResource Include="images\resources\VoiceWaiting%402x.png" />
+	  <EmbeddedResource Include="images\resources\VoiceListening%402x.png" />
 	  <EmbeddedResource Include="images\resources\method@2x.png" />
 	  <EmbeddedResource Include="images\resources\property@2x.png" />
 	  <EmbeddedResource Include="images\resources\struct@2x.png" />
-	  <EmbeddedResource Include="images\resources\VoiceButton.png" />
+	  <EmbeddedResource Include="images\resources\VoiceReady%402x.png" />
 	</ItemGroup>
 
 </Project>

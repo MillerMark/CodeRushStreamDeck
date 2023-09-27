@@ -71,8 +71,7 @@ namespace CodeRushStreamDeck
                 });
             }
 
-            string data = JsonConvert.SerializeObject(deviceInformation);
-            CommunicationServer.SendMessageToCodeRush(data, nameof(DeviceInformation));
+            CommunicationServer.SendMessageToCodeRush(deviceInformation);
         }
 
         public static void HandleCommandFromCodeRush(string command)
