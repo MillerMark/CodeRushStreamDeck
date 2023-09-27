@@ -277,7 +277,7 @@
     },
     {
       "Icon": "images/actions/CodeRushTemplate",
-      "Name": "Dynamic Image Test",
+      "Name": "Spoken Type Template",
       "States": [
         {
           "Name": "ready",
@@ -290,8 +290,9 @@
       ],
       "UserTitleEnabled": true,
       "SupportedInMultiActions": false,
-      "Tooltip": "Tests dynamic image painting.",
-      "UUID": "com.devexpress.coderush.dynamic.image.test"
+      "Tooltip": "Creates an element based on a spoken type.",
+      "PropertyInspectorPath": "propertyInspectors/piTypeContentCreation/piTypeContentCreation.html",
+      "UUID": "com.devexpress.coderush.spoken.type.template"
     }
   ],
   "Category": "CodeRush",

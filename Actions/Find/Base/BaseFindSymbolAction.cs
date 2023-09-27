@@ -79,7 +79,7 @@ namespace CodeRushStreamDeck
 
         private static BaseFindSymbolAction GetFindSymbolAction(string buttonId)
         {
-            return ButtonTracker.Get(buttonId) as BaseFindSymbolAction;
+            return ButtonTracker.GetDown(buttonId) as BaseFindSymbolAction;
         }
 
         async void ListeningStartedAsync()

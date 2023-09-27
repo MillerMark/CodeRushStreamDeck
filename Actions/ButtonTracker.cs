@@ -35,9 +35,16 @@ namespace CodeRushStreamDeck
             buttonsDown.Remove(button.Id, out _);
         }
 
-        public static IStreamDeckButton Get(string buttonId)
+        public static IStreamDeckButton GetDown(string buttonId)
         {
             if (buttonsDown.TryGetValue(buttonId, out IStreamDeckButton button))
+                return button;
+            return null;
+        }
+
+        public static IStreamDeckButton Get(string buttonId)
+        {
+            if (buttonInstances.TryGetValue(buttonId, out IStreamDeckButton button))
                 return button;
             return null;
         }

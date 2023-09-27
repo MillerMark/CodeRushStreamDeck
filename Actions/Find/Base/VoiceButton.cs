@@ -119,5 +119,10 @@ namespace CodeRushStreamDeck
             else
                 UpdateImageAsync();
         }
+
+        public virtual void TypeRecognized(TypeRecognizedFromSpokenWords typeRecognizedFromSpokenWords)
+        {
+            // Do nothing. Let descendants override if needed.
+        }
     }
 }

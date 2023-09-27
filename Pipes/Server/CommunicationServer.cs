@@ -44,18 +44,24 @@ namespace Pipes.Server
 
         public static void VoiceButtonListeningStarted(string buttonId)
         {
-            IVoiceButton voiceButton = ButtonTracker.Get(buttonId) as IVoiceButton;
+            IVoiceButton voiceButton = ButtonTracker.GetDown(buttonId) as IVoiceButton;
             if (voiceButton != null)
                 voiceButton.ListeningStarted();
         }
 
         static void UpdateVolume(string buttonId, int volume)
         {
-            IVoiceButton voiceButton = ButtonTracker.Get(buttonId) as IVoiceButton;
+            IVoiceButton voiceButton = ButtonTracker.GetDown(buttonId) as IVoiceButton;
             if (voiceButton != null)
                 voiceButton.UpdateVolume(volume);
         }
 
+        static void TypeRecognized(TypeRecognizedFromSpokenWords typeRecognizedFromSpokenWords)
+        {
+            IVoiceButton voiceButton = ButtonTracker.Get(typeRecognizedFromSpokenWords.ButtonID) as IVoiceButton;
+            if (voiceButton != null)
+                voiceButton.TypeRecognized(typeRecognizedFromSpokenWords);
+        }
         static void HandleDataReceived(StreamDeckData streamDeckData)
         {
             switch (streamDeckData.DataType)
@@ -79,6 +85,11 @@ namespace Pipes.Server
 
 
                     UpdateVolume(showVolumeOnStreamDeck.ButtonID, showVolumeOnStreamDeck.Volume);
+                    break;
+                case nameof(TypeRecognizedFromSpokenWords):
+                    var typeRecognizedFromSpokenWords = JsonConvert.DeserializeObject<TypeRecognizedFromSpokenWords>(streamDeckData.Data);
+
+                    TypeRecognized(typeRecognizedFromSpokenWords);
                     break;
                 case nameof(CommandToStreamDeckPlugin):
                     var commandToStreamDeck = JsonConvert.DeserializeObject<CommandToStreamDeckPlugin>(streamDeckData.Data);

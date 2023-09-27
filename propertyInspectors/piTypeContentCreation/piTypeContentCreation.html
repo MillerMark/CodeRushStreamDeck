@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Visual Studio Command Property Inspector</title>
+    <link rel="stylesheet" href="css/sdpi.css">
+    <link rel="stylesheet" href="css/piTypeContentCreation.css">
+</head>
+<body>
+    <div class="sdpi-wrapper">
+        <!-- for more examples of the types of fields supported in property inspector visit:
+            Elgato Github PiSamples -> https://github.com/elgatosf/streamdeck-pisamples
+            and
+            Elgato SDK Documentation -> https://developer.elgato.com/documentation/stream-deck/sdk/property-inspector/
+
+
+    -->
+
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Template</div>
+            <div style="overflow-y: auto; max-height: 150px;">
+                <input id="txtTemplateToExpand" onchange="setSettings(event.target.value, 'TemplateToExpand')" style="width: 230px;">
+            </div>
+        </div>
+
+        <div class="sdpi-item">
+            <div class="sdpi-item-indent"></div>
+            <label>Delimit Stream Deck variables with a "$". Escape "$" and "\" characters with a leading "\".</label>
+        </div>
+
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Context</div>
+            <div style="overflow-y: auto; max-height: 150px;">
+                <input id="txtContext" onchange="setSettings(event.target.value, 'Context')" style="width: 230px;">
+            </div>
+        </div>
+
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">SimpleType</div>
+            <div style="overflow-y: auto; max-height: 150px;">
+                <input id="txtSimpleType" onchange="setSettings(event.target.value, 'SimpleType')" style="width: 230px;">
+            </div>
+        </div>
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">GenericType</div>
+            <div style="overflow-y: auto; max-height: 150px;">
+                <input id="txtGenericType" onchange="setSettings(event.target.value, 'GenericType')" style="width: 230px;">
+            </div>
+        </div>
+
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">TypeParam1</div>
+            <div style="overflow-y: auto; max-height: 150px;">
+                <input id="txtTypeParam1" onchange="setSettings(event.target.value, 'TypeParam1')" style="width: 230px;">
+            </div>
+        </div>
+
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">TypeParam2</div>
+            <div style="overflow-y: auto; max-height: 150px;">
+                <input id="txtTypeParam2" onchange="setSettings(event.target.value, 'TypeParam2')" style="width: 230px;">
+            </div>
+        </div>
+
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Full Template</div>
+            <label id="lbFullTemplateToExpand">-</label>
+        </div>
+
+        <script src="js/piTypeContentCreation.js"></script>
+</body>
+</html>
