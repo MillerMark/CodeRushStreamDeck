@@ -6,6 +6,8 @@ using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using System.Timers;
 using DevExpress.CodeRush.Foundation.Pipes.Data;
+using PipeCore;
+using Pipes.Server;
 using StreamDeckLib;
 using StreamDeckLib.Messages;
 
@@ -13,15 +15,25 @@ namespace CodeRushStreamDeck
 {
     [SupportedOSPlatform("windows")]
     [ActionUuid(Uuid = "com.devexpress.coderush.spoken.type.template")]
-    public class SpokenTypeTemplate : VoiceButton<Models.TypeContentCreationButton>
+    public class SpokenTypeTemplate : VoiceButton<Models.SpokenTypeTemplateData>
     {
         protected override string BackgroundImageName => "AddMethod";
+
+        void SendRequestForSpokenTypeToCodeRush(ButtonState buttonState)
+        {
+            CommunicationServer.SendMessageToCodeRush(
+                CommandHelper.GetSpokenTypeData(
+                    SettingsModel.TemplateToExpand, 
+                    SettingsModel.Context, 
+                    buttonState, 
+                    buttonInstanceId));
+        }
 
         public override async Task OnKeyDown(StreamDeckEventPayload args)
         {
             await base.OnKeyDown(args);
             // TODO: Send additional data to expand the template once the type is received.
-            SendCommandToCodeRush(CommandsFromStreamDeck.GetSpokenType, ButtonState.Down);
+            SendRequestForSpokenTypeToCodeRush(ButtonState.Down);
         }
 
         public override async void TypeRecognized(TypeRecognizedFromSpokenWords typeRecognizedFromSpokenWords)

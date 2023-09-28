@@ -26,6 +26,18 @@ namespace PipeCore
             return commandData;
         }
 
+        public static SpokenTypeData GetSpokenTypeData(string template, string context, ButtonState buttonState, string id)
+        {
+            SpokenTypeData spokenTypeData = new SpokenTypeData() { 
+                Template = template, 
+                Context = context, 
+                ButtonState = buttonState 
+            };
+
+            InitializeButtonData(spokenTypeData, id);
+            return spokenTypeData;
+        }
+
         public static VisualStudioCommandData GetVisualStudioCommandData(string command, string parameters, ButtonState buttonState, string id)
         {
             VisualStudioCommandData visualStudioCommandData = new VisualStudioCommandData() { Command = command };

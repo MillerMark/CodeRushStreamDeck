@@ -2,7 +2,7 @@
 
 namespace CodeRushStreamDeck.Models
 {
-    public class TypeContentCreationButton
+    public class SpokenTypeTemplateData
     {
         public string TemplateToExpand { get; set; }
         public string Context { get; set; }
