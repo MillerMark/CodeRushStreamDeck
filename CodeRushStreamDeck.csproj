@@ -662,9 +662,6 @@
 		</None>
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="profiles\" />
-	</ItemGroup>
-	<ItemGroup>
 	  <ProjectReference Include="C:\Users\Mark\Documents\StreamDeckToolkit2\src\StreamDeckLib.Config\StreamDeckLib.Config.csproj" />
 	  <ProjectReference Include="C:\Users\Mark\Documents\StreamDeckToolkit2\src\StreamDeckLib\StreamDeckLib.csproj" />
 	</ItemGroup>

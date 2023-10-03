@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CodeRushStreamDeck;
 using DevExpress.CodeRush.Foundation.Pipes.Data;
 
 namespace PipeCore
@@ -26,11 +27,12 @@ namespace PipeCore
             return commandData;
         }
 
-        public static SpokenTypeData GetSpokenTypeData(string template, string context, ButtonState buttonState, string id)
+        public static SpokenTypeData GetSpokenTypeData(string template, string context, string variablesToSet, ButtonState buttonState, string id)
         {
             SpokenTypeData spokenTypeData = new SpokenTypeData() { 
                 Template = template, 
                 Context = context, 
+                VariablesToSet = variablesToSet,
                 ButtonState = buttonState 
             };
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DevExpress.CodeRush.Foundation.Pipes.Data
 {
@@ -6,13 +7,9 @@ namespace DevExpress.CodeRush.Foundation.Pipes.Data
     {
         public string Template { get; set; }
         public string Context { get; set; }
+        public string VariablesToSet { get; set; }
         public SpokenTypeData()
         {
-        }
-
-        public string CreateTemplate(TypeInformation typeInformation) {
-            // TODO: Implement this!
-            return Template;
         }
     }
 }

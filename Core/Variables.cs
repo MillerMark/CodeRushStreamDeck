@@ -182,7 +182,7 @@ namespace CodeRushStreamDeck
                         dynamicListEntries.Add(new DynamicListEntry() { Mnemonic = unlikelyCodeRushTypeMnemonic, ListVarName = "Type", Value = replacement });
                         replacement = unlikelyCodeRushTypeMnemonic;
                     }
-                    if (x == "genericType")
+                    if (x == "generic1Type")
                         if (IsGeneric1TypeFullName(replacement))
                         {
                             const string unlikelyCodeRushGenericType1Mnemonic = "yr281";

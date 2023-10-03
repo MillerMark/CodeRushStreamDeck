@@ -18,6 +18,10 @@ namespace CodeRushStreamDeck
         static Bitmap waitingIcon;
         ListeningState listeningState;
         int lastVolume;
+        const int recordLeftOffset = 2;
+        const int recordTopOffset = 2;
+        protected bool heardAudio;
+
         public ListeningState ListeningState
         {
             get => listeningState;
@@ -32,6 +36,7 @@ namespace CodeRushStreamDeck
 
         public override async Task OnKeyDown(StreamDeckEventPayload args)
         {
+            heardAudio = false;
             await base.OnKeyDown(args);
             ListeningState = ListeningState.Waiting;
         }
@@ -60,9 +65,6 @@ namespace CodeRushStreamDeck
             AddListeningState(background);
             return background;
         }
-
-        private const int recordLeftOffset = 2;
-        private const int recordTopOffset = 2;
 
         void ShowActiveVolume(Graphics background)
         {
@@ -118,6 +120,9 @@ namespace CodeRushStreamDeck
                 ListeningState = ListeningState.Listening;  // Will trigger a button image refresh
             else
                 UpdateImageAsync();
+            if (ListeningState == ListeningState.Listening)
+                if (volume >= 8)
+                    heardAudio = true;
         }
 
         public virtual void TypeRecognized(TypeRecognizedFromSpokenWords typeRecognizedFromSpokenWords)
