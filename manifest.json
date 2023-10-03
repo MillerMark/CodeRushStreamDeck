@@ -344,6 +344,12 @@
       "DontAutoSwitchWhenInstalled": true
     },
     {
+      "Name": "VS Voice Create",
+      "DeviceType": 2,
+      "Readonly": false,
+      "DontAutoSwitchWhenInstalled": true
+    },
+    {
       "Name": "VS Create Member",
       "DeviceType": 2,
       "Readonly": false,

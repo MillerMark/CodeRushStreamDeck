@@ -36,7 +36,7 @@ namespace DevExpress.CodeRush.Foundation.Pipes.Data
 
                     dynamicListEntries.AddGeneric2Type(unlikelyCodeRushGenericType2Mnemonic, typeInformation.GenericType);
                     dynamicListEntries.AddType(unlikelyType2Param1Mnemonic, typeInformation.TypeParam1);
-                    dynamicListEntries.AddType(unlikelyType2Param1Mnemonic, typeInformation.TypeParam2);
+                    dynamicListEntries.AddType(unlikelyType2Param2Mnemonic, typeInformation.TypeParam2);
 
                     templateToExpand = templateToExpand.Replace("$Type$", $"{unlikelyCodeRushGenericType2Mnemonic}.{unlikelyType2Param1Mnemonic},{unlikelyType2Param2Mnemonic}");
 

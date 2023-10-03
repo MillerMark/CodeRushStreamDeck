@@ -205,6 +205,7 @@
 	  <None Remove="VS Refactor.streamDeckProfile" />
 	  <None Remove="VS Test.streamDeckProfile" />
 	  <None Remove="VS Tool Windows.streamDeckProfile" />
+	  <None Remove="VS Voice Create.streamDeckProfile" />
 	  <None Remove="VS Xaml Forms.streamDeckProfile" />
 	</ItemGroup>
 
@@ -645,6 +646,9 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="VS Tool Windows.streamDeckProfile">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="VS Voice Create.streamDeckProfile">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="VS Xaml Forms.streamDeckProfile">

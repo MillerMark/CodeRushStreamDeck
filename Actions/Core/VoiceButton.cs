@@ -100,12 +100,17 @@ namespace CodeRushStreamDeck
                 ShowActiveVolume(background);
         }
 
-        async void UpdateImageAsync()
+        protected async Task UpdateImageAsync()
         {
             using (Graphics background = base.GetBackground())
-                AddListeningState(background);
+                RefreshButtonImage(background);
 
             await DrawBackgroundAsync();
+        }
+
+        protected virtual void RefreshButtonImage(Graphics background)
+        {
+            AddListeningState(background);
         }
 
         public void ListeningStarted()
@@ -113,13 +118,13 @@ namespace CodeRushStreamDeck
             ListeningState = ListeningState.Listening;
         }
 
-        public void UpdateVolume(int volume)
+        public async void UpdateVolume(int volume)
         {
             lastVolume = volume;
             if (ListeningState == ListeningState.Waiting)
                 ListeningState = ListeningState.Listening;  // Will trigger a button image refresh
             else
-                UpdateImageAsync();
+                await UpdateImageAsync();
             if (ListeningState == ListeningState.Listening)
                 if (volume >= 8)
                     heardAudio = true;
