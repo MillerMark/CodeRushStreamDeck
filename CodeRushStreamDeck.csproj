@@ -102,6 +102,7 @@
 	  <None Remove="images\resources\class.png" />
 	  <None Remove="images\resources\classListening%402x.png" />
 	  <None Remove="images\resources\classListening.png" />
+	  <None Remove="images\resources\CodeRushTemplate@2x.png" />
 	  <None Remove="images\resources\enum%402x.png" />
 	  <None Remove="images\resources\enum.png" />
 	  <None Remove="images\resources\enumListening%402x.png" />
@@ -385,6 +386,9 @@
 		<Content Include="images\profileIndicator@2x.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<EmbeddedResource Include="images\resources\CodeRushTemplate@2x.png">
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
 		<Content Include="images\stringModifier.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>

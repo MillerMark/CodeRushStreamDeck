@@ -30,7 +30,7 @@ namespace CodeRushStreamDeck
                 if (listeningState == value)
                     return;
                 listeningState = value;
-                UpdateImageAsync();
+                UpdateImageAsync().FireAndForget();
             }
         }
 
@@ -100,15 +100,7 @@ namespace CodeRushStreamDeck
                 ShowActiveVolume(background);
         }
 
-        protected async Task UpdateImageAsync()
-        {
-            using (Graphics background = base.GetBackground())
-                RefreshButtonImage(background);
-
-            await DrawBackgroundAsync();
-        }
-
-        protected virtual void RefreshButtonImage(Graphics background)
+        protected override void RefreshButtonImage(Graphics background)
         {
             AddListeningState(background);
         }

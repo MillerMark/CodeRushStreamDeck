@@ -11,25 +11,31 @@ using PipeCore;
 using Pipes.Server;
 using StreamDeckLib;
 using StreamDeckLib.Messages;
+using System.Diagnostics.Metrics;
+using System.Reflection;
 
 namespace CodeRushStreamDeck
 {
+
     [SupportedOSPlatform("windows")]
     [ActionUuid(Uuid = "com.devexpress.coderush.spoken.type.template")]
     public class SpokenTypeTemplate : VoiceButton<Models.SpokenTypeTemplateData>
     {
-        const string STR_FontName = "Arial";
+        int counter;
         Timer marqueeTimer = new Timer(50);
         DateTime keyDownTime;
 
+        ButtonText buttonText;
+        bool needToUpdateDrawingParameters;
         public SpokenTypeTemplate()
         {
             marqueeTimer.Elapsed += MarqueeTimer_Elapsed;
         }
 
-        private void MarqueeTimer_Elapsed(object sender, ElapsedEventArgs e)
+        private async void MarqueeTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-
+            counter++;
+            await UpdateImageAsync();
         }
 
         protected override string BackgroundImageName
@@ -134,76 +140,26 @@ namespace CodeRushStreamDeck
         protected override void RefreshButtonImage(Graphics background)
         {
             base.RefreshButtonImage(background);
-            DrawText(background);
-        }
-
-        string GetOnlyTypeName(string typeName)
-        {
-            int lastIndexOfDot = typeName.LastIndexOf('.');
-            if (lastIndexOfDot < typeName.Length - 1)
-                return typeName.Substring(lastIndexOfDot + 1);
-            return typeName;
-        }
-
-        private void DrawText(Graphics background)
-        {
-            // Max font size for three lines: 22
-            // Max font size for two lines: 30
-            // Max font size for one line: 45
-            // Max font size for readability: 22?
-
-            const float buttonWidth = 144f;
-            const float minFontSize = 22f;
-            float fontSize = 20;
-            switch (SettingsModel.Kind)
+            if (buttonText == null)
+                buttonText = new ButtonText(background, SettingsModel);
+            else if (needToUpdateDrawingParameters)
             {
-                case TypeKind.Simple:
-                    fontSize = 45;
-                    Font testFont = new Font(STR_FontName, fontSize, FontStyle.Bold, GraphicsUnit.Pixel);
-                    SizeF measureString = background.MeasureString(GetOnlyTypeName(SettingsModel.SimpleType), testFont);
-                    while (measureString.Width > buttonWidth)
-                    {
-                        fontSize--;
-                        if (fontSize <= minFontSize)
-                            break;
-                        testFont = new Font(STR_FontName, fontSize, FontStyle.Bold, GraphicsUnit.Pixel);
-                        measureString = background.MeasureString(GetOnlyTypeName(SettingsModel.SimpleType), testFont);
-                    }
-                    break;
-                case TypeKind.GenericOneTypeParameter:
-                    fontSize = 30;
-                    break;
-                case TypeKind.GenericTwoTypeParameters:
-                    fontSize = 22;
-                    break;
+                needToUpdateDrawingParameters = false;
+                buttonText.UpdateDrawParameters(background, SettingsModel);
             }
 
-
-            float lineHeight = fontSize * 1.2f;
-            float x = 0;
-            const float buttonHeight = 144f;
-            float line1 = buttonHeight - lineHeight * 3;
-            float line2 = buttonHeight - lineHeight * 2;
-            float line3 = buttonHeight - lineHeight;
-
-            Font font = new Font(STR_FontName, fontSize, FontStyle.Bold, GraphicsUnit.Pixel);
-
-            switch (SettingsModel.Kind)
+            if (buttonText.HasOverflow)
             {
-                case TypeKind.Simple:
-
-                    background.DrawString(GetOnlyTypeName(SettingsModel.SimpleType), font, Brushes.White, x, line3);
-                    break;
-                case TypeKind.GenericOneTypeParameter:
-                    background.DrawString(GetOnlyTypeName(SettingsModel.GenericType), font, Brushes.White, x, line2);
-                    background.DrawString(GetOnlyTypeName(SettingsModel.TypeParam1), font, Brushes.White, x, line3);
-                    break;
-                case TypeKind.GenericTwoTypeParameters:
-                    background.DrawString(GetOnlyTypeName(SettingsModel.GenericType), font, Brushes.White, x, line1);
-                    background.DrawString(GetOnlyTypeName(SettingsModel.TypeParam1), font, Brushes.White, x, line2);
-                    background.DrawString(GetOnlyTypeName(SettingsModel.TypeParam2), font, Brushes.White, x, line3);
-                    break;
+                if (!marqueeTimer.Enabled)
+                {
+                    counter = 0;
+                    marqueeTimer.Start();
+                }
             }
+            else if (marqueeTimer.Enabled)
+                marqueeTimer.Stop();
+
+            buttonText.Draw(background, counter);
         }
 
         public override async void TypeRecognized(TypeRecognizedFromSpokenWords typeRecognizedFromSpokenWords)
@@ -214,12 +170,14 @@ namespace CodeRushStreamDeck
             SettingsModel.TypeParam1 = typeRecognizedFromSpokenWords.TypeParam1;
             SettingsModel.TypeParam2 = typeRecognizedFromSpokenWords.TypeParam2;
             await Manager.SetSettingsAsync(lastContext, SettingsModel);
+            needToUpdateDrawingParameters = true;
             await UpdateImageAsync();
         }
 
         public override async Task OnDidReceiveSettings(StreamDeckEventPayload args)
         {
             await base.OnDidReceiveSettings(args);
+            needToUpdateDrawingParameters = true;
             await UpdateImageAsync();
         }
 

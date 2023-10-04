@@ -16,8 +16,10 @@ namespace CodeRushStreamDeck
 {
     [SupportedOSPlatform("windows")]
     [ActionUuid(Uuid = "com.devexpress.coderush.template.expand")]
-    public class CodeRushTemplateExpandAction : StreamDeckButton<Models.CodeRushTemplateCommandModel>
+    public class CodeRushTemplateExpandAction : CustomDrawButton<CodeRushTemplateCommandModel>
     {
+        protected override string BackgroundImageName => "CodeRushTemplate";
+
         public CodeRushTemplateExpandAction()
         {
             Variables.StringVarChanged += Variables_StringVarChanged;
@@ -26,11 +28,6 @@ namespace CodeRushStreamDeck
         string GetFullTemplateName()
         {
             return Variables.Expand(SettingsModel.TemplateToExpand);
-        }
-
-        string GetContext()
-        {
-            return Variables.Expand(SettingsModel.Context);
         }
 
         string GetFullVariablesToSet()

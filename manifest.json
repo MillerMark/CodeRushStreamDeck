@@ -277,6 +277,25 @@
     },
     {
       "Icon": "images/actions/CodeRushTemplate",
+      "Name": "Grid Template Expand",
+      "States": [
+        {
+          "Name": "ready",
+          "Image": "images/CodeRushTemplate",
+          "ShowTitle": true,
+          "TitleColor": "#ffffff",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "UserTitleEnabled": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "propertyInspectors/piCodeRushTemplate/piCodeRushTemplate.html",
+      "Tooltip": "Expands the specified CodeRush Grid template.",
+      "UUID": "com.devexpress.coderush.grid.template.expand"
+    },
+    {
+      "Icon": "images/actions/CodeRushTemplate",
       "Name": "Spoken Type Template",
       "States": [
         {

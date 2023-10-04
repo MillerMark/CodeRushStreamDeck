@@ -89,6 +89,13 @@ namespace CodeRushStreamDeck
             return 0;
         }
 
+        public static string GetIntAsStr(string variableName)
+        {
+            if (intVariables.TryGetValue(variableName, out int value))
+                return value.ToString();
+            return "0";
+        }
+
         public static string GetString(string variableName)
         {
             if (stringVariables.TryGetValue(variableName, out string value))
@@ -162,46 +169,50 @@ namespace CodeRushStreamDeck
         public static string Expand(string phrase)
         {
             List<string> allStringVars = GetAllStringVariableNames();
-            
+            List<string> allIntVars = GetAllIntVariableNames();
+
             const string escapedSlash = "___Slash___";
             const string escapedDollarSign = "___Dollar___";
 
             phrase = phrase.Replace("\\\\", escapedSlash);
             phrase = phrase.Replace("\\$", escapedDollarSign);
-            allStringVars.ForEach(x =>
-            {
-                string replacement = GetString(x);
-                string searchTerm = $"${x}$";
-                // phrase = m$genericType$$type$
-                // searchTerm = $type$
-                if (phrase.Contains(searchTerm))
-                {
-                    if (x == "type" && IsTypeFullName(replacement))
-                    {
-                        const string unlikelyCodeRushTypeMnemonic = "qz098";
-                        dynamicListEntries.Add(new DynamicListEntry() { Mnemonic = unlikelyCodeRushTypeMnemonic, ListVarName = "Type", Value = replacement });
-                        replacement = unlikelyCodeRushTypeMnemonic;
-                    }
-                    if (x == "generic1Type")
-                        if (IsGeneric1TypeFullName(replacement))
-                        {
-                            const string unlikelyCodeRushGenericType1Mnemonic = "yr281";
-                            dynamicListEntries.Add(new DynamicListEntry() { Mnemonic = unlikelyCodeRushGenericType1Mnemonic, ListVarName = "Generic1Type", Value = replacement });
-                            replacement = unlikelyCodeRushGenericType1Mnemonic + ".";
-                        }
-                        else if (IsGeneric2TypeFullName(replacement))
-                        {
-                            const string unlikelyCodeRushGenericType2Mnemonic = "mw937";
-                            dynamicListEntries.Add(new DynamicListEntry() { Mnemonic = unlikelyCodeRushGenericType2Mnemonic, ListVarName = "Generic2Type", Value = replacement });
-                            replacement = unlikelyCodeRushGenericType2Mnemonic + ".s,";  // Make the string the first type parameter.
-                        }
-                    phrase = phrase.Replace(searchTerm, replacement);
-                }
-            });
+            
+            allStringVars.ForEach(x => Replace(ref phrase, x, GetString(x)));
+            allIntVars.ForEach(x => Replace(ref phrase, x, GetIntAsStr(x)));
 
             phrase = phrase.Replace(escapedDollarSign, "$");
             phrase = phrase.Replace(escapedSlash, "\\");
             return phrase;
+        }
+
+        private static void Replace(ref string phrase, string x, string replacement)
+        {
+            string searchTerm = $"${x}$";
+            // phrase = m$genericType$$type$
+            // searchTerm = $type$
+            if (phrase.Contains(searchTerm))
+            {
+                if (x == "type" && IsTypeFullName(replacement))
+                {
+                    const string unlikelyCodeRushTypeMnemonic = "qz098";
+                    dynamicListEntries.Add(new DynamicListEntry() { Mnemonic = unlikelyCodeRushTypeMnemonic, ListVarName = "Type", Value = replacement });
+                    replacement = unlikelyCodeRushTypeMnemonic;
+                }
+                if (x == "generic1Type")
+                    if (IsGeneric1TypeFullName(replacement))
+                    {
+                        const string unlikelyCodeRushGenericType1Mnemonic = "yr281";
+                        dynamicListEntries.Add(new DynamicListEntry() { Mnemonic = unlikelyCodeRushGenericType1Mnemonic, ListVarName = "Generic1Type", Value = replacement });
+                        replacement = unlikelyCodeRushGenericType1Mnemonic + ".";
+                    }
+                    else if (IsGeneric2TypeFullName(replacement))
+                    {
+                        const string unlikelyCodeRushGenericType2Mnemonic = "mw937";
+                        dynamicListEntries.Add(new DynamicListEntry() { Mnemonic = unlikelyCodeRushGenericType2Mnemonic, ListVarName = "Generic2Type", Value = replacement });
+                        replacement = unlikelyCodeRushGenericType2Mnemonic + ".s,";  // Make the string the first type parameter.
+                    }
+                phrase = phrase.Replace(searchTerm, replacement);
+            }
         }
 
         static bool IsTypeFullName(string value)

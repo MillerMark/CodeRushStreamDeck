@@ -42,6 +42,9 @@ namespace CodeRushStreamDeck
 
         protected Bitmap GetBitmapResource(string name)
         {
+            if (string.IsNullOrEmpty(name))
+                return new Bitmap(144, 144);
+
             Stream manifestResourceStream = GetType().Assembly.GetManifestResourceStream($"CodeRushStreamDeck.images.resources.{name}@2x.png");
             
             if (manifestResourceStream == null)
@@ -60,5 +63,20 @@ namespace CodeRushStreamDeck
             }
             await DrawBackgroundAsync();
         }
+
+        protected virtual void RefreshButtonImage(Graphics background)
+        {
+            // Do nothing. Let descendants override.
+        }
+
+        protected async Task UpdateImageAsync()
+        {
+            using (Graphics background = GetBackground())
+                RefreshButtonImage(background);
+
+            await DrawBackgroundAsync();
+        }
+
+
     }
 }
