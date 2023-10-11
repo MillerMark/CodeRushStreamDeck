@@ -30,8 +30,8 @@ namespace CodeRushStreamDeck
         protected override void RefreshButtonImage(Graphics background)
         {
             base.RefreshButtonImage(background);
-            int horizontalMargin = 2;
-            int verticalMargin = 2;
+            int horizontalMargin = 7;
+            int verticalMargin = 7;
             const int spaceForBottomLine = 30;
             int drawingWidth = ButtonText.ButtonWidth - horizontalMargin * 2;
             int drawingHeight = ButtonText.ButtonHeight - verticalMargin * 2 - spaceForBottomLine;

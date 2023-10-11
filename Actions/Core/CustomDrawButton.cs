@@ -14,26 +14,13 @@ namespace CodeRushStreamDeck
     [SupportedOSPlatform("windows")]
     public abstract class CustomDrawButton<T> : StreamDeckButton<T>
     {
-        object backgroundImageLock = new object();
+        object systemDrawingLock = new object();
         protected Bitmap backgroundImage;
         protected abstract string BackgroundImageName { get; }
         
-        protected async Task DrawBackgroundAsync()
-        {
-            using (MemoryStream stream = new MemoryStream())
-            {
-                lock (backgroundImageLock)
-                    backgroundImage.Save(stream, ImageFormat.Png); 
-
-                byte[] imageBytes = stream.ToArray();
-                string imageLocation = "data:image/png;base64," + Convert.ToBase64String(imageBytes);
-                await Manager.SetImageAsync(lastContext, imageLocation);
-            }
-        }
-
         protected virtual Graphics GetBackground()
         {
-            lock (backgroundImageLock)
+            lock (systemDrawingLock)
             {
                 backgroundImage = GetBitmapResource(BackgroundImageName);
                 return Graphics.FromImage(backgroundImage);
@@ -57,11 +44,7 @@ namespace CodeRushStreamDeck
         {
             await base.OnWillAppear(args);
 
-            using (Graphics background = GetBackground())
-            {
-                // Do nothing - call to GetBackground is all that is needed to get the correct image.
-            }
-            await DrawBackgroundAsync();
+            await UpdateImageAsync();
         }
 
         protected virtual void RefreshButtonImage(Graphics background)
@@ -69,14 +52,28 @@ namespace CodeRushStreamDeck
             // Do nothing. Let descendants override.
         }
 
+        string GetImageLocation()
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                backgroundImage.Save(stream, ImageFormat.Png);
+
+                byte[] imageBytes = stream.ToArray();
+                return "data:image/png;base64," + Convert.ToBase64String(imageBytes);
+            }
+        }
         protected async Task UpdateImageAsync()
         {
-            using (Graphics background = GetBackground())
-                RefreshButtonImage(background);
+            string imageLocation;
+            lock (systemDrawingLock)
+            {
+                using (Graphics background = GetBackground())
+                    RefreshButtonImage(background);
+                
+                imageLocation = GetImageLocation();
+            }
 
-            await DrawBackgroundAsync();
+            await Manager.SetImageAsync(lastContext, imageLocation);
         }
-
-
     }
 }

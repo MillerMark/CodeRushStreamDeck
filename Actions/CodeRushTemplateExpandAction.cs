@@ -14,6 +14,7 @@ using System.Runtime.Versioning;
 
 namespace CodeRushStreamDeck
 {
+
     [SupportedOSPlatform("windows")]
     [ActionUuid(Uuid = "com.devexpress.coderush.template.expand")]
     public class CodeRushTemplateExpandAction : CustomDrawButton<CodeRushTemplateCommandModel>

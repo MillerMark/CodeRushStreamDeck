@@ -4,15 +4,18 @@ using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using StreamDeckLib.Messages;
 using DevExpress.CodeRush.Foundation.Pipes.Data;
+using System.Collections.Concurrent;
 
 namespace CodeRushStreamDeck
 {
     public static class Variables
     {
-        static Dictionary<string, string> stringVariables = new();
-        static Dictionary<string, int> intVariables = new();
+        static ConcurrentDictionary<string, string> stringVariables = new();
+        static ConcurrentDictionary<string, int> intVariables = new();
+        static ConcurrentDictionary<string, bool> boolVariables = new();
 
         public static event EventHandler<VarEventArgs<int>> IntVarChanged;
+        public static event EventHandler<VarEventArgs<bool>> BoolVarChanged;
         public static event EventHandler<VarEventArgs<string>> StringVarChanged;
 
         static void UpdateGlobalSettings()
@@ -24,6 +27,12 @@ namespace CodeRushStreamDeck
         {
             UpdateGlobalSettings();
             IntVarChanged?.Invoke(null, new VarEventArgs<int>(varName, value));
+        }
+        
+        static void OnBoolVarChanging(string varName, bool value)
+        {
+            UpdateGlobalSettings();
+            BoolVarChanged?.Invoke(null, new VarEventArgs<bool>(varName, value));
         }
 
         static void OnStringVarChanging(string varName, string value)
@@ -41,6 +50,17 @@ namespace CodeRushStreamDeck
                 if (intVariables[varName] != value)
                     OnIntVarChanging(varName, value);
             intVariables[varName] = value;
+        }
+
+        public static void SetBool(string varName, bool value = false)
+        {
+            if (string.IsNullOrEmpty(varName))
+                return;
+
+            if (boolVariables.ContainsKey(varName))
+                if (boolVariables[varName] != value)
+                    OnBoolVarChanging(varName, value);
+            boolVariables[varName] = value;
         }
 
         public static void SetString(string varName, string value = "")
@@ -74,6 +94,14 @@ namespace CodeRushStreamDeck
             return intVariables.ContainsKey(variableName);
         }
 
+        public static bool ContainsBoolVar(string variableName)
+        {
+            if (string.IsNullOrEmpty(variableName))
+                return false;
+
+            return boolVariables.ContainsKey(variableName);
+        }
+
         public static bool ContainsStringVar(string variableName)
         {
             if (string.IsNullOrEmpty(variableName))
@@ -87,6 +115,13 @@ namespace CodeRushStreamDeck
             if (intVariables.TryGetValue(variableName, out int value))
                 return value;
             return 0;
+        }
+
+        public static bool GetBool(string variableName)
+        {
+            if (boolVariables.TryGetValue(variableName, out bool value))
+                return value;
+            return false;
         }
 
         public static string GetIntAsStr(string variableName)
@@ -108,6 +143,9 @@ namespace CodeRushStreamDeck
             JArray integers = new JArray();
             intVariables.Keys.ToList().ForEach(x => integers.Add($"{x}\t{intVariables[x]}"));
 
+            JArray booleans = new JArray();
+            boolVariables.Keys.ToList().ForEach(x => booleans.Add($"{x}\t{boolVariables[x]}"));
+
             JArray strings = new JArray();
             stringVariables.Keys.ToList().ForEach(x => strings.Add($"{x}\t{stringVariables[x]}"));
 
@@ -115,6 +153,7 @@ namespace CodeRushStreamDeck
 
             settings.Integers = integers;
             settings.Strings = strings;
+            settings.Booleans = booleans;
 
             return settings;
         }
@@ -144,18 +183,26 @@ namespace CodeRushStreamDeck
                         if (sides.Length == 2)
                             if (int.TryParse(sides[1], out int value))
                                 SetInt(sides[0], value);
-
+                    }
+                    foreach (string boolSetting in globalSettings.settingsModel.Booleans)
+                    {
+                        if (string.IsNullOrEmpty(boolSetting))
+                            continue;
+                        string[] sides = boolSetting.Split('\t');
+                        if (sides.Length == 2)
+                            if (bool.TryParse(sides[1], out bool value))
+                                SetBool(sides[0], value);
                     }
                 }
             }
         }
 
-        public static List<string> GetAllStringVariableNames()
+        static List<string> GetAllStringVariableNames()
         {
             return stringVariables.Keys.ToList();
         }
 
-        public static List<string> GetAllIntVariableNames()
+        static List<string> GetAllIntVariableNames()
         {
             return intVariables.Keys.ToList();
         }

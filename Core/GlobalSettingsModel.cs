@@ -8,6 +8,7 @@ namespace CodeRushStreamDeck
     {
         public List<string> Integers { get; set; } = new();
         public List<string> Strings { get; set; } = new();
+        public List<string> Booleans { get; set; } = new();
 
         public GlobalSettingsModel()
         {

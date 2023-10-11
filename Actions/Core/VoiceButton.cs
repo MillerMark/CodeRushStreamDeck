@@ -59,13 +59,6 @@ namespace CodeRushStreamDeck
             lastVolume = 0;
         }
 
-        protected override Graphics GetBackground()
-        {
-            Graphics background = base.GetBackground();
-            AddListeningState(background);
-            return background;
-        }
-
         void ShowActiveVolume(Graphics background)
         {
             int streamDeckVolume = (int)(9 * (lastVolume - 1) / 100);  // Gets a volume from 0-8.

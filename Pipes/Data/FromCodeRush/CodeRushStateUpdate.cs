@@ -3,11 +3,10 @@ using Newtonsoft.Json;
 
 namespace DevExpress.CodeRush.Foundation.Pipes.Data
 {
-    public class CommandToStreamDeckPlugin : FromCodeRushData
+    public class CodeRushStateUpdate : FromCodeRushData
     {
-        public string Command { get; set; }
-
-        public CommandToStreamDeckPlugin()
+        public Dictionary<string, bool> State { get; set; }
+        public CodeRushStateUpdate()
         {
 
         }
@@ -15,7 +14,7 @@ namespace DevExpress.CodeRush.Foundation.Pipes.Data
         public StreamDeckData GetStreamDeckData()
         {
             var serializeObject = JsonConvert.SerializeObject(this);
-            return new StreamDeckData() { Data = serializeObject, DataType = nameof(CommandToStreamDeckPlugin) };
+            return new StreamDeckData() { Data = serializeObject, DataType = nameof(CodeRushStateUpdate) };
         }
     }
 }
