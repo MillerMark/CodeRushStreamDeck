@@ -178,6 +178,10 @@
 	  <None Remove="images\symbols\structListening.png" />
 	  <None Remove="images\vsCommand.png" />
 	  <None Remove="images\vsCommand@2x.png" />
+	  <None Remove="propertyInspectors\common\piSharedCarousel.js" />
+	  <None Remove="propertyInspectors\piCodeRushToggleCommand\css\piCodeRushToggleCommand.css" />
+	  <None Remove="propertyInspectors\piCodeRushToggleCommand\js\piCodeRushToggleCommand.js" />
+	  <None Remove="propertyInspectors\piCodeRushToggleCommand\piCodeRushToggleCommand.html" />
 	  <None Remove="propertyInspectors\piTypeContentCreation\css\piTypeContentCreation.css" />
 	  <None Remove="propertyInspectors\piTypeContentCreation\css\sdpi.css" />
 	  <None Remove="propertyInspectors\piCodeRushTemplate\css\piCodeRushTemplate.css" />
@@ -198,6 +202,7 @@
 	  <None Remove="propertyInspectors\piStringModifier\piStringModifier.html" />
 	  <None Remove="propertyInspectors\piTypeContentCreation\js\piTypeContentCreation.js" />
 	  <None Remove="propertyInspectors\piTypeContentCreation\piTypeContentCreation.html" />
+	  <None Remove="propertyInspectors\piCodeRushToggleCommand\css\sdpi.css" />
 	  <None Remove="VS Build.streamDeckProfile" />
 	  <None Remove="VS Create Member.streamDeckProfile" />
 	  <None Remove="VS Debug.streamDeckProfile" />
@@ -384,6 +389,21 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="images\profileIndicator@2x.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="propertyInspectors\common\piSharedCarousel.js">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="propertyInspectors\piCodeRushToggleCommand\css\piCodeRushToggleCommand.css">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="propertyInspectors\piCodeRushToggleCommand\css\sdpi.css">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="propertyInspectors\piCodeRushToggleCommand\js\piCodeRushToggleCommand.js">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="propertyInspectors\piCodeRushToggleCommand\piCodeRushToggleCommand.html">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<EmbeddedResource Include="images\resources\CodeRushTemplate@2x.png">

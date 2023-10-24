@@ -29,19 +29,16 @@ namespace CodeRushStreamDeck
         public void Draw(Graphics graphics, Font font, int counter)
         {
             int xOffset = 0;
-            if (Width > ButtonText.ButtonWidth)
+            if (Width > ScrollingText.ButtonWidth)
             {
-                int pixelsToMoveOneWay = Width - ButtonText.ButtonWidth;
-                int totalPixelsToMove = pixelsToMoveOneWay * 2;
+                const int extraPixelMargin = 4;  // Moves the text a bit more inside the physical button, so we can see it when it's at the bottom near the button's rounded corners.
+                int pixelsToMoveOneWay = Width - ScrollingText.ButtonWidth;
+                int totalPixelsToMove = pixelsToMoveOneWay * 2 + extraPixelMargin;
                 int pixelsIntoThisMove = counter % totalPixelsToMove;
                 if (pixelsIntoThisMove < pixelsToMoveOneWay)
-                {
                     xOffset = -pixelsIntoThisMove;
-                }
                 else
-                {
                     xOffset = pixelsIntoThisMove - 2 * pixelsToMoveOneWay;
-                }
 
             }
             graphics.DrawString(Text, font, Brushes.White, X + xOffset, Y);

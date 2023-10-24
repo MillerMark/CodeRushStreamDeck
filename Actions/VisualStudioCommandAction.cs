@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using StreamDeckLib;
 using StreamDeckLib.Messages;
+using CodeRushStreamDeck.Models;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json.Linq;
@@ -13,157 +14,37 @@ using PipeCore;
 using CodeRushStreamDeck.Startup;
 using System.Diagnostics;
 using System.Runtime.Versioning;
+using static CodeRushStreamDeck.VisualStudioCommandAction;
 
 namespace CodeRushStreamDeck
 {
     [SupportedOSPlatform("windows")]
     [ActionUuid(Uuid = "com.devex.cr.exec.vs.command")]
-    public class VisualStudioCommandAction : StreamDeckButton<Models.VisualStudioCommandModel>, IStreamDeckButton
+    public class VisualStudioCommandAction : StreamDeckButton<VisualStudioCommandModel>, IStreamDeckButton
     {
+        CarouselHelper carouselHelper = new();
+        public override async Task OnWillAppear(StreamDeckEventPayload args)
+        {
+            await base.OnWillAppear(args);
+            await carouselHelper.ShowImage(Manager, args, SettingsModel);
+        }
+
+        public override async Task OnDidReceiveSettings(StreamDeckEventPayload args)
+        {
+            await base.OnDidReceiveSettings(args);
+            await carouselHelper.OnDidReceiveSettings(Manager, args, SettingsModel);
+        }
+
         public override async Task OnKeyDown(StreamDeckEventPayload args)
         {
             await base.OnKeyDown(args);
             if (!string.IsNullOrEmpty(SettingsModel.Command))
-            {
                 SendVisualStudioCommandToCodeRush(SettingsModel.Command, SettingsModel.Parameters, ButtonState.Down);
-            }
-            else
-            {
-                // TODO: Remove this test code:
-                string uuid = Manager.GetInstanceUuid();
-
-                const string xlRight = "EA7156E07669CF0850A6A747AE71EC5E";
-                const string profileName = "VS Debug";
-                await Manager.SwitchToProfileAsync(uuid, xlRight, profileName);
-            }
         }
-
-        public class ImageFileNameScore
-        {
-            public string FileName { get; set; }
-            public double Score { get; set; }
-            public ImageFileNameScore(string fileName, double score)
-            {
-                FileName = fileName;
-                Score = score;
-            }
-        }
-
-        async Task ShowImage(StreamDeckEventPayload args)
-        {
-            if (!string.IsNullOrEmpty(SettingsModel.SelectedImage))
-                await Manager.SetImageAsync(args.context, $"images/commands/vs/{SettingsModel.SelectedImage}.png");
-        }
-
-        public override async Task OnWillAppear(StreamDeckEventPayload args)
-        {
-            await base.OnWillAppear(args);
-            await ShowImage(args);
-        }
-
+        
         void SendVisualStudioCommandToCodeRush(string command, string parameters, ButtonState buttonState)
         {
             CommunicationServer.SendMessageToCodeRush(CommandHelper.GetVisualStudioCommandData(command, parameters, buttonState, buttonInstanceId));
-        }
-
-        string GetImageFolder()
-        {
-            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"images\commands\vs");
-        }
-
-        async Task HandleCommandOverride(StreamDeckEventPayload args)
-        {
-            string overrideCommand = SettingsModel.OverrideCommand;
-            if (string.IsNullOrEmpty(overrideCommand))
-                return;
-
-            string command;
-            string parameters = string.Empty;
-            int spaceIndex = overrideCommand.IndexOf(" ");
-            if (spaceIndex > 0)
-            {
-                command = overrideCommand.Substring(0, spaceIndex);
-                parameters = overrideCommand.Substring(spaceIndex + 1);
-            }
-            else
-                command = overrideCommand;
-
-            switch (command)
-            {
-                case "FindImages":
-                    await LoadStreamDeckImages(args, SettingsModel.Command, SettingsModel.SearchTextForImages);
-                    commandHandled = true;
-                    break;
-
-                case "Copy":
-                    string imageFullPath = Path.Combine(GetImageFolder(), parameters + "@2x.png");
-                     $"echo {imageFullPath}| clip".Bat();
-                    commandHandled = true;
-                    break;
-            }
-            SettingsModel.OverrideCommand = null;
-        }
-
-        bool commandHandled;
-        public override async Task OnDidReceiveSettings(StreamDeckEventPayload args)
-        {
-            await base.OnDidReceiveSettings(args);
-
-            commandHandled = false;
-            if (!string.IsNullOrEmpty(SettingsModel.OverrideCommand))
-                await HandleCommandOverride(args);
-
-            if (commandHandled)
-            {
-                commandHandled = false;
-                return;
-            }
-
-            // TODO: Asymmetry - consider adding parameter parsing for commands and updating the handleSdpiItemChange method.
-            if (!string.IsNullOrEmpty(SettingsModel.SelectedImage))
-            {
-                SettingsModel.ImageFileName = SettingsModel.SelectedImage;
-                await ShowImage(args);
-                // TODO: Load selected image...
-                SettingsModel.SelectedImage = string.Empty;
-                return;
-            }
-
-            await LoadStreamDeckImages(args, SettingsModel.Command);
-
-            // TODO: Show the images from this topTen list.
-        }
-
-        private async Task LoadStreamDeckImages(StreamDeckEventPayload args, string command, string additionalSearchPhrase = null)
-        {
-            List<string> wordParts = CamelCaseParser.GetWordParts(command);
-            List<string> additionalSearchPhraseWordParts = CamelCaseParser.GetWordParts(additionalSearchPhrase);
-
-            string[] vsCommandImageFileNames = Directory.GetFiles(GetImageFolder(), "*@2x.png");
-            List<ImageFileNameScore> list = new List<ImageFileNameScore>();
-            foreach (string vsCommandImageFileName in vsCommandImageFileNames)
-            {
-                string fileNameOnly = Path.GetFileName(vsCommandImageFileName);
-                string baseFileName = fileNameOnly.Substring(0, fileNameOnly.Length - 7);
-                List<string> imageWordParts = CamelCaseParser.GetWordParts(baseFileName);
-                double score = MatchScoreCalculator.GetScore(wordParts, imageWordParts);
-
-                if (additionalSearchPhraseWordParts != null)
-                    score = Math.Max(score, MatchScoreCalculator.GetScore(additionalSearchPhraseWordParts, imageWordParts));
-
-                if (score > 0.1)
-                    list.Add(new ImageFileNameScore(baseFileName, score));
-            }
-
-            var top14 = list.OrderByDescending(x => x.Score).Take(14).ToList();
-
-            dynamic obj = new JObject();
-            obj.Command = "!SuggestedImageList";
-            obj.Images = new JArray();
-            foreach (var item in top14)
-                obj.Images.Add(item.FileName);
-
-            await Manager.SendToPropertyInspectorAsync(args.context, obj);
         }
     }
 }

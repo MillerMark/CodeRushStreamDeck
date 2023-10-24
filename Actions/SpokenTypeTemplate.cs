@@ -21,22 +21,9 @@ namespace CodeRushStreamDeck
     [ActionUuid(Uuid = "com.devexpress.coderush.spoken.type.template")]
     public class SpokenTypeTemplate : VoiceButton<Models.SpokenTypeTemplateData>
     {
-        int counter;
-        Timer marqueeTimer = new Timer(50);
         DateTime keyDownTime;
 
-        ButtonText buttonText;
-        bool needToUpdateDrawingParameters;
-        public SpokenTypeTemplate()
-        {
-            marqueeTimer.Elapsed += MarqueeTimer_Elapsed;
-        }
-
-        private async void MarqueeTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            counter++;
-            await UpdateImageAsync();
-        }
+        ScrollingText scrollingText;
 
         protected override string BackgroundImageName
         {
@@ -77,8 +64,6 @@ namespace CodeRushStreamDeck
                 return "AddMethod";
             }
         }
-
-        
 
         void SendRequestForSpokenTypeToCodeRush(ButtonState buttonState)
         {
@@ -140,26 +125,17 @@ namespace CodeRushStreamDeck
         protected override void RefreshButtonImage(Graphics background)
         {
             base.RefreshButtonImage(background);
-            if (buttonText == null)
-                buttonText = new ButtonText(background, SettingsModel);
-            else if (needToUpdateDrawingParameters)
-            {
-                needToUpdateDrawingParameters = false;
-                buttonText.UpdateDrawParameters(background, SettingsModel);
-            }
+            if (scrollingText == null)
+                scrollingText = new ScrollingText(background, SettingsModel, ButtonText_RefreshImage);
+            else
+                scrollingText.CheckDrawingParameters(background, SettingsModel);
 
-            if (buttonText.HasOverflow)
-            {
-                if (!marqueeTimer.Enabled)
-                {
-                    counter = 0;
-                    marqueeTimer.Start();
-                }
-            }
-            else if (marqueeTimer.Enabled)
-                marqueeTimer.Stop();
+            scrollingText.Draw(background);
+        }
 
-            buttonText.Draw(background, counter);
+        private async void ButtonText_RefreshImage(object sender, EventArgs e)
+        {
+            await UpdateImageAsync();
         }
 
         public override async void TypeRecognized(TypeRecognizedFromSpokenWords typeRecognizedFromSpokenWords)
@@ -170,14 +146,14 @@ namespace CodeRushStreamDeck
             SettingsModel.TypeParam1 = typeRecognizedFromSpokenWords.TypeParam1;
             SettingsModel.TypeParam2 = typeRecognizedFromSpokenWords.TypeParam2;
             await Manager.SetSettingsAsync(lastContext, SettingsModel);
-            needToUpdateDrawingParameters = true;
+            scrollingText?.InvalidateDrawingParameters();
             await UpdateImageAsync();
         }
 
         public override async Task OnDidReceiveSettings(StreamDeckEventPayload args)
         {
             await base.OnDidReceiveSettings(args);
-            needToUpdateDrawingParameters = true;
+            scrollingText?.InvalidateDrawingParameters();
             await UpdateImageAsync();
         }
 

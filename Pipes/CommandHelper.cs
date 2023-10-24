@@ -61,6 +61,17 @@ namespace PipeCore
             return codeRushTemplateCommandData;
         }
 
+        public static CodeRushCommandData GetCodeRushCommandData(string command, string parameters, string context, ButtonState buttonState, string id)
+        {
+            CodeRushCommandData codeRushCommandData = new CodeRushCommandData();
+            codeRushCommandData.ButtonState = buttonState;
+            codeRushCommandData.Command = command;
+            codeRushCommandData.Parameters = parameters;
+            codeRushCommandData.Context = context;
+            InitializeButtonData(codeRushCommandData, id);
+            return codeRushCommandData;
+        }
+
         public static DeviceInformation GetDeviceInformation()
         {
             DeviceInformation deviceInformation = new DeviceInformation();

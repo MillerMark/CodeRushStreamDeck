@@ -46,9 +46,9 @@ namespace CodeRushStreamDeck
             if (string.IsNullOrEmpty(varName))
                 return;
 
-            if (intVariables.ContainsKey(varName))
-                if (intVariables[varName] != value)
-                    OnIntVarChanging(varName, value);
+            if (!intVariables.TryGetValue(varName, out int existingValue) || existingValue != value)
+                OnIntVarChanging(varName, value);
+
             intVariables[varName] = value;
         }
 
@@ -57,9 +57,9 @@ namespace CodeRushStreamDeck
             if (string.IsNullOrEmpty(varName))
                 return;
 
-            if (boolVariables.ContainsKey(varName))
-                if (boolVariables[varName] != value)
-                    OnBoolVarChanging(varName, value);
+            if (!boolVariables.TryGetValue(varName, out bool existingValue) || existingValue != value)
+                OnBoolVarChanging(varName, value);
+
             boolVariables[varName] = value;
         }
 
@@ -68,9 +68,9 @@ namespace CodeRushStreamDeck
             if (string.IsNullOrEmpty(varName))
                 return;
 
-            if (stringVariables.ContainsKey(varName))
-                if (stringVariables[varName] != value)
-                    OnStringVarChanging(varName, value);
+            if (!stringVariables.TryGetValue(varName, out string existingValue) || existingValue != value)
+                OnStringVarChanging(varName, value);
+
             stringVariables[varName] = value;
         }
 

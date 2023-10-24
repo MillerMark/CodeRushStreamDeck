@@ -5,12 +5,18 @@ using System.Text;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.Versioning;
+using System.Timers;
 
 namespace CodeRushStreamDeck
 {
     [SupportedOSPlatform("windows")]
-    public class ButtonText
+    public class ScrollingText
     {
+        bool needToUpdateDrawingParameters;
+        public event EventHandler RefreshImage;
+        int counter;
+        Timer marqueeTimer = new Timer(50);
+
         const string STR_FontName = "Arial";
         float fontSize = 22;
         public const int ButtonWidth = 144;
@@ -25,16 +31,16 @@ namespace CodeRushStreamDeck
 
         public bool HasOverflow => hasOverflow;
 
-        float GetFontSize(Graphics background, SpokenTypeTemplateData spokenTypeTemplateData)
+        float GetFontSize(Graphics background, ICanAddTextLines canAddTextLines)
         {
             const float minFontSize = 22f;
             float fontSize = 20;
-            switch (spokenTypeTemplateData.Kind)
+            switch (canAddTextLines.LineCount)
             {
-                case TypeKind.Simple:
+                case 1:
                     fontSize = 45;
                     Font testFont = GetFont(fontSize);
-                    string typeName = GetOnlyTypeName(spokenTypeTemplateData.SimpleType);
+                    string typeName = canAddTextLines.GetSimpleText();
                     SizeF measureString = background.MeasureString(typeName, testFont);
                     while (measureString.Width > ButtonWidth)
                     {
@@ -45,10 +51,10 @@ namespace CodeRushStreamDeck
                         measureString = background.MeasureString(typeName, testFont);
                     }
                     break;
-                case TypeKind.GenericOneTypeParameter:
+                case 2:
                     fontSize = 30;
                     break;
-                case TypeKind.GenericTwoTypeParameters:
+                case 3:
                     fontSize = 22;
                     break;
             }
@@ -60,28 +66,29 @@ namespace CodeRushStreamDeck
             return new Font(STR_FontName, fontSize, FontStyle.Bold, GraphicsUnit.Pixel);
         }
 
-        string GetOnlyTypeName(string typeName)
+        public void Draw(Graphics graphics)
         {
-            int lastIndexOfDot = typeName.LastIndexOf('.');
-            if (lastIndexOfDot < typeName.Length - 1)
-                return typeName.Substring(lastIndexOfDot + 1);
-            return typeName;
-        }
-
-        public void Draw(Graphics graphics, int counter)
-        {
+            CheckOverflow();
             foreach (TextLine textLine in TextLines)
                 textLine.Draw(graphics, font, counter);
         }
 
-        public ButtonText(Graphics graphics, SpokenTypeTemplateData spokenTypeTemplateData)
+        public ScrollingText(Graphics graphics, ICanAddTextLines canAddTextLines, EventHandler refreshImageEventHandler)
         {
-            UpdateDrawParameters(graphics, spokenTypeTemplateData);
+            marqueeTimer.Elapsed += MarqueeTimer_Elapsed;
+            UpdateDrawingParameters(graphics, canAddTextLines);
+            RefreshImage += refreshImageEventHandler;
         }
 
-        public void UpdateDrawParameters(Graphics graphics, SpokenTypeTemplateData spokenTypeTemplateData)
+        private void MarqueeTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            fontSize = GetFontSize(graphics, spokenTypeTemplateData);
+            counter++;
+            RefreshImage?.Invoke(sender, e);
+        }
+
+        public void UpdateDrawingParameters(Graphics graphics, ICanAddTextLines canAddTextLines)
+        {
+            fontSize = GetFontSize(graphics, canAddTextLines);
             // Max font size for three lines: 22
             // Max font size for two lines: 30
             // Max font size for one line: 45
@@ -95,21 +102,7 @@ namespace CodeRushStreamDeck
             float line3 = ButtonHeight - lineHeight;
             font = new Font(STR_FontName, fontSize, FontStyle.Bold, GraphicsUnit.Pixel);
             TextLines.Clear();
-            switch (spokenTypeTemplateData.Kind)
-            {
-                case TypeKind.Simple:
-                    TextLines.Add(new TextLine() { Text= GetOnlyTypeName(spokenTypeTemplateData.SimpleType), X = x, Y = line3 });
-                    break;
-                case TypeKind.GenericOneTypeParameter:
-                    TextLines.Add(new TextLine() { Text = GetOnlyTypeName(spokenTypeTemplateData.GenericType), X = x, Y = line2 });
-                    TextLines.Add(new TextLine() { Text = $"<{GetOnlyTypeName(spokenTypeTemplateData.TypeParam1)}>", X = x, Y = line3 });
-                    break;
-                case TypeKind.GenericTwoTypeParameters:
-                    TextLines.Add(new TextLine() { Text = GetOnlyTypeName(spokenTypeTemplateData.GenericType), X = x, Y = line1 });
-                    TextLines.Add(new TextLine() { Text = $"<{GetOnlyTypeName(spokenTypeTemplateData.TypeParam1)}, ", X = x, Y = line2 });
-                    TextLines.Add(new TextLine() { Text = $"{GetOnlyTypeName(spokenTypeTemplateData.TypeParam2)}>", X = x, Y = line3 });
-                    break;
-            }
+            canAddTextLines.AddTextLines(TextLines, x, line1, line2, line3);
 
             CheckTextLinesForOverflow(graphics);
         }
@@ -123,6 +116,34 @@ namespace CodeRushStreamDeck
                 if (textLine.Width > ButtonWidth)
                     hasOverflow = true;
             }
+        }
+
+        public void CheckOverflow()
+        {
+            if (HasOverflow)
+            {
+                if (!marqueeTimer.Enabled)
+                {
+                    counter = 0;
+                    marqueeTimer.Start();
+                }
+            }
+            else if (marqueeTimer.Enabled)
+                marqueeTimer.Stop();
+        }
+
+        public void CheckDrawingParameters(Graphics background, ICanAddTextLines settingsModel)
+        {
+            if (!needToUpdateDrawingParameters)
+                return;
+
+            needToUpdateDrawingParameters = false;
+            UpdateDrawingParameters(background, settingsModel);
+        }
+
+        public void InvalidateDrawingParameters()
+        {
+            needToUpdateDrawingParameters = true;
         }
     }
 }

@@ -62,10 +62,22 @@ namespace Pipes.Server
             if (voiceButton != null)
                 voiceButton.TypeRecognized(typeRecognizedFromSpokenWords);
         }
+
+        static void UpdateBooleanStates(CodeRushStateUpdate stateUpdate)
+        {
+            foreach (string key in stateUpdate.State.Keys)
+                Variables.SetBool(key, stateUpdate.State[key]);
+        }
+
         static void HandleDataReceived(StreamDeckData streamDeckData)
         {
             switch (streamDeckData.DataType)
             {
+                case nameof(CodeRushStateUpdate):
+                    var stateUpdate = JsonConvert.DeserializeObject<CodeRushStateUpdate>(streamDeckData.Data);
+                    UpdateBooleanStates(stateUpdate);
+                    break;
+
                 case nameof(ShowListeningOnStreamDeck):
                     var showListeningOnStreamDeck = JsonConvert.DeserializeObject<ShowListeningOnStreamDeck>(streamDeckData.Data);
                     

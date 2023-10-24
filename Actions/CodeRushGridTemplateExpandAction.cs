@@ -33,8 +33,8 @@ namespace CodeRushStreamDeck
             int horizontalMargin = 7;
             int verticalMargin = 7;
             const int spaceForBottomLine = 30;
-            int drawingWidth = ButtonText.ButtonWidth - horizontalMargin * 2;
-            int drawingHeight = ButtonText.ButtonHeight - verticalMargin * 2 - spaceForBottomLine;
+            int drawingWidth = ScrollingText.ButtonWidth - horizontalMargin * 2;
+            int drawingHeight = ScrollingText.ButtonHeight - verticalMargin * 2 - spaceForBottomLine;
             
             int top = verticalMargin;
             int left = horizontalMargin;
@@ -54,7 +54,7 @@ namespace CodeRushStreamDeck
             }
             float fontSize = 30;
             Font font = new Font("Arial", fontSize, FontStyle.Bold, GraphicsUnit.Pixel);
-            background.DrawString($"{gridColumns}x{gridRows}", font, Brushes.White, 0, ButtonText.ButtonHeight - fontSize * 1.2f);
+            background.DrawString($"{gridColumns}x{gridRows}", font, Brushes.White, 0, ScrollingText.ButtonHeight - fontSize * 1.2f);
         }
     }
 }

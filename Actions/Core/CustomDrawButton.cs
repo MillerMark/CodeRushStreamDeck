@@ -14,28 +14,44 @@ namespace CodeRushStreamDeck
     [SupportedOSPlatform("windows")]
     public abstract class CustomDrawButton<T> : StreamDeckButton<T>
     {
-        object systemDrawingLock = new object();
+        public float IconScale { get; set; } = 1.0f;
+        public float IconTop { get; set; } = 0f;
+        public float IconLeft { get; set; } = 0f;
+        private const int iconSize = 144;
+        protected static object systemDrawingLock = new object();
         protected Bitmap backgroundImage;
         protected abstract string BackgroundImageName { get; }
-        
-        protected virtual Graphics GetBackground()
+
+        protected virtual void DrawBackgroundBehindImage(Graphics graphics)
         {
-            lock (systemDrawingLock)
-            {
-                backgroundImage = GetBitmapResource(BackgroundImageName);
-                return Graphics.FromImage(backgroundImage);
-            }
+            // Do nothing. Let descendants override if they want to draw a background behind the icon image.
+        }
+
+        protected virtual Bitmap GetIconImage()
+        {
+            return GetBitmapResource(BackgroundImageName);
+        }
+
+        protected Graphics GetBackground()
+        {
+            backgroundImage = new Bitmap(iconSize, iconSize);
+            Graphics graphics = Graphics.FromImage(backgroundImage);
+
+            DrawBackgroundBehindImage(graphics);
+            Bitmap iconImage = GetIconImage();
+            graphics.DrawImage(iconImage, IconLeft, IconTop, IconScale * iconSize, IconScale * iconSize);
+            return graphics;
         }
 
         protected Bitmap GetBitmapResource(string name)
         {
             if (string.IsNullOrEmpty(name))
-                return new Bitmap(144, 144);
+                return new Bitmap(iconSize, iconSize);
 
             Stream manifestResourceStream = GetType().Assembly.GetManifestResourceStream($"CodeRushStreamDeck.images.resources.{name}@2x.png");
             
             if (manifestResourceStream == null)
-                return new Bitmap(144, 144);
+                return new Bitmap(iconSize, iconSize);
 
             return new Bitmap(manifestResourceStream);
         }

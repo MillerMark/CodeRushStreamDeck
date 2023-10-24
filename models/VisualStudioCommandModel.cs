@@ -2,7 +2,7 @@
 
 namespace CodeRushStreamDeck.Models
 {
-    public class VisualStudioCommandModel
+    public class VisualStudioCommandModel: ICanSupportImageCarousel
     {
         public string EvtTargetValue { get; set; } = string.Empty;
         public string EvtValue { get; set; } = string.Empty;

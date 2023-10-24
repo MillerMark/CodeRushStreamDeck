@@ -6,7 +6,10 @@ var websocket = null,
   actionInfo = {},
   settingsModel = {
     Command: '',
-    Parameters: ''
+    Title: '',
+    Parameters: '',
+    Context: '',
+    StateName: ''
   };
 
 function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, inActionInfo) {
@@ -18,14 +21,13 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
   //initialize values
   if (actionInfo.payload.settings.settingsModel) {
     settingsModel.Command = actionInfo.payload.settings.settingsModel.Command;
+    settingsModel.Title = actionInfo.payload.settings.settingsModel.Title;
     settingsModel.Parameters = actionInfo.payload.settings.settingsModel.Parameters;
+    settingsModel.Context = actionInfo.payload.settings.settingsModel.Context;
+    settingsModel.StateName = actionInfo.payload.settings.settingsModel.StateName;
   }
 
-  document.getElementById('txtCommandValue').value = settingsModel.Command;
-  if (settingsModel.Parameters)
-    document.getElementById('txtParametersValue').value = settingsModel.Parameters;
-  else
-    document.getElementById('txtParametersValue').value = '';
+  assignToUiControls(settingsModel);
 
   websocket.onopen = function () {
     var json = { event: inRegisterEvent, uuid: inUUID };
@@ -50,9 +52,27 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
           settingsModel.Command = jsonObj.payload.settings.settingsModel.Command;
           document.getElementById('txtCommandValue').value = settingsModel.Command;
         }
+
+        if (jsonObj.payload.settings.settingsModel.Title) {
+          settingsModel.Title = jsonObj.payload.settings.settingsModel.Title;
+          document.getElementById('txtTitleValue').value = settingsModel.Title;
+        }
+
         if (jsonObj.payload.settings.settingsModel.Parameters) {
           settingsModel.Parameters = jsonObj.payload.settings.settingsModel.Parameters;
           document.getElementById('txtParametersValue').value = settingsModel.Parameters;
+        }
+
+        if (jsonObj.payload.settings.settingsModel.Context) {
+          settingsModel.Context = jsonObj.payload.settings.settingsModel.Context;
+          document.getElementById('txtContextValue').value = settingsModel.Context;
+        }
+
+
+
+        if (jsonObj.payload.settings.settingsModel.StateName) {
+          settingsModel.StateName = jsonObj.payload.settings.settingsModel.StateName;
+          document.getElementById('txtStateName').value = settingsModel.StateName;
         }
         break;
       case "sendToPropertyInspector":
@@ -89,3 +109,23 @@ const setSettings = (value, param) => {
     websocket.send(JSON.stringify(json));
   }
 };
+
+function assignToUiControls(settingsModel) {
+  document.getElementById('txtCommandValue').value = settingsModel.Command;
+  document.getElementById('txtStateName').value = settingsModel.StateName;
+
+  if (settingsModel.Context)
+    document.getElementById('txtContextValue').value = settingsModel.Context;
+  else
+    document.getElementById('txtContextValue').value = '';
+
+  if (settingsModel.Title)
+    document.getElementById('txtTitleValue').value = settingsModel.Title;
+  else
+    document.getElementById('txtTitleValue').value = '';
+
+  if (settingsModel.Parameters)
+    document.getElementById('txtParametersValue').value = settingsModel.Parameters;
+  else
+    document.getElementById('txtParametersValue').value = '';
+}
