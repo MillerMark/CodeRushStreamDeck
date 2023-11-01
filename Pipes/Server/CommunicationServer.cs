@@ -80,6 +80,12 @@ namespace Pipes.Server
                     UpdateBooleanStates(stateUpdate);
                     break;
 
+                case nameof(AvailableCommands):
+                    var availableCommands = JsonConvert.DeserializeObject<AvailableCommands>(streamDeckData.Data);
+                    CodeRush.SetCommands(availableCommands.CodeRushCommands);
+                    VisualStudio.SetCommands(availableCommands.VisualStudioCommands);
+                    break;
+
                 case nameof(ShowListeningOnStreamDeck):
                     var showListeningOnStreamDeck = JsonConvert.DeserializeObject<ShowListeningOnStreamDeck>(streamDeckData.Data);
                     

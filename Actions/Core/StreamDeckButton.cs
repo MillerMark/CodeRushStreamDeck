@@ -41,7 +41,7 @@ namespace CodeRushStreamDeck
             await Manager.ShowAlertAsync(lastContext);
         }
 
-        public static void SendCommandToCodeRush(string command, ButtonState buttonState)
+        public void SendCommandToCodeRush(string command, ButtonState buttonState)
         {
             CommunicationServer.SendMessageToCodeRush(CommandHelper.GetCommandData(command, buttonState, buttonInstanceId));
         }
