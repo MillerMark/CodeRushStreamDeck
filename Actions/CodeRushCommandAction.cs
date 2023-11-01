@@ -10,6 +10,7 @@ using DevExpress.CodeRush.Foundation.Pipes.Data;
 using StreamDeckLib;
 using StreamDeckLib.Messages;
 using CodeRushStreamDeck.Models;
+using Newtonsoft.Json.Linq;
 
 namespace CodeRushStreamDeck
 {
@@ -20,12 +21,39 @@ namespace CodeRushStreamDeck
     [ActionUuid(Uuid = "com.devexpress.coderush.command")]
     public class CodeRushCommandAction : CustomDrawButton<CodeRushCommandModel>
     {
-        bool enabled;
         ScrollingText scrollingText;
         CarouselHelper carouselHelper = new();
 
+
         // TODO: Change the BackgroundImageName
         protected override string BackgroundImageName => "CodeRushTemplate";
+
+        public override async Task OnPropertyInspectorDidAppear(StreamDeckEventPayload args)
+        {
+            await base.OnPropertyInspectorDidAppear(args);
+            CodeRush.GetDataIfNeeded();
+            if (CodeRush.IsInitialized)
+                await SendCodeRushCommandsToPropertyInspectorAsync();
+            else
+                CodeRush.CommandsInitialized += CodeRush_CommandsInitialized;
+        }
+
+        public override Task OnPropertyInspectorDidDisappear(StreamDeckEventPayload args)
+        {
+            CodeRush.CommandsInitialized -= CodeRush_CommandsInitialized;
+            return base.OnPropertyInspectorDidDisappear(args);
+        }
+
+        private async void CodeRush_CommandsInitialized(object sender, EventArgs e)
+        {
+            CodeRush.CommandsInitialized -= CodeRush_CommandsInitialized;
+            await SendCodeRushCommandsToPropertyInspectorAsync();
+        }
+
+        async Task SendCodeRushCommandsToPropertyInspectorAsync()
+        {
+            await CommandLoader.LoadCodeRushCommands(Manager, lastContext);
+        }
 
         protected override void RefreshButtonImage(Graphics background)
         {

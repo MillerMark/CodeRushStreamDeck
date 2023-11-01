@@ -3,7 +3,7 @@ using DevExpress.CodeRush.Foundation.Pipes.Data;
 using Newtonsoft.Json;
 using PipeCore;
 using System;
-
+using System.Diagnostics;
 
 namespace Pipes.Server
 {
@@ -34,8 +34,6 @@ namespace Pipes.Server
             StreamDeckData streamDeckData = new StreamDeckData() { Data = data, DataType = dataType };
 
             messageSender.EnqueueMessage(JsonConvert.SerializeObject(streamDeckData));
-
-            RequestCodeRushDataIfNeeded();
         }
 
         public static void SendMessageToCodeRush(object message)
@@ -81,9 +79,16 @@ namespace Pipes.Server
                     break;
 
                 case nameof(AvailableCommands):
-                    var availableCommands = JsonConvert.DeserializeObject<AvailableCommands>(streamDeckData.Data);
-                    CodeRush.SetCommands(availableCommands.CodeRushCommands);
-                    VisualStudio.SetCommands(availableCommands.VisualStudioCommands);
+                    try
+                    {
+                        var availableCommands = JsonConvert.DeserializeObject<AvailableCommands>(streamDeckData.Data);
+                        CodeRush.SetCommands(availableCommands.CodeRushCommands);
+                        VisualStudio.SetCommands(availableCommands.VisualStudioCommands);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Exception in HandleDataReceived: {ex.Message}");
+                    }
                     break;
 
                 case nameof(ShowListeningOnStreamDeck):
@@ -124,9 +129,6 @@ namespace Pipes.Server
                     StreamDeck.SwitchToProfile(switchToProfileOnStreamDeck.ProfileName, switchToProfileOnStreamDeck.DeviceId);
                     break;
             }
-            //ShowListeningOnStreamDeck
-            //FromCodeRushData
-            
         }
 
         private static void MessageReceiver_MessageReceived(object sender, string e)
@@ -135,13 +137,6 @@ namespace Pipes.Server
             if (streamDeckData == null)
                 return;
             HandleDataReceived(streamDeckData);
-            RequestCodeRushDataIfNeeded();
-        }
-
-        private static void RequestCodeRushDataIfNeeded()
-        {
-            if (!StreamDeck.CommandsExist)
-                StreamDeck.RequestCommands();
         }
 
         public static void SendSimpleCommandToCodeRush(string simpleCommand, ButtonState buttonState = ButtonState.None, string buttonId = null)

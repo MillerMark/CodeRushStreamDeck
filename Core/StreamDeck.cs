@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Xml.Linq;
+using System.Diagnostics;
 using System.Collections.Generic;
 using CodeRushStreamDeck.Startup;
 using DevExpress.CodeRush.Foundation.Pipes.Data;
@@ -32,6 +33,7 @@ namespace CodeRushStreamDeck
             InitializeIfNeeded();
         }
         static bool initialized;
+        static DateTime lastRequestTime = DateTime.MinValue;
 
         static void InitializeIfNeeded()
         {
@@ -103,7 +105,21 @@ namespace CodeRushStreamDeck
 
         public static void RequestCommands()
         {
-            CommunicationServer.SendSimpleCommandToCodeRush(CommandsFromStreamDeck.RequestKnownCommands);
+            try
+            {
+                // Prevent multiple successive calls (from a page loading with many buttons) from flooding the pipes with data
+                const double minSecondsBetweenCalls = 3d;
+                DateTime utcNow = DateTime.UtcNow;
+                double secondsSinceLastRequest = (utcNow - lastRequestTime).TotalSeconds;
+                if (secondsSinceLastRequest < minSecondsBetweenCalls)
+                    return;
+                lastRequestTime = utcNow;
+                CommunicationServer.SendSimpleCommandToCodeRush(CommandsFromStreamDeck.RequestKnownCommands);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Exception in RequestCommands: {ex.Message}");
+            }
         }
 
         public static ConnectionManager Manager { get; private set; }

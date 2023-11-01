@@ -9,13 +9,13 @@
 <body>
     <div class="sdpi-wrapper">
         <!-- for more examples of the types of fields supported in property inspector visit:
-            Elgato Github PiSamples -> https://github.com/elgatosf/streamdeck-pisamples
-            and
-            Elgato SDK Documentation -> https://developer.elgato.com/documentation/stream-deck/sdk/property-inspector/
+                Elgato Github PiSamples -> https://github.com/elgatosf/streamdeck-pisamples
+                and
+                Elgato SDK Documentation -> https://developer.elgato.com/documentation/stream-deck/sdk/property-inspector/
 
 
-    -->
-        
+        -->
+
         <div class="sdpi-item" id="title_value">
             <div class="sdpi-item-label">Title</div>
             <div style="overflow-y: auto; max-height: 150px;">
@@ -29,7 +29,7 @@
                 <input list="cbCommands" id="txtCommandValue" onchange="setSettings(event.target.value, 'Command')" style="width: 230px;">
                 <datalist id="cbCommands" class="sdpi-item-value" style="width: 280px;">
                     <!-- TODO: Load all the CodeRush commands. Do the same for all the VS commands. -->
-                    <option value="ToggleDebugVisualizer" />
+                    <option value="(loading...)" />
                 </datalist>
             </div>
         </div>
@@ -40,7 +40,7 @@
                 <input type="text" id="txtParametersValue" onchange="setSettings(event.target.value, 'Parameters')" style="width: 230px;">
             </div>
         </div>
-        
+
         <div class="sdpi-item" id="parameters_value">
             <div class="sdpi-item-label">Context</div>
             <div style="overflow-y: auto; max-height: 150px;">
@@ -61,11 +61,11 @@
                     <div class="card-carousel--overflow-container">
                         <div class="card-carousel-cards" id="carouselImageParent" style="transform: translateX(0px);">
                             <!--
-                        <div class="card-carousel--card" value="Output">
-                            <img src="../images/commands/vs/Output@2x.png">
-                            <div class="card-carousel--card--footer">Output</div>
-                        </div>
-                         -->
+                            <div class="card-carousel--card" value="Output">
+                                <img src="../images/commands/vs/Output@2x.png">
+                                <div class="card-carousel--card--footer">Output</div>
+                            </div>
+                             -->
                         </div>
                     </div>
                 </div>
@@ -76,5 +76,6 @@
     </div>
     <script src="js/piCodeRushCommand.js"></script>
     <script src="../common/piSharedCarousel.js"></script>
+    <script src="../common/piSharedCommands.js"></script>
 </body>
 </html>

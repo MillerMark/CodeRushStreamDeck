@@ -11,9 +11,15 @@ namespace CodeRushStreamDeck
         public static bool IsInitialized => Commands != null;
         public static void SetCommands(List<string> commands)
         {
-            Commands = commands;
+            Commands = commands.Where(x => !x.Contains("ContextMenus.")).Order().Distinct().ToList();
             if (commands != null)
                 CommandsInitialized?.Invoke(null, EventArgs.Empty);
+        }
+
+        public static void GetDataIfNeeded()
+        {
+            if (!StreamDeck.CommandsExist)
+                StreamDeck.RequestCommands();
         }
     }
 }

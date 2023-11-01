@@ -70,6 +70,9 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
       case "sendToPropertyInspector":
         if (jsonObj.payload.Command === '!SuggestedImageList')
           addSuggestedImages(jsonObj.payload.Images);
+
+        if (jsonObj.payload.Command === '!LoadCommands')
+          loadCommands(jsonObj.payload.Commands);
         break;
       case "getSettings":
         // TODO: Send the title back?

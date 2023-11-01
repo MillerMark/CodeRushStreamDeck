@@ -58,9 +58,12 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
       case "sendToPropertyInspector":
         if (jsonObj.payload.Command === '!SuggestedImageList')
           addSuggestedImages(jsonObj.payload.Images);
+
+        if (jsonObj.payload.Command === '!LoadCommands')
+          loadCommands(jsonObj.payload.Commands);
         break;
       case "getSettings":
-        // TODO: Send the title back?
+        //console.log(`getSettings: parameter is ${document.getElementById('txtParametersValue').value}`);
         break;
       default:
         break;
@@ -68,12 +71,13 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
   };
 }
 
+window.addEventListener('beforeunload', function (e) {
+  e.preventDefault();
+  setSettings("ShuttingDown", 'State');
+});
+
 const setSettings = (value, param) => {
-  console.log(`setSettings: value...`);
-  console.log(value);
-  console.log(`setSettings: param...`);
-  console.log(param);
-  console.log(``);
+  console.log(`setSettings: "${param}" == "${value}"`);
   if (websocket) {
     // Reset temporary values...
     settingsModel["OverrideCommand"] = '';

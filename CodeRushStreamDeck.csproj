@@ -396,6 +396,7 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="propertyInspectors\common\piSharedCarousel.js">
+		<Content Include="propertyInspectors\common\piSharedCommands.js">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="propertyInspectors\piCodeRushCommand\css\piCodeRushCommand.css">
