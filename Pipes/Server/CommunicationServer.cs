@@ -34,6 +34,8 @@ namespace Pipes.Server
             StreamDeckData streamDeckData = new StreamDeckData() { Data = data, DataType = dataType };
 
             messageSender.EnqueueMessage(JsonConvert.SerializeObject(streamDeckData));
+
+            RequestCodeRushDataIfNeeded();
         }
 
         public static void SendMessageToCodeRush(object message)
@@ -82,7 +84,7 @@ namespace Pipes.Server
                     var showListeningOnStreamDeck = JsonConvert.DeserializeObject<ShowListeningOnStreamDeck>(streamDeckData.Data);
                     
                     
-                    // TODO: Delete this call: BaseFindSymbolAction.ListeningStarted...
+                    // TODO: Delete this call: BaseFindSymbolAction.ListeningStarted after converting Find buttons to VoiceButtons...
                     BaseFindSymbolAction.ListeningStarted(showListeningOnStreamDeck.ButtonID);
                     
                     
@@ -92,7 +94,7 @@ namespace Pipes.Server
                     var showVolumeOnStreamDeck = JsonConvert.DeserializeObject<ShowVolumeOnStreamDeck>(streamDeckData.Data);
 
 
-                    // TODO: Delete this call: BaseFindSymbolAction.UpdateVolume...
+                    // TODO: Delete this call: BaseFindSymbolAction.UpdateVolume after converting Find buttons to VoiceButtons...
                     BaseFindSymbolAction.UpdateVolume(showVolumeOnStreamDeck.ButtonID, showVolumeOnStreamDeck.Volume);
 
 
@@ -127,6 +129,20 @@ namespace Pipes.Server
             if (streamDeckData == null)
                 return;
             HandleDataReceived(streamDeckData);
+            RequestCodeRushDataIfNeeded();
+        }
+
+        private static void RequestCodeRushDataIfNeeded()
+        {
+            if (!StreamDeck.CommandsExist)
+                StreamDeck.RequestCommands();
+        }
+
+        public static void SendSimpleCommandToCodeRush(string simpleCommand, ButtonState buttonState = ButtonState.None, string buttonId = null)
+        {
+            if (buttonId == null)
+                buttonId = Guid.Empty.ToString();
+            SendMessageToCodeRush(CommandHelper.GetCommandData(simpleCommand, buttonState, buttonId));
         }
     }
 }

@@ -331,6 +331,25 @@
       "Tooltip": "Executes a CodeRush command that toggles state.",
       "PropertyInspectorPath": "propertyInspectors/piCodeRushToggleCommand/piCodeRushToggleCommand.html",
       "UUID": "com.devexpress.coderush.toggle.command"
+    },
+    {
+      "Icon": "images/actions/CodeRushTemplate",
+      "Name": "CodeRush Command",
+      "States": [
+        {
+          "Name": "ready",
+          "Image": "images/CodeRushTemplate",
+          "ShowTitle": false,
+          "TitleColor": "#ffffff",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "UserTitleEnabled": false,
+      "SupportedInMultiActions": false,
+      "Tooltip": "Executes a CodeRush command.",
+      "PropertyInspectorPath": "propertyInspectors/piCodeRushCommand/piCodeRushCommand.html",
+      "UUID": "com.devexpress.coderush.command"
     }
   ],
   "Category": "CodeRush",

@@ -141,7 +141,7 @@ namespace CodeRushStreamDeck
             await LoadStreamDeckImages(manager, args, settingsModel.Command);
         }
 
-        public Bitmap GetImage(CodeRushToggleStateCommandModel settingsModel)
+        public Bitmap GetImage(ICanSupportImageCarousel settingsModel)
         {
             string imageFileName = GetImageFileName(settingsModel);
             if (string.IsNullOrEmpty(imageFileName) || !File.Exists(imageFileName))

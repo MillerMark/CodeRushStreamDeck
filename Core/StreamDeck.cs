@@ -12,7 +12,6 @@ using System.Collections.Specialized;
 
 namespace CodeRushStreamDeck
 {
-
     public static class StreamDeck
     {
         static StreamDeck()
@@ -102,6 +101,13 @@ namespace CodeRushStreamDeck
             InitializeIfNeeded();
         }
 
+        public static void RequestCommands()
+        {
+            CommunicationServer.SendSimpleCommandToCodeRush(CommandsFromStreamDeck.RequestKnownCommands);
+        }
+
         public static ConnectionManager Manager { get; private set; }
+
+        public static bool CommandsExist => CodeRush.IsInitialized && VisualStudio.IsInitialized;
     }
 }

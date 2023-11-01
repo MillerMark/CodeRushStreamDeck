@@ -2,6 +2,7 @@
 {
     public enum ButtonState
     {
+        None,
         Down,
         Up
     }

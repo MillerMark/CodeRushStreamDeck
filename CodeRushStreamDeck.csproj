@@ -179,6 +179,10 @@
 	  <None Remove="images\vsCommand.png" />
 	  <None Remove="images\vsCommand@2x.png" />
 	  <None Remove="propertyInspectors\common\piSharedCarousel.js" />
+	  <None Remove="propertyInspectors\piCodeRushCommand\css\piCodeRushCommand.css" />
+	  <None Remove="propertyInspectors\piCodeRushCommand\css\sdpi.css" />
+	  <None Remove="propertyInspectors\piCodeRushCommand\js\piCodeRushCommand.js" />
+	  <None Remove="propertyInspectors\piCodeRushCommand\piCodeRushCommand.html" />
 	  <None Remove="propertyInspectors\piCodeRushToggleCommand\css\piCodeRushToggleCommand.css" />
 	  <None Remove="propertyInspectors\piCodeRushToggleCommand\js\piCodeRushToggleCommand.js" />
 	  <None Remove="propertyInspectors\piCodeRushToggleCommand\piCodeRushToggleCommand.html" />
@@ -392,6 +396,18 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="propertyInspectors\common\piSharedCarousel.js">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="propertyInspectors\piCodeRushCommand\css\piCodeRushCommand.css">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="propertyInspectors\piCodeRushCommand\css\sdpi.css">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="propertyInspectors\piCodeRushCommand\js\piCodeRushCommand.js">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="propertyInspectors\piCodeRushCommand\piCodeRushCommand.html">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="propertyInspectors\piCodeRushToggleCommand\css\piCodeRushToggleCommand.css">

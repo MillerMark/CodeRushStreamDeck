@@ -4,7 +4,7 @@
 	<meta charset="utf-8" />
 	<title>Visual Studio Command Property Inspector</title>
 	<link rel="stylesheet" href="css/sdpi.css">
-	<link rel="stylesheet" href="css/piCodeRushToggleCommand.css">
+	<link rel="stylesheet" href="css/piCodeRushCommand.css">
 </head>
 <body>
     <div class="sdpi-wrapper">
@@ -48,17 +48,6 @@
             </div>
         </div>
 
-        <div class="sdpi-item" id="command_value">
-            <div class="sdpi-item-label">State Variable</div>
-            <div style="overflow-y: auto; max-height: 150px;">
-                <input list="cbStates" id="txtStateName" onchange="setSettings(event.target.value, 'StateName')" style="width: 230px;">
-                <datalist id="cbStates" class="sdpi-item-value" style="width: 280px;">
-                    <!-- TODO: Add all the CodeRush Boolean states -->
-                    <option value="DebugVisualizer.Enabled" />
-                </datalist>
-            </div>
-        </div>
-
         <div class="sdpi-heading">Suggested Images</div>
         <div>
             <label>Text for image search:</label>
@@ -85,7 +74,7 @@
         </div>
 
     </div>
-    <script src="js/piCodeRushToggleCommand.js"></script>
+    <script src="js/piCodeRushCommand.js"></script>
     <script src="../common/piSharedCarousel.js"></script>
 </body>
 </html>
