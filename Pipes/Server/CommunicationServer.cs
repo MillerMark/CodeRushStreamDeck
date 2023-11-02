@@ -139,11 +139,20 @@ namespace Pipes.Server
             HandleDataReceived(streamDeckData);
         }
 
-        public static void SendSimpleCommandToCodeRush(string simpleCommand, ButtonState buttonState = ButtonState.None, string buttonId = null)
+        public static void SendSimpleCommandToActiveInstanceOfCodeRush(string simpleCommand, ButtonState buttonState = ButtonState.None, string buttonId = null)
         {
             if (buttonId == null)
                 buttonId = Guid.Empty.ToString();
             SendMessageToCodeRush(CommandHelper.GetCommandData(simpleCommand, buttonState, buttonId));
+        }
+
+        public static void SendSimpleCommandToEveryInstanceOfCodeRush(string simpleCommand, ButtonState buttonState = ButtonState.None, string buttonId = null)
+        {
+            if (buttonId == null)
+                buttonId = Guid.Empty.ToString();
+            CommandData commandData = CommandHelper.GetCommandData(simpleCommand, buttonState, buttonId);
+            commandData.RequiresActiveVisualStudio = false;
+            SendMessageToCodeRush(commandData);
         }
     }
 }

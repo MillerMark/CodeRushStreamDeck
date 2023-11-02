@@ -114,7 +114,7 @@ namespace CodeRushStreamDeck
                 if (secondsSinceLastRequest < minSecondsBetweenCalls)
                     return;
                 lastRequestTime = utcNow;
-                CommunicationServer.SendSimpleCommandToCodeRush(CommandsFromStreamDeck.RequestKnownCommands);
+                CommunicationServer.SendSimpleCommandToEveryInstanceOfCodeRush(CommandsFromStreamDeck.RequestKnownCommands);
             }
             catch (Exception ex)
             {
