@@ -52,7 +52,7 @@ namespace CodeRushStreamDeck
 
         async Task SendCodeRushCommandsToPropertyInspectorAsync()
         {
-            await CommandLoader.LoadCodeRushCommands(Manager, lastContext);
+            await CommandLoader.LoadTheCodeRushCommands(Manager, lastContext);
         }
 
         protected override void RefreshButtonImage(Graphics background)

@@ -12,7 +12,7 @@ namespace CodeRushStreamDeck
     /// </summary>
     public static class CommandLoader
     {
-        public static async Task LoadCodeRushCommands(ConnectionManager manager, string context)
+        public static async Task LoadTheCodeRushCommands(ConnectionManager manager, string context)
         {
             await LoadCommands(manager, context, CodeRush.Commands);
         }
