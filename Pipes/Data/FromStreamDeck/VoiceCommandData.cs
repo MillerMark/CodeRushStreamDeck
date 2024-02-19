@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevExpress.CodeRush.Foundation.Speak;
+using System;
 using System.Linq;
 
 namespace DevExpress.CodeRush.Foundation.Pipes.Data
