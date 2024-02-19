@@ -51,7 +51,14 @@ namespace CodeRushStreamDeck
         public static async void SwitchToProfile(string profileName, string device)
         {
             string uuid = Manager.GetInstanceUuid();
-            await Manager.SwitchToProfileAsync(uuid, device, profileName);
+            try
+            {
+                await Manager.SwitchToProfileAsync(uuid, device, profileName);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Exception: {ex.Message}");
+            }
         }
 
         static void SendDeviceInfoToCodeRush()

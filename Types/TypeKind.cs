@@ -1,7 +1,5 @@
-﻿namespace DevExpress.CodeRush.Foundation.Pipes.Data
-{
-    public enum TypeKind
-    {
+﻿namespace DevExpress.CodeRush.Foundation.Speak.Types {
+    public enum TypeKind {
         Simple,
         GenericOneTypeParameter,
         GenericTwoTypeParameters

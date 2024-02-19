@@ -1,18 +1,14 @@
-﻿using System;
+﻿using Pipes.Server;
+using System;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
+using System.Threading.Tasks;
 using System.Runtime.Versioning;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Timers;
 using DevExpress.CodeRush.Foundation.Pipes.Data;
-using PipeCore;
-using Pipes.Server;
+using DevExpress.CodeRush.Foundation.Speak.Types;
 using StreamDeckLib;
 using StreamDeckLib.Messages;
-using System.Diagnostics.Metrics;
-using System.Reflection;
+using PipeCore;
 
 namespace CodeRushStreamDeck
 {

@@ -2,19 +2,8 @@
 using System;
 using Microsoft.CodeAnalysis;
 
-namespace DevExpress.CodeRush.Foundation.Pipes.Data
-{
-    public class TypeInformation
-    {
-        private ITypeSymbol? typeSymbol;
-
-        public TypeInformation(ITypeSymbol? typeSymbol) {
-            this.typeSymbol = typeSymbol;
-        }
-
-        public TypeInformation() {
-        }
-
+namespace DevExpress.CodeRush.Foundation.Speak.Types {
+    public class TypeInformation {
         public TypeKind Kind { get; set; }
         public string? SimpleType { get; set; }
         public string? GenericType { get; set; }
@@ -27,8 +16,9 @@ namespace DevExpress.CodeRush.Foundation.Pipes.Data
             return string.IsNullOrWhiteSpace(SimpleType) && string.IsNullOrWhiteSpace(GenericType);
         }
 
+#if !CodeRushStreamDeck
         string GetArrayStr(string language) {
-            if(IsArray) {
+            if (IsArray) {
                 if(language == LanguageNames.CSharp)
                     return "[]";
                 if(language == LanguageNames.VisualBasic)
@@ -36,6 +26,12 @@ namespace DevExpress.CodeRush.Foundation.Pipes.Data
             }
 
             return string.Empty;
+        }
+
+        private ITypeSymbol? typeSymbol;
+
+        public TypeInformation(ITypeSymbol? typeSymbol) {
+            this.typeSymbol = typeSymbol;
         }
 
         public string GetTypeString(SemanticModel semantic, int position) {
@@ -64,5 +60,6 @@ namespace DevExpress.CodeRush.Foundation.Pipes.Data
                     return string.Empty;
             }
         }
+#endif
     }
 }

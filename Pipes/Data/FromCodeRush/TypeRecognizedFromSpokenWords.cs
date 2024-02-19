@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DevExpress.CodeRush.Foundation.Speak.Types;
+using Newtonsoft.Json;
 
 namespace DevExpress.CodeRush.Foundation.Pipes.Data
 {

@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.Versioning;
-using DevExpress.CodeRush.Foundation.Pipes.Data;
+using System.Collections.Generic;
+using DevExpress.CodeRush.Foundation.Speak.Types;
 
 namespace CodeRushStreamDeck.Models
 {

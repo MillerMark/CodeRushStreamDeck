@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using DevExpress.CodeRush.Foundation.Speak.Types;
 
 namespace DevExpress.CodeRush.Foundation.Pipes.Data
 {
