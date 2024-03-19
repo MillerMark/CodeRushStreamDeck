@@ -506,3 +506,12 @@ Speak/UI/PortableColorExt.cs
 Speak/UI/VoiceFeedback.xaml
 Speak/UI/VoiceFeedback.xaml.cs
 Speak/UI/VoiceFeedbackAdornmentModel.cs
+Speak/ModifierKeyStateChange.cs
+Speak/Converters/SpokenExpressionConverter.cs.rej
+Speak/Converters/Base/SpokenWordConverter.cs.rej
+Speak/Expressions/SymbolData.cs
+Speak/Expressions/SymbolDataKind.cs
+Speak/Expressions/SymbolDataPack.cs
+Speak/Profiling/Profile.cs
+Speak/Profiling/ProfileNames.cs
+Speak/Profiling/Profiler.cs
