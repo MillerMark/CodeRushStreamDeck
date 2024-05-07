@@ -515,3 +515,9 @@ Speak/Expressions/SymbolDataPack.cs
 Speak/Profiling/Profile.cs
 Speak/Profiling/ProfileNames.cs
 Speak/Profiling/Profiler.cs
+Speak/UI/CodeRushUiFocusHelper.cs
+Speak/DetailedSpeechRecognitionResult.cs
+Speak/Expressions/ExpressionExtensions.cs
+Speak/Tests/MockSpeechRecognitionDiagnosticsService.cs
+Speak/Phrases/Word.cs
+Speak/WordLevelTimingResult.cs
