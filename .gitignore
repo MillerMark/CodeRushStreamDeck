@@ -521,3 +521,4 @@ Speak/Expressions/ExpressionExtensions.cs
 Speak/Tests/MockSpeechRecognitionDiagnosticsService.cs
 Speak/Phrases/Word.cs
 Speak/WordLevelTimingResult.cs
+Speak/Tests/VoiceModifierKeyHelper.cs

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DevExpress.CodeRush.Foundation.Templates.Shared;
+using System.Collections.Generic;
 
 namespace DevExpress.CodeRush.Foundation.Pipes.Data
 {

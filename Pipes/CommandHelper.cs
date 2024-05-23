@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CodeRushStreamDeck;
 using DevExpress.CodeRush.Foundation.Pipes.Data;
+using DevExpress.CodeRush.Foundation.Templates.Shared;
 
 namespace PipeCore
 {

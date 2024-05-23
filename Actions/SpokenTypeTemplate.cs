@@ -9,6 +9,7 @@ using DevExpress.CodeRush.Foundation.Speak.Types;
 using StreamDeckLib;
 using StreamDeckLib.Messages;
 using PipeCore;
+using DevExpress.CodeRush.Foundation.Templates.Shared;
 
 namespace CodeRushStreamDeck
 {

@@ -26,6 +26,7 @@
 	  <Compile Remove="Speak\Diagnostics\**" />
 	  <Compile Remove="Speak\Expressions\**" />
 	  <Compile Remove="Speak\Phrases\**" />
+	  <Compile Remove="Speak\Profiling\**" />
 	  <Compile Remove="Speak\RecognitionConditioners\**" />
 	  <Compile Remove="Speak\Tests\**" />
 	  <Compile Remove="Speak\Types\**" />
@@ -38,6 +39,7 @@
 	  <EmbeddedResource Remove="Speak\Diagnostics\**" />
 	  <EmbeddedResource Remove="Speak\Expressions\**" />
 	  <EmbeddedResource Remove="Speak\Phrases\**" />
+	  <EmbeddedResource Remove="Speak\Profiling\**" />
 	  <EmbeddedResource Remove="Speak\RecognitionConditioners\**" />
 	  <EmbeddedResource Remove="Speak\Tests\**" />
 	  <EmbeddedResource Remove="Speak\Types\**" />
@@ -50,6 +52,7 @@
 	  <None Remove="Speak\Diagnostics\**" />
 	  <None Remove="Speak\Expressions\**" />
 	  <None Remove="Speak\Phrases\**" />
+	  <None Remove="Speak\Profiling\**" />
 	  <None Remove="Speak\RecognitionConditioners\**" />
 	  <None Remove="Speak\Tests\**" />
 	  <None Remove="Speak\Types\**" />
@@ -64,6 +67,7 @@
 	  <Compile Remove="Pipes\MessageSenderClient.cs" />
 	  <Compile Remove="Speak\AltStateChange.cs" />
 	  <Compile Remove="Speak\CamelCasePostProcessor.cs" />
+	  <Compile Remove="Speak\DetailedSpeechRecognitionResult.cs" />
 	  <Compile Remove="Speak\ErrorMessages.cs" />
 	  <Compile Remove="Speak\ExpressionCode.cs" />
 	  <Compile Remove="Speak\ExpressionRule.cs" />
@@ -80,6 +84,7 @@
 	  <Compile Remove="Speak\ISpeechRecognizerFactory.cs" />
 	  <Compile Remove="Speak\MatchScoreCalculator.cs" />
 	  <Compile Remove="Speak\MatchScoreOptions.cs" />
+	  <Compile Remove="Speak\ModifierKeyStateChange.cs" />
 	  <Compile Remove="Speak\PortableColor.cs" />
 	  <Compile Remove="Speak\SnapOption.cs" />
 	  <Compile Remove="Speak\SpeechError.cs" />
@@ -97,6 +102,7 @@
 	  <Compile Remove="Speak\SpokenWordType.cs" />
 	  <Compile Remove="Speak\VoiceFeedbackOptions.cs" />
 	  <Compile Remove="Speak\VoiceServicesPack.cs" />
+	  <Compile Remove="Speak\WordLevelTimingResult.cs" />
 	  <Compile Remove="Speak\WordsRecognizedEventArgs.cs" />
 	</ItemGroup>
 	<ItemGroup>

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using DevExpress.CodeRush.Foundation.Speak.Types;
+using DevExpress.CodeRush.Foundation.Templates.Shared;
 
 namespace DevExpress.CodeRush.Foundation.Pipes.Data
 {

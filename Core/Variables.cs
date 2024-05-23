@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 using StreamDeckLib.Messages;
 using DevExpress.CodeRush.Foundation.Pipes.Data;
 using System.Collections.Concurrent;
+using DevExpress.CodeRush.Foundation.Templates.Shared;
 
 namespace CodeRushStreamDeck
 {

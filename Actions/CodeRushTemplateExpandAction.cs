@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using PipeCore;
 using Pipes.Server;
 using System.Runtime.Versioning;
+using DevExpress.CodeRush.Foundation.Templates.Shared;
 
 namespace CodeRushStreamDeck
 {
